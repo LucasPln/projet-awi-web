@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import Post from './Post';
+import Navbar from './Navbar'
 import {getPosts} from '../actions/appActions';
 
 class MainComponent extends Component{
@@ -11,6 +12,7 @@ class MainComponent extends Component{
     render(){
         return (
             <div>
+                <Navbar/>
                 {this.props.posts.map(p => <Post post={p} />)}
             </div>
         )
