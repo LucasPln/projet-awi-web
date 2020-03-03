@@ -4,22 +4,30 @@ import { connect } from 'react-redux';
 
 class Navbar extends Component{
 
+    goToLogin(){
+        
+    }
+
     render(){
         return (
             <nav>
                 <ol>
                     <li>Logo</li>
                     <li>Equal Report</li>
-                    <li>Pseudo</li>
-                    <li>Logo My Profile</li>
-                    <li>Logo login</li>
+                    {this.props.loggedIn ? 
+                    <div>
+                        <li>Pseudo</li>
+                        <li>Logo My Profile</li>
+                    </div> : <li><a href="">Logo login</a></li>}
+                    
+                    
                 </ol>
             </nav>
         )
     }
 }
 const mapStateToProps = state => ({
-    
+    loggedIn: state.auth.loggedIn
 })
 
 

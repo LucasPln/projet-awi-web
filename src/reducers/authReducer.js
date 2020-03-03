@@ -4,9 +4,9 @@ const initialState = {
     user: {
         pseudo: '',
         email: '',
-        _id: ''
+        _id: '5e57df3c54572f443d3655e0'
     },
-    token: 0
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwc2V1ZG8iOiJhZG1pbiIsImlhdCI6MTU4MzI1MTM4MywiZXhwIjoxNTg1ODQzMzgzfQ.C--Vqzjcnmqdz-sPRWl9mfyIOSSDfeMcsm-apZnyGkA"
 }
 
 export default function (state = initialState, action) {

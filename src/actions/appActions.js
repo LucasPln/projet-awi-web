@@ -20,3 +20,20 @@ export const getPosts = () => dispatch => {
             }
         )
 }
+
+export const ajouterLike = (post, idUser, token) => dispatch =>{
+    let body =  { ...post, reaction: post.reactions.push(idUser) }
+    axios.patch(`${process.env.REACT_APP_URL}/posts/${post._id}`, body, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
+    .then(
+        (res) => {
+            console.log(res)
+        },
+        (error) =>{
+            console.log(error)
+        }
+    )
+}
