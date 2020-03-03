@@ -4,8 +4,7 @@ import Post from './Post';
 import {getPosts} from '../actions/appActions';
 
 class MainComponent extends Component{
-
-    handleClick = () => {
+    componentDidMount() {
         this.props.getPosts()
     }
 
@@ -13,7 +12,6 @@ class MainComponent extends Component{
         return (
             <div>
                 {this.props.posts.map(p => <Post post={p} />)}
-                <button onClick={this.handleClick}></button>
             </div>
         )
     }
