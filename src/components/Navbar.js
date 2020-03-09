@@ -1,34 +1,61 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+import '../styles/Navbar.css'
+import { Link } from 'react-router-dom'
+import { IoIosPower } from 'react-icons/io'
+import egg from '../globals/egg.jpg'
+import { logout } from '../actions/authActions'
 
 
 class Navbar extends Component{
+    constructor(props) {
+        super(props)
 
-    goToLogin(){
-        
+        this.state = {
+            height: "0px",
+            opacity: 0
+        }
     }
 
-    render(){
+    toggleHeight = (key) => {
+        this.setState({
+            height: key === 'enter' ? "120px" : "0px",
+            opacity: key === 'enter' ? 1 : 0
+        })
+    }
+
+    render() {
+        let style = this.props.location.pathname === '/login' ? {boxShadow: "0px 0px 0px rgb(235, 235, 235)"} : {}
+
         return (
-            <nav>
-                <ol>
-                    <li>Logo</li>
-                    <li>Equal Report</li>
-                    {this.props.loggedIn ? 
-                    <div>
-                        <li>Pseudo</li>
-                        <li>Logo My Profile</li>
-                    </div> : <li><a href="">Logo login</a></li>}
-                    
-                    
-                </ol>
-            </nav>
+            <div id="navbar" style={style}>
+                <h1 id="nav-title">Equal Report</h1>
+                { this.props.loggedIn ?
+                    <div id="nav-pseudo-div"
+                        onMouseEnter={ () => this.toggleHeight('enter') }
+                        onMouseLeave={ () => this.toggleHeight('leave') }
+                    >
+                        <img src={ egg } alt='r' id="nav-pseudo-photo"></img>
+                        <h2 id="nav-pseudo">{ this.props.user.pseudo }</h2>
+                        <div id="nav-menu" style={this.state }>
+                            <span className="nav-menu-btn">Mon Profil</span>
+                            <span className="nav-menu-btn" onClick={ this.props.logout }>Déconnexion</span>
+                        </div>
+                    </div>
+                    : this.props.location.pathname !== '/login'
+                        ?
+                        <Link to="/login" id="nav-power"><IoIosPower /></Link>
+                        : ""
+                       
+                }
+            </div>
         )
     }
 }
 const mapStateToProps = state => ({
-    loggedIn: state.auth.loggedIn
+    loggedIn: state.auth.loggedIn,
+    user: state.auth.user
 })
 
 
-export default connect(mapStateToProps, {})(Navbar)
+export default connect(mapStateToProps, {logout})(Navbar)
