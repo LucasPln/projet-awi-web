@@ -14,7 +14,6 @@
 
 #post-write-btn {
     position: fixed;
-    /* background: rgb(118, 118, 196); */
     color: rgb(93, 93, 187);
     bottom: 30px;
     right: 15%;
@@ -24,8 +23,11 @@
     width: 5rem;
     height: 5rem;
     cursor: pointer;
-    transition: filter .3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    filter: drop-shadow(4px 4px 15px rgb(157, 157, 216));
+    transition: color .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#post-write-btn:hover {
+    color: rgb(110, 110, 207);
 }
 
 #post-filter {
