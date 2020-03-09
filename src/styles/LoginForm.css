@@ -1,0 +1,70 @@
+#login {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    backdrop-filter: blur(10px);
+    transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 101;
+}
+
+
+#login::after {
+    content: "";
+    background: rgb(255, 255, 255)!important;
+    opacity: .3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    border-radius: .5rem;
+}
+
+#login-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 1.5rem;
+    color: rgb(93, 93, 187);
+}
+
+#login-title {
+    margin-top: -15rem;
+}
+
+#login-pseudo {
+    font-size: large;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+    border: 2px solid rgb(93, 93, 187);
+    padding: .6rem;
+    margin-bottom: 1.5rem;
+}
+
+#login-mdp {
+    font-size: large;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+    border: none;
+    padding: .6rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid rgb(93, 93, 187);
+}
+
+#login-submit {
+    position: relative;
+    font-size: large;
+    border-radius: .4rem;
+    border: none;
+    width: 21.45rem;
+    padding: .6rem;
+    color: white;
+    background: rgb(93, 93, 187);
+    cursor: pointer;
+}
