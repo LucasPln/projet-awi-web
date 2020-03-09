@@ -1,16 +1,36 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import store from '../store'
+import React, { Component } from 'react'
 import '../styles/App.css'
+import '../styles/LoginForm.css'
 import LoginForm from './LoginForm'
-import MainComponent from './MainComponent'
+import { connect } from 'react-redux';
+import PostList from './PostList'
+import Navbar from './Navbar'
+import { getPosts, updateDimensions } from '../actions/appActions'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-function App() {
-  return (
-    <Provider store={store}>
-      <MainComponent />
-    </Provider>
-  );
+class App extends Component {
+  componentDidMount() {
+        this.props.getPosts();
+        window.addEventListener('resize', () => this.props.updateDimensions(window.innerHeight, window.innerWidth));
+    }
+
+  render() {
+    return (
+      <Router>
+        <div id="main">
+          <Route path="/" component={Navbar} />
+          <PostList />
+          <Switch>
+              <Route path="/login" component={ LoginForm } />
+          </Switch> 
+        </div>
+      </Router>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    posts: state.app.posts
+})
+
+export default connect(mapStateToProps, {getPosts, updateDimensions})(App);
