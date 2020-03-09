@@ -1,3 +1,6 @@
 export const LOGIN = "LOGIN"
+export const LOGOUT = "LOGOUT"
 export const SET_TOKEN = "SET_TOKEN"
 export const GET_POSTS = "GET_POSTS"
+export const UPDATE_DIMENSIONS = "UPDATE_DIMENSIONS"
+export const AJOUTER_LIKE = "AJOUTER_LIKE"

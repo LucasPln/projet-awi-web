@@ -1,4 +1,4 @@
-import { LOGIN } from './types'
+import { LOGIN, LOGOUT } from './types'
 import axios from 'axios'
 
 export const login = (pseudo, mdp) => dispatch => {
@@ -22,4 +22,10 @@ export const login = (pseudo, mdp) => dispatch => {
                 console.log(error)
             }
     )
+}
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    })
 }
