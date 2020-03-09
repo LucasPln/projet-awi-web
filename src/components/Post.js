@@ -58,6 +58,9 @@ class Post extends Component{
                 <div className="post-info-div">
                     <span className="post-info-badge like"><IoIosThumbsUp /></span>
                     <span className="post-info like">{ this.props.post.reactions.length }</span>
+
+                    <span className="post-info-tag">tag1</span>
+                    <span className="post-info-tag">tag2</span>
                 </div>
                 {this.props.loggedIn ? 
                 <div className="post-btn-div">
