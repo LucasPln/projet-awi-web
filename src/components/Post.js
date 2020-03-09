@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, getPosts } from '../actions/appActions'
 import '../styles/Post.css'
-import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes } from 'react-icons/io'
+import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 
 
@@ -28,27 +28,27 @@ class Post extends Component{
     }
 
     formatDate = date => {
-        let diff = Date.now() - new Date(date)
+        let diff = Date.now() - Date.parse(date) - 21600000//timezone
         let days = diff / 86400000
         let hours = diff / 3600000
         let minutes = diff / 60000
         
         if (days < 1) {
             if (hours < 1) {
-                return `Il y a ${Math.floor(minutes)} minutes`
+                return `Il y a ${Math.floor(minutes)} minute${Math.floor(minutes) === 1 ? '' : 's'}`
             }
-            return `Il y a ${Math.floor(hours)} heures`
+            return `Il y a ${Math.floor(hours)} heure${Math.floor(hours) === 1 ? '' : 's'}`
         } 
-        return `Il y a ${Math.floor(days)} jours`
+        return `Il y a ${Math.floor(days)} jour${Math.floor(days) === 1 ? '' : 's'}`
     }
 
 
 
     render() {
         let likeStyle = this.state.liked ? { background:"rgb(93, 93, 187)", color: "white"} : {}
-            
         return (
-            <div className="post">
+            <div className="post" >
+                { this.props.user._id === this.props.post.createur._id ? <span className="post-more"><IoIosMore /></span> : ""}
                 <div className="post-user-div">
                     <img src={egg} className="post-photo" alt="tt"></img>
                     <h3 className="post-pseudo">{this.props.post.createur.pseudo}</h3>
@@ -65,7 +65,7 @@ class Post extends Component{
                 {this.props.loggedIn ? 
                 <div className="post-btn-div">
                     <span className="post-btn like" style={ likeStyle } onClick={this.ajouterLike}>Like &nbsp;<IoIosThumbsUp /></span>
-                    <span className="post-btn comment">Ajouter un commentaire</span>
+                    <span className="post-btn comment">Ajouter un commentaire &nbsp;<IoIosChatboxes /></span>
                     <span className="post-btn signaler">Signaler&nbsp;<IoIosWarning /></span> 
                 </div> : ""}
             </div>

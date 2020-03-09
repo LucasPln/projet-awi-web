@@ -10,7 +10,6 @@
     z-index: 101;
 }
 
-
 #login::after {
     content: "";
     background: rgb(255, 255, 255)!important;
@@ -28,7 +27,7 @@
     position: absolute;
     top: 30px;
     right: 30px;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: rgb(93, 93, 187);
 }
 
