@@ -39,7 +39,7 @@ class Navbar extends Component{
                         <h2 id="nav-pseudo">{ this.props.user.pseudo }</h2>
                         <div id="nav-menu" style={this.state }>
                             <span className="nav-menu-btn">Mon Profil</span>
-                            <span className="nav-menu-btn" onClick={ this.props.logout }>Déconnexion</span>
+                            <span className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout() } }>Déconnexion</span>
                         </div>
                     </div>
                     : this.props.location.pathname !== '/login'
