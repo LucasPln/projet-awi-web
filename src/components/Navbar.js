@@ -15,11 +15,13 @@ class Navbar extends Component{
             height: "0px",
             opacity: 0
         }
+
+        console.log(this.props.user.isAdmin)
     }
 
     toggleHeight = (key) => {
         this.setState({
-            height: key === 'enter' ? "180px" : "0px",
+            height: key === 'enter' ? "230px" : "0px",
             opacity: key === 'enter' ? 1 : 0
         })
     }
@@ -40,7 +42,10 @@ class Navbar extends Component{
                         <div id="nav-menu" style={ this.state }>
                             <span id="nav-menu-spacer"></span>
                             <span className="nav-menu-btn">Mon Profil</span>
+                            {this.props.user.isAdmin ?
+                            "":<Link to="/admin" className="nav-menu-btn nav-menu-link">Admin</Link>  }
                             <span className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout() } }>Déconnexion</span>
+                            
                         </div>
                     </div>
                     : this.props.location.pathname !== '/login'

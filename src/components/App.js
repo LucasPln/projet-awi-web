@@ -6,6 +6,7 @@ import PostView from './LoginForm'
 import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
+import PostListAdmin from './PostListAdmin'
 import { getPosts, updateDimensions } from '../actions/appActions'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -20,10 +21,11 @@ class App extends Component {
       <Router>
         <div id="main">
           <Route path="/" component={Navbar} />
-          <PostList />
           <Switch>
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />
+              <Route path="/admin" component={ PostListAdmin } />
+              <Route path="/" component={PostList} />
           </Switch> 
         </div>
       </Router>
