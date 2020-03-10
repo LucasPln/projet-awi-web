@@ -1,7 +1,8 @@
-import { GET_POSTS, UPDATE_DIMENSIONS } from '../actions/types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID } from '../actions/types'
 
 const initialState = {
     posts: [],
+    activePost: {},
     height: window.innerHeight,
     width: window.innerWidth,
 }
@@ -12,6 +13,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 posts: action.payload.posts
+            }
+        case GET_POST_BY_ID:
+            return {
+                ...state,
+                activePost: action.payload.post
             }
         case UPDATE_DIMENSIONS:
             return {

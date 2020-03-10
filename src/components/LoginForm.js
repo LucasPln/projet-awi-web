@@ -12,13 +12,20 @@ class LoginForm extends Component {
         super(props)
 
         this.state = {
-            opacity:0
+            opacity: 0,
+            redirect: false
         }
     }
 
     componentDidMount = () => {
         this.refs.pseudo.focus()
-        setTimeout(this.setState({opacity: 1}), 1)
+        setTimeout(this.setState({...this.state, opacity: 1}), 1)
+    }
+
+    componentDidUpdate = () => {
+        if (this.props.loggedIn === true && this.state.opacity) {
+            this.handleClose();
+        }
     }
 
     sendLoginInfo = () => {
@@ -26,12 +33,9 @@ class LoginForm extends Component {
             this.props.login(this.refs.pseudo.value, this.refs.mdp.value);
     }
 
-    sleep = (milliseconds) => {
-        const date = Date.now();
-        let currentDate = null;
-        do {
-            currentDate = Date.now();
-        } while (currentDate - date < milliseconds);
+    handleClose = () => {
+        this.setState({ ...this.state, opacity: 0 });
+        setTimeout(() => this.setState({...this.state, redirect: true}), 300)
     }
 
     render() {
@@ -41,15 +45,14 @@ class LoginForm extends Component {
             opacity: this.state.opacity
         }
 
-        if (this.props.loggedIn === true) {
+
+        if (this.state.redirect) 
             return <Redirect to="/" />
-        }
-            
         
         return (
             <div id="login" className="login" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendLoginInfo() : '') } >
                 <h2 id="login-title">Connectez-vous à <i>Equal Report</i> !</h2>
-                    <Link id="login-close" to='/'><IoIosCloseCircle /></Link>
+                    <span id="login-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
                     <input id="login-pseudo" placeholder="pseudo" ref="pseudo" />
                     <input id="login-mdp" type="password" placeholder="mot de passe" ref="mdp" />
                 <button id="login-submit" onClick={ this.sendLoginInfo }>Log in</button>

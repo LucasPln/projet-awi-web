@@ -19,7 +19,7 @@ class Navbar extends Component{
 
     toggleHeight = (key) => {
         this.setState({
-            height: key === 'enter' ? "120px" : "0px",
+            height: key === 'enter' ? "180px" : "0px",
             opacity: key === 'enter' ? 1 : 0
         })
     }
@@ -37,7 +37,8 @@ class Navbar extends Component{
                     >
                         <img src={ egg } alt='r' id="nav-pseudo-photo"></img>
                         <h2 id="nav-pseudo">{ this.props.user.pseudo }</h2>
-                        <div id="nav-menu" style={this.state }>
+                        <div id="nav-menu" style={ this.state }>
+                            <span id="nav-menu-spacer"></span>
                             <span className="nav-menu-btn">Mon Profil</span>
                             <span className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout() } }>Déconnexion</span>
                         </div>

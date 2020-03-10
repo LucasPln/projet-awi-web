@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS } from './types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, } from './types'
 import axios from 'axios'
 
 export const getPosts = () => dispatch => {
@@ -9,6 +9,24 @@ export const getPosts = () => dispatch => {
                     type: GET_POSTS,
                     payload: {
                         posts: res.data
+                    }
+                })
+                
+            },
+            (error) =>{
+                console.log(error)
+            }
+        )
+}
+
+export const getPostById = (postId) => dispatch => {
+    axios.get(`${process.env.REACT_APP_URL}/posts/${postId}`)
+        .then(
+            (res) => {
+                dispatch({
+                    type: GET_POST_BY_ID,
+                    payload: {
+                        post: res.data
                     }
                 })
                 

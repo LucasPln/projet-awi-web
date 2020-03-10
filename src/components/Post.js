@@ -4,6 +4,7 @@ import { modifierLike, getPosts } from '../actions/appActions'
 import '../styles/Post.css'
 import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
+import { Redirect, Link } from 'react-router-dom'
 
 
 class Post extends Component{
@@ -11,7 +12,8 @@ class Post extends Component{
         super(props)
 
         this.state = {
-            liked: false
+            liked: false,
+            redirect: false
         }
     }
 
@@ -28,7 +30,7 @@ class Post extends Component{
     }
 
     formatDate = date => {
-        let diff = Date.now() - Date.parse(date) - 21600000//timezone
+        let diff = Date.now() - Date.parse(date)//timezone
         let days = diff / 86400000
         let hours = diff / 3600000
         let minutes = diff / 60000
@@ -42,12 +44,24 @@ class Post extends Component{
         return `Il y a ${Math.floor(days)} jour${Math.floor(days) === 1 ? '' : 's'}`
     }
 
+    handleRedirect = () => {
+        // this.props.history.push(`/posts${this.props.post._id}`)
+        this.setState({
+            ...this.state,
+            redirect: true
+        })
+    }
+
 
 
     render() {
-        let likeStyle = this.state.liked ? { background:"rgb(93, 93, 187)", color: "white"} : {}
+        let likeStyle = this.state.liked ? { background: "rgb(93, 93, 187)", color: "white" } : {}
+        
+        // if (this.state.redirect)
+        //     return <Redirect to={ `/post/${ this.props.post._id }` } />
+
         return (
-            <div className="post" >
+            <div className="post" onClick={this.handleRedirect}>
                 { this.props.user._id === this.props.post.createur._id ? <span className="post-more"><IoIosMore /></span> : ""}
                 <div className="post-user-div">
                     <img src={egg} className="post-photo" alt="tt"></img>
@@ -56,8 +70,10 @@ class Post extends Component{
                 </div>
                 <p className="post-text">{ this.props.post.texte }</p>
                 <div className="post-info-div">
-                    <span className="post-info-badge like"><IoIosThumbsUp /></span>
+                    <span className="post-info-badge like"><span className="post-icon like"><IoIosThumbsUp /></span></span>
                     <span className="post-info like">{ this.props.post.reactions.length }</span>
+                    <span className="post-info-badge comment"><span className="post-icon comment"><IoIosChatboxes /></span></span>
+                    <span className="post-info comment">{ this.props.post.numCommentaires }</span>
 
                     <span className="post-info-tag">tag1</span>
                     <span className="post-info-tag">tag2</span>
@@ -65,10 +81,11 @@ class Post extends Component{
                 {this.props.loggedIn ? 
                 <div className="post-btn-div">
                     <span className="post-btn like" style={ likeStyle } onClick={this.ajouterLike}>Like &nbsp;<IoIosThumbsUp /></span>
-                    <span className="post-btn comment">Ajouter un commentaire &nbsp;<IoIosChatboxes /></span>
+                        <Link to={ `/post/${this.props.post.createur._id}` } className="post-btn comment">Ajouter un commentaire &nbsp;<IoIosChatboxes /></Link>
                     <span className="post-btn signaler">Signaler&nbsp;<IoIosWarning /></span> 
-                </div> : ""}
-            </div>
+                </div> 
+                : ""}
+                </div>
         )
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../styles/App.css'
 import '../styles/LoginForm.css'
 import LoginForm from './LoginForm'
+import PostView from './LoginForm'
 import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
@@ -22,6 +23,7 @@ class App extends Component {
           <PostList />
           <Switch>
               <Route path="/login" component={ LoginForm } />
+              <Route path="/post/:postId" component={ PostView } />
           </Switch> 
         </div>
       </Router>

@@ -13,7 +13,7 @@ class PostList extends Component {
                 {
                     this.props.loggedIn ? <span id="post-write-btn"><IoIosAddCircle /></span> : ''
                 }
-                {this.props.posts.sort((a,b) => a.dateCreation < b.dateCreation).map(p => <Post post={p} key={p._id}/>)}
+                {this.props.posts.map(p => <Post post={p} key={p._id}/>)}
             </div>
         )
     }
