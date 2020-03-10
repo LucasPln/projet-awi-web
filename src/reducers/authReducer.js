@@ -5,7 +5,7 @@ const initialState = {
         pseudo: '',
         email: '',
         _id: '',
-        isAdmin: true
+        isAdmin: false
     },
     token: '',
 }
@@ -29,7 +29,8 @@ export default function (state = initialState, action) {
                 user: {
                     pseudo: '',
                     email: '',
-                    _id: ''
+                    _id: '',
+                    isAdmin: false
                 },
                 token: ''
             }

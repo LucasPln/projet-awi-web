@@ -6,6 +6,7 @@ export const login = (pseudo, mdp) => dispatch => {
     axios.post(`${process.env.REACT_APP_URL}/auth`, body)
         .then(
             (res) => {
+                console.log(res)
                 dispatch({
                     type: LOGIN,
                     payload: {
@@ -13,7 +14,8 @@ export const login = (pseudo, mdp) => dispatch => {
                         user: {
                             pseudo: res.data.data.pseudo,
                             email: res.data.data.email,
-                            _id: res.data.data._id
+                            _id: res.data.data._id,
+                            isAdmin: res.data.data.isAdmin
                         }
                     }
                 })

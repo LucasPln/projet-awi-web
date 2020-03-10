@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, } from './types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, TOGGLE_ADMIN_VIEW} from './types'
 import axios from 'axios'
 
 export const getPosts = () => dispatch => {
@@ -56,5 +56,11 @@ export const updateDimensions = (height, width) => dispatch => {
             height: height,
             width: width
         }
+    })
+}
+
+export const toggleAdminView = () => dispatch => {
+    dispatch({
+        type: TOGGLE_ADMIN_VIEW
     })
 }

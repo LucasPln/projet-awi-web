@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Post from './Post'
 import '../styles/PostList.css'
 import { IoIosAddCircle } from 'react-icons/io'
+import PostAdmin from './PostAdmin'
 
 class PostList extends Component {
     render() {
@@ -13,7 +14,7 @@ class PostList extends Component {
                 {
                     this.props.loggedIn ? <span id="post-write-btn"><IoIosAddCircle /></span> : ''
                 }
-                {this.props.posts.map(p => <Post post={p} key={p._id}/>)}
+                {!this.props.adminView ? this.props.posts.map(p => <Post post={p} key={p._id}/>): this.props.posts.map(p => <PostAdmin post={p} key={p._id}/>)}
             </div>
         )
     }
@@ -21,7 +22,8 @@ class PostList extends Component {
 
 const mapStateToProps = state => ({
     posts: state.app.posts,
-    loggedIn: state.auth.loggedIn
+    loggedIn: state.auth.loggedIn,
+    adminView: state.app.adminView
 })
 
 

@@ -21,11 +21,10 @@ class App extends Component {
       <Router>
         <div id="main">
           <Route path="/" component={Navbar} />
+          <PostList/>
           <Switch>
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />
-              <Route path="/admin" component={ PostListAdmin } />
-              <Route path="/" component={PostList} />
           </Switch> 
         </div>
       </Router>
