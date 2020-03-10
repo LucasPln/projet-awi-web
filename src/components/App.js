@@ -8,6 +8,7 @@ import PostList from './PostList'
 import Navbar from './Navbar'
 import { getPosts, updateDimensions } from '../actions/appActions'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import CreateAccountForm from "./CreateAccountForm";
 
 class App extends Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path="/" component={Navbar} />
           <PostList />
           <Switch>
+              <Route path="/createaccount" component={ CreateAccountForm } />
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />
           </Switch> 

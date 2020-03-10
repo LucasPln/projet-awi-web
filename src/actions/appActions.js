@@ -29,7 +29,6 @@ export const getPostById = (postId) => dispatch => {
                         post: res.data
                     }
                 })
-                
             },
             (error) =>{
                 console.log(error)
