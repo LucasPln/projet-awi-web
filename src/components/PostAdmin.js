@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, getPosts } from '../actions/appActions'
 import '../styles/PostAdmin.css'
-import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore } from 'react-icons/io'
+import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore, IoIosTrash } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Redirect, Link } from 'react-router-dom'
 
@@ -74,13 +74,14 @@ class PostAdmin extends Component{
                     <span className="post-info-admin like">{ this.props.post.reactions.length }</span>
                     <span className="post-info-badge-admin comment"><span className="post-icon comment"><IoIosChatboxes /></span></span>
                     <span className="post-info-admin comment">{ this.props.post.numCommentaires }</span>
+                    <span className="post-info-badge-admin signaler"><span className="post-icon signaler"><IoIosWarning /></span></span>
+                    <span className="post-info-admin like">{ this.props.post.reactions.length }</span>
 
                     <span className="post-info-tag-admin">tag1</span>
                     <span className="post-info-tag-admin">tag2</span>
                 </div> 
                     <div className="post-btn-div-admin">
-                        <span className="post-btn-admin like" style={ likeStyle } onClick={this.ajouterLike}>Like &nbsp;<IoIosThumbsUp /></span>
-                        <span className="post-btn-admin signaler">Signaler&nbsp;<IoIosWarning /></span> 
+                        <span className="post-btn-admin supprimer">Supprimer&nbsp;<IoIosTrash /></span> 
                     </div>
                 </div>
         )

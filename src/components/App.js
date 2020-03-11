@@ -6,7 +6,6 @@ import PostView from './LoginForm'
 import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
-import PostListAdmin from './PostListAdmin'
 import { getPosts, updateDimensions } from '../actions/appActions'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
