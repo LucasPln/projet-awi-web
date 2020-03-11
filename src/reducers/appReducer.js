@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, TOGGLE_ADMIN_VIEW} from '../actions/types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, TOGGLE_ADMIN_VIEW, SUPPRIMER_POST} from '../actions/types'
 
 const initialState = {
     posts: [],
@@ -30,6 +30,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 adminView: !state.adminView
+            }
+        case SUPPRIMER_POST:
+            console.log(action.payload)
+            return{
+                ...state
             }
         default: return state;
     }

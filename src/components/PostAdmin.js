@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { modifierLike, getPosts } from '../actions/appActions'
+import { getPosts, supprimerPost } from '../actions/appActions'
 import '../styles/PostAdmin.css'
 import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore, IoIosTrash } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
@@ -25,10 +25,6 @@ class PostAdmin extends Component{
         }
     }
 
-    ajouterLike = () => {
-        this.props.modifierLike(this.props.post, this.props.user._id, this.props.token, this.state.liked)
-    }
-
     formatDate = date => {
         let diff = Date.now() - Date.parse(date)//timezone
         let days = diff / 86400000
@@ -50,6 +46,10 @@ class PostAdmin extends Component{
             ...this.state,
             redirect: true
         })
+    }
+
+    supprimerPost = () => {
+        this.props.supprimerPost(this.props.post._id, this.props.token)
     }
 
 
@@ -81,7 +81,7 @@ class PostAdmin extends Component{
                     <span className="post-info-tag-admin">tag2</span>
                 </div> 
                     <div className="post-btn-div-admin">
-                        <span className="post-btn-admin supprimer">Supprimer&nbsp;<IoIosTrash /></span> 
+                        <span className="post-btn-admin supprimer" onClick={this.supprimerPost} >Supprimer&nbsp;<IoIosTrash /></span> 
                     </div>
                 </div>
         )
@@ -95,4 +95,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { modifierLike, getPosts })(PostAdmin)
+export default connect(mapStateToProps, { getPosts, supprimerPost })(PostAdmin)
