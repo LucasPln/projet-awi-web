@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, } from './types'
+import {GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, LOGIN,} from './types'
 import axios from 'axios'
 
 export const getPosts = () => dispatch => {
@@ -56,4 +56,34 @@ export const updateDimensions = (height, width) => dispatch => {
             width: width
         }
     })
+}
+
+export const createPost = (text,token,_id) => dispatch => {
+
+    let body = { text: text}
+
+    axios.post(`${process.env.REACT_APP_URL}/post`, body,{
+
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`}
+    })
+        .then(
+            (res) => {
+                console.log(res);
+                dispatch({  // envoi l'infos au reduceur
+                    type: LOGIN,
+                    payload: {
+                        token: res.data.token,
+                        user: {
+                            text: res.data.data.text,
+                            _id: res.data.data._id
+                        }
+                    }
+                })
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
 }

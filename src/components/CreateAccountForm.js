@@ -33,7 +33,6 @@ class CreateAccountForm extends Component {
     sendCreateAccountInfo = () => {
         if (this.refs.pseudo.value !== '' && this.refs.mdp.value !== '' && this.refs.email.value !== '')
             this.props.createAccount(this.refs.email.value, this.refs.pseudo.value, this.refs.mdp.value);
-            console.log(this.refs.email.value, this.refs.pseudo.value, this.refs.mdp.value);
     }
 
 
@@ -56,7 +55,7 @@ class CreateAccountForm extends Component {
         return (
             <div id="createaccount" className="createaccount"  style={ style }  onKeyPress={ e => (e.key === "Enter" ? this.sendCreateAccountInfo() : '') }>
                 <h2 id="createaccount-title">Créer votre compte <i>Equal Report</i> !</h2>
-                    <span id="createaccount-close"></span>
+                    <span id="createaccount-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
                 <label>Renseignez votre email :</label>
                     <input id="createaccount-pseudo" placeholder="email" ref="email" type="email"/>
                 <label>Choisissez votre pseudo :</label>
