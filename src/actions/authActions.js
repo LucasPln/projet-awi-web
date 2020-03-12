@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const login = (pseudo, mdp) => dispatch => {
     let body = { pseudo: pseudo, mdp: mdp }
-    axios.post(`${process.env.REACT_APP_URL}/auth`, body)
+    axios.post(`${process.env.REACT_APP_URL}/auth/login`, body)
         .then(
             (res) => {
                 dispatch({
@@ -25,11 +25,12 @@ export const login = (pseudo, mdp) => dispatch => {
 }
 
 export const createAccount = (email,pseudo, mdp) => dispatch => {
+
     let body = { email: email, pseudo: pseudo, mdp: mdp }
-    axios.post(`${process.env.REACT_APP_URL}/utilisateurs`, body)
+    axios.post(`${process.env.REACT_APP_URL}/auth/createaccount`, body)
         .then(
             (res) => {
-                dispatch({
+                dispatch({  // envoi l'infos au reduceur
                     type: LOGIN,
                     payload: {
                         token: res.data.token,
