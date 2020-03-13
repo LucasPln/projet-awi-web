@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, getPosts } from '../actions/appActions'
 import '../styles/Post.css'
-import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore } from 'react-icons/io'
+import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore, IoIosTrash } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Redirect, Link } from 'react-router-dom'
 
@@ -82,6 +82,9 @@ class Post extends Component{
                 <div className="post-btn-div">
                     <span className="post-btn like" style={ likeStyle } onClick={this.ajouterLike}>Like &nbsp;<IoIosThumbsUp /></span>
                         <Link to={ `/post/${this.props.post.createur._id}` } className="post-btn comment">Ajouter un commentaire &nbsp;<IoIosChatboxes /></Link>
+                        {this.props.post.createur._id === this.props.user._id ? 
+                            <Link to={ `/delete/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link>
+                            : ""}
                     <span className="post-btn signaler">Signaler&nbsp;<IoIosWarning /></span> 
                 </div> 
                 : ""}
