@@ -2,9 +2,11 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { Logger } from './globals/Middleware'
 import reducer from './reducers'
-// import { loadState, saveState } from './localStorage'
-// import { cipher } from './globals'
-// import { SET_TOKEN } from './actions/types'
+import { loadState, saveState } from './localStorage'
+import { cipher } from './globals'
+import { SET_TOKEN } from './actions/types'
+
+// const persistedState = loadState();
 
 const middleware = [ thunk, Logger ]
 

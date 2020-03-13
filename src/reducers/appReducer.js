@@ -1,8 +1,20 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID } from '../actions/types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID } from '../actions/types'
 
 const initialState = {
     posts: [],
-    activePost: {},
+    activePost: {
+        _id: '',
+        createur: {
+            _id: '',
+            pseudo: ''
+        },
+        dateCreation: '',
+        texte: '',
+        reactions: [],
+        signaler: [],
+        numCommentaires: ''
+    },
+    activeCommentaires: [],
     height: window.innerHeight,
     width: window.innerWidth,
 }
@@ -18,6 +30,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 activePost: action.payload.post
+            }
+        case GET_COMMENTS_BY_POST_ID:
+            return {
+                ...state,
+                activeCommentaires: action.payload.commentaires
             }
         case UPDATE_DIMENSIONS:
             return {
