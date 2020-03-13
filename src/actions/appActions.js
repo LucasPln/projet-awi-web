@@ -74,10 +74,7 @@ export const supprimerPost = (postId, token) => dispatch => {
     })
         .then(
             (res) => {
-                dispatch({
-                    type: SUPPRIMER_POST,
-                    
-                })
+                dispatch(getPosts())
                 
             },
             (error) =>{
