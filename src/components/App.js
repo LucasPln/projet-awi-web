@@ -8,6 +8,7 @@ import PostList from './PostList'
 import Navbar from './Navbar'
 import DeleteForm from './DeleteForm'
 import CreateAccountForm from "./CreateAccountForm";
+import ViderSignalementForm from "./ViderSignalementForm"
 import CreatePostForm from "./CreatePostForm";
 import { getPosts, updateDimensions } from '../actions/appActions'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -30,6 +31,7 @@ class App extends Component {
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />
               <Route path="/delete/:postId" component={ DeleteForm } />
+              <Route path="/signalement/vider/:postId" component={ ViderSignalementForm } />
           </Switch> 
         </div>
       </Router>

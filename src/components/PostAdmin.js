@@ -62,6 +62,7 @@ class PostAdmin extends Component{
                     <span className="post-info-tag-admin">tag2</span>
                 </div> 
                 <div className="post-btn-div-admin">
+                    <Link to={ `/signalement/vider/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn-admin signaler"  >Supprimer les signalements&nbsp;<IoIosWarning /></Link>
                     <Link to={ `/delete/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link> 
                     </div>
                 </div>

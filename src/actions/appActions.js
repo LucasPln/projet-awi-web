@@ -110,3 +110,23 @@ export const createPost = (text,token,_id) => dispatch => {
             }
         )
 }
+
+export const viderSignalement = (post,token) => dispatch => {
+
+    console.log(post)
+    post.signaler = []
+    axios.patch(`${ process.env.REACT_APP_URL }/posts/${ post._id }`, post, {
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${ token }`
+        }
+    })
+        .then(
+            (res) => {
+                console.log(res)
+                dispatch(getPosts())
+                
+            },
+            (error) => {
+            })
+}
