@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import '../styles/App.css'
-import '../styles/LoginForm.css'
 import LoginForm from './LoginForm'
-import PostView from './LoginForm'
+import PostView from './PostView'
 import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
@@ -19,8 +17,8 @@ class App extends Component {
     return (
       <Router>
         <div id="main">
-          <Route path="/" component={Navbar} />
-          <PostList />
+          <Navbar />
+          <Route path="/" component={PostList} />
           <Switch>
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />

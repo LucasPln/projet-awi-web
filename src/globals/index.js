@@ -19,3 +19,18 @@ export const decipher = salt => {
         .map(charCode => String.fromCharCode(charCode))
         .join('')
 }
+
+export const formatDate = date => {
+        let diff = Date.now() - Date.parse(date)
+        let days = diff / 86400000
+        let hours = diff / 3600000
+        let minutes = diff / 60000
+        
+        if (days < 1) {
+            if (hours < 1) {
+                return `Il y a ${Math.floor(minutes)} minute${Math.floor(minutes) === 1 ? '' : 's'}`
+            }
+            return `Il y a ${Math.floor(hours)} heure${Math.floor(hours) === 1 ? '' : 's'}`
+        } 
+        return `Il y a ${Math.floor(days)} jour${Math.floor(days) === 1 ? '' : 's'}`
+}

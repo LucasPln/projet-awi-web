@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
-import '../styles/PostList.css'
 import { IoIosAddCircle } from 'react-icons/io'
 
 class PostList extends Component {
@@ -10,10 +9,8 @@ class PostList extends Component {
             <div id="post-list">
                 <div id="post-filter"></div>
                 <div id="post-spacer"></div>
-                {
-                    this.props.loggedIn ? <span id="post-write-btn"><IoIosAddCircle /></span> : ''
-                }
-                {this.props.posts.map(p => <Post post={p} key={p._id}/>)}
+                { this.props.loggedIn ? <span id="post-write-btn"><IoIosAddCircle /></span> : '' }
+                { this.props.posts.map(p => <Post post={ p } key={ p._id } postView={ false } />)}
             </div>
         )
     }
