@@ -6,6 +6,7 @@ import PostView from './LoginForm'
 import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
+import DeleteForm from './DeleteForm'
 import { getPosts, updateDimensions } from '../actions/appActions'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -24,6 +25,7 @@ class App extends Component {
           <Switch>
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />
+              <Route path="/delete/:postId" component={ DeleteForm } />
           </Switch> 
         </div>
       </Router>

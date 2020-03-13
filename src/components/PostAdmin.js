@@ -48,9 +48,7 @@ class PostAdmin extends Component{
         })
     }
 
-    supprimerPost = () => {
-        this.props.supprimerPost(this.props.post._id, this.props.token)
-    }
+    
 
 
 
@@ -81,7 +79,7 @@ class PostAdmin extends Component{
                     <span className="post-info-tag-admin">tag2</span>
                 </div> 
                     <div className="post-btn-div-admin">
-                        <span className="post-btn-admin supprimer" onClick={this.supprimerPost} >Supprimer&nbsp;<IoIosTrash /></span> 
+                        <Link to={`/delete/${ this.props.post._id }`}><span className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></span></Link> 
                     </div>
                 </div>
         )
