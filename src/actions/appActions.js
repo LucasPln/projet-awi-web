@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, TOGGLE_ADMIN_VIEW, SUPPRIMER_POST} from './types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, TOGGLE_ADMIN_VIEW, LOGIN} from './types'
 import axios from 'axios'
 
 export const getPosts = () => dispatch => {
@@ -65,10 +65,10 @@ export const toggleAdminView = () => dispatch => {
 }
 
 export const supprimerPost = (postId, token) => dispatch => {
-    axios.delete(`${process.env.REACT_APP_URL}/posts/${postId}`,{
+    axios.delete(`${ process.env.REACT_APP_URL }/posts/${ postId }`, {
         headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer ${token}`
+            authorization: `Bearer ${ token }`
         }
     })
         .then(
@@ -77,7 +77,9 @@ export const supprimerPost = (postId, token) => dispatch => {
                 dispatch(getPosts())
                 
             },
-            (error) =>{
+            (error) => {
+            })
+}
 
 export const createPost = (text,token,_id) => dispatch => {
 
