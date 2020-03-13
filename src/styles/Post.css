@@ -151,7 +151,7 @@
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
 }
 
-.signaler {
+.post-btn.signaler {
     position: relative;
     color: red;
     margin-left: auto;

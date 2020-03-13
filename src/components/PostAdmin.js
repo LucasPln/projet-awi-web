@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { getPosts, supprimerPost } from '../actions/appActions'
+import { supprimerPost } from '../actions/appActions'
 import '../styles/PostAdmin.css'
 import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore, IoIosTrash } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 class PostAdmin extends Component{
@@ -40,24 +40,7 @@ class PostAdmin extends Component{
         return `Il y a ${Math.floor(days)} jour${Math.floor(days) === 1 ? '' : 's'}`
     }
 
-    handleRedirect = () => {
-        // this.props.history.push(`/posts${this.props.post._id}`)
-        this.setState({
-            ...this.state,
-            redirect: true
-        })
-    }
-
-    
-
-
-
     render() {
-        let likeStyle = this.state.liked ? { background: "rgb(93, 93, 187)", color: "white" } : {}
-        
-        // if (this.state.redirect)
-        //     return <Redirect to={ `/post/${ this.props.post._id }` } />
-
         return (
             <div className="post-admin" >
                 { this.props.user._id === this.props.post.createur._id ? <span className="post-more"><IoIosMore /></span> : ""}
@@ -73,13 +56,13 @@ class PostAdmin extends Component{
                     <span className="post-info-badge-admin comment"><span className="post-icon comment"><IoIosChatboxes /></span></span>
                     <span className="post-info-admin comment">{ this.props.post.numCommentaires }</span>
                     <span className="post-info-badge-admin signaler"><span className="post-icon signaler"><IoIosWarning /></span></span>
-                    <span className="post-info-admin like">{ this.props.post.reactions.length }</span>
+                    <span className="post-info-admin signaler">{ this.props.post.reactions.length }</span>
 
                     <span className="post-info-tag-admin">tag1</span>
                     <span className="post-info-tag-admin">tag2</span>
                 </div> 
-                    <div className="post-btn-div-admin">
-                        <Link to={`/delete/${ this.props.post._id }`}><span className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></span></Link> 
+                <div className="post-btn-div-admin">
+                    <Link to={ `/delete/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link> 
                     </div>
                 </div>
         )
@@ -93,4 +76,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { getPosts, supprimerPost })(PostAdmin)
+export default connect(mapStateToProps, { supprimerPost })(PostAdmin)
