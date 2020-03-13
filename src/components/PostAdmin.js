@@ -56,7 +56,7 @@ class PostAdmin extends Component{
                     <span className="post-info-badge-admin comment"><span className="post-icon comment"><IoIosChatboxes /></span></span>
                     <span className="post-info-admin comment">{ this.props.post.numCommentaires }</span>
                     <span className="post-info-badge-admin signaler"><span className="post-icon signaler"><IoIosWarning /></span></span>
-                    <span className="post-info-admin signaler">{ this.props.post.reactions.length }</span>
+                    <span className="post-info-admin signaler">{ this.props.post.signaler.length }</span>
 
                     <span className="post-info-tag-admin">tag1</span>
                     <span className="post-info-tag-admin">tag2</span>
