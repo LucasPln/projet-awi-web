@@ -6,6 +6,7 @@ import PostView from './LoginForm'
 import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
+import DeleteForm from './DeleteForm'
 import CreateAccountForm from "./CreateAccountForm";
 import CreatePostForm from "./CreatePostForm";
 import { getPosts, updateDimensions } from '../actions/appActions'
@@ -22,12 +23,13 @@ class App extends Component {
       <Router>
         <div id="main">
           <Route path="/" component={Navbar} />
-          <PostList />
+          <PostList/>
           <Switch>
               <Route path="/createpost" component={ CreatePostForm } />
               <Route path="/createaccount" component={ CreateAccountForm } />
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />
+              <Route path="/delete/:postId" component={ DeleteForm } />
           </Switch> 
         </div>
       </Router>
