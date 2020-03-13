@@ -4,6 +4,7 @@ import Post from './Post'
 import '../styles/PostList.css'
 import { IoIosAddCircle } from 'react-icons/io'
 import PostAdmin from './PostAdmin'
+import {Link} from "react-router-dom";
 
 class PostList extends Component {
     render() {
@@ -12,7 +13,7 @@ class PostList extends Component {
                 <div id="post-filter"></div>
                 <div id="post-spacer"></div>
                 {
-                    this.props.loggedIn ? <span id="post-write-btn"><IoIosAddCircle /></span> : ''
+                    this.props.loggedIn ? <Link to={'/createpost'} id="post-write-btn"><IoIosAddCircle /></Link> : ''
                 }
                 {!this.props.adminView ? this.props.posts.map(p => <Post post={p} key={p._id}/>): this.props.posts.map(p => <PostAdmin post={p} key={p._id}/>)}
             </div>
