@@ -7,7 +7,7 @@ const initialState = {
         _id: '',
         isAdmin: false
     },
-    token: ''
+    token: '',
 }
 
 export default function (state = initialState, action) {

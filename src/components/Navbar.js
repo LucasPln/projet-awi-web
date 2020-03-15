@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { IoIosPower } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { logout } from '../actions/authActions'
+import { toggleAdminView } from '../actions/appActions'
 
 
 class Navbar extends Component{
@@ -14,17 +15,18 @@ class Navbar extends Component{
             height: "0px",
             opacity: 0
         }
+
+        
     }
 
     toggleHeight = (key) => {
         this.setState({
-            height: key === 'enter' ? "180px" : "0px",
+            height: key === 'enter' ? "230px" : "0px",
             opacity: key === 'enter' ? 1 : 0
         })
     }
 
     render() {
-
         let btnStyle = this.state.opacity === 0 ? { display: 'none' } : {}
 
         return (
@@ -40,6 +42,11 @@ class Navbar extends Component{
                         <div id="nav-menu" style={ this.state }>
                             <span id="nav-menu-spacer"></span>
                             <span style={ btnStyle } className="nav-menu-btn">Mon Profil</span>
+                            {this.props.user.isAdmin ? 
+                                this.props.adminView ?
+                                    <Link to="/" style={ btnStyle } className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Accueil</Link> 
+                                    : <Link to="/admin" style={ btnStyle } className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Admin</Link>
+                                : null }
                             <span style={ btnStyle } className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout() } }>Déconnexion</span>
                         </div>
                     </div>
@@ -52,8 +59,9 @@ class Navbar extends Component{
 }
 const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
-    user: state.auth.user
+    user: state.auth.user,
+    adminView: state.app.adminView
 })
 
 
-export default connect(mapStateToProps, {logout})(Navbar)
+export default connect(mapStateToProps, {logout, toggleAdminView})(Navbar)

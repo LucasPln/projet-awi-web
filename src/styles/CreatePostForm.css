@@ -1,0 +1,27 @@
+#createpost {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    backdrop-filter: blur(10px);
+    transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 101;
+}
+
+#createpost-title {
+    margin-top: -15rem;
+}
+
+#createpost-text {
+    font-size: large;
+    position: relative;
+    width: 40rem;
+    height: 5rem;
+    border-radius: .4rem;
+    border: 2px solid rgb(93, 93, 187);
+    padding: .6rem;
+    margin-top:15px;
+    margin-bottom: 1.5rem;
+}

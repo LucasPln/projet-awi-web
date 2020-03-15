@@ -1,4 +1,4 @@
-.post {
+.post-admin {
     position: relative;
     box-shadow: 0px 3px 15px rgb(216, 216, 216);
     padding: .1rem 0rem .1rem 0rem;
@@ -8,69 +8,28 @@
     min-width: 30rem;
     border-radius: .4rem;
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    cursor: pointer;
-    z-index: 100;
 }
 
-.post:hover {
+.post-admin:hover {
     background: rgb(246, 246, 253);
     box-shadow: 0px 5px 15px 1px rgb(197, 197, 221);
 }
 
-.post.view {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    max-width: 55rem;
-    margin-bottom: 0rem;
-    margin-top: 1.5rem;
-    cursor: auto;
-    border-radius: .4rem;
-    background: rgba(255, 255, 255, .8);
-    z-index: 100;
-}
-
-.post.view::after {
-    backdrop-filter: blur(10px);
-    content: '';
-    position: absolute;
-    border-radius: .4rem;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-}
-
-.post.view:hover {
-    background: rgba(255, 255, 255, .8);
-    box-shadow: 0px 3px 15px rgb(216, 216, 216);
-}
-
-.post-more {
+.post-more-admin {
     position: absolute;
     font-size: 1.5rem;
     color: rgb(93, 93, 187);
     right: 1rem;
     top: .3rem;
     cursor: pointer !important;
-    border-radius: 50%;
-    height: 1.5rem;
-    z-index: 100;
-    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
 }
 
-.post-more:hover {
-    background: rgb(93, 93, 187);
-    color: white;
-}
-
-.post-user-div {
+.post-user-div-admin {
     position: relative;
     height: auto;
 }
 
-.post-photo {
+.post-photo-admin {
     position: relative;
     border-radius: 100%;
     width: 2.5rem;
@@ -80,7 +39,7 @@
     display: inline-block;
 }
 
-.post-pseudo {
+.post-pseudo-admin {
     position: absolute;
     margin: .5rem 0rem;
     padding: 0rem .5rem;
@@ -88,7 +47,7 @@
     top: 0px;
 }
 
-.post-date {
+.post-date-admin {
     font-size: smaller;
     color: gray;
     position: absolute;
@@ -98,12 +57,12 @@
     bottom: -4px;
 }
 
-.post-text {
+.post-text-admin {
     position: relative;
     padding: 0rem 1rem;
 }
 
-.post-info-div {
+.post-info-div-admin {
     position: relative;
     display: flex;
     align-items: center;
@@ -114,10 +73,21 @@
     height: 1.5rem;
     margin-bottom: .3rem;
     z-index: 10;
-    background: rgba(231, 231, 231, .5);
 }
 
-.post-info-badge {
+.post-info-div-admin::after {
+    content: '';
+    position: absolute;
+    background: rgb(231, 231, 231);
+    opacity: .5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.post-info-badge-admin {
     font-size: small;
     background: rgb(93, 93, 187);
     color: white;
@@ -127,23 +97,29 @@
     padding: .1rem;
 }
 
-.post-icon.like {
+.post-icon-admin.like {
     position: absolute;
     margin-left: .1rem;
     margin-top: .05rem;
 }
 
-.post-icon.comment {
+.post-icon-admin.comment {
     position: absolute;
     margin-left: .1rem;
     margin-top: .1rem;
 }
 
-.post-info {
+.post-icon-admin.signaler {
+    position: absolute;
+    margin-left: .3rem;
+    margin-top: .1rem;
+}
+
+.post-info-admin {
     margin: 0rem .5rem 0rem .2rem;
 }
 
-.post-info-tag {
+.post-info-tag-admin {
     height: 1rem;
     border-radius: 1rem;
     font-size: small;
@@ -155,11 +131,11 @@
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.post-info-tag:hover {
+.post-info-tag-admin:hover {
     background: rgb(110, 110, 207);
 }
 
-.post-btn-div {
+.post-btn-div-admin {
     padding-right: .5rem;
     padding-left: .5rem;
     width: 100%;
@@ -167,7 +143,7 @@
     display: flex;
 }
 
-.post-btn {
+.post-btn-admin {
     display: flex;
     align-self: right;
     position: relative;
@@ -181,11 +157,7 @@
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
 }
 
-.post-btn.comment.view {
-    display: none;
-}
-
-.post-btn.signaler {
+.supprimer {
     position: relative;
     color: red;
     margin-left: auto;

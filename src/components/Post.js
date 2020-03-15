@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, modifierSignaler, getPostById } from '../actions/appActions'
-import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore } from 'react-icons/io'
+import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore, IoIosTrash } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Redirect } from 'react-router-dom'
 import { formatDate } from '../globals'
@@ -88,6 +88,9 @@ class Post extends Component{
                 {this.props.loggedIn ? 
                 <div className={`post-btn-div ${postView}` }>
                     <span className={`post-btn like ${postView}` } style={ likeStyle } onClick={e => this.handleLike(e)}>Like &nbsp;<IoIosThumbsUp /></span>
+                    {this.props.post.createur._id === this.props.user._id ? 
+                            <Link to={ `/delete/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link>
+                            : ""}
                     <span className={`post-btn signaler ${postView}` } style={signalStyle} onClick={e => this.handleSignaler(e)}>Signaler&nbsp;<IoIosWarning /></span> 
                 </div> 
                 : ""}

@@ -48,16 +48,15 @@ class LoginForm extends Component {
             return <Redirect to="/" />
         
         return (
+
             <div id="login" className="login" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendLoginInfo() : '') } >
                 <h2 id="login-title">Connectez-vous à <i>Equal Report</i> !</h2>
                     <span id="login-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
                     <input id="login-pseudo" placeholder="pseudo" ref="pseudo" />
                     <input id="login-mdp" type="password" placeholder="mot de passe" ref="mdp" />
                 <button id="login-submit" onClick={ this.sendLoginInfo }>Log in</button>
-                <p>Vous n'avez pas de compte ? Inscrivez-vous <Link>ici</Link>.</p>
-            </div>
-
-
+                <p>Vous n'avez pas de compte ? Inscrivez-vous <Link to={'/createaccount'}>ici</Link>.</p>
+                </div>
         )
     }
 }

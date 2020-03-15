@@ -111,3 +111,7 @@
     background: rgb(93, 93, 187);
     color: white;
 }
+
+.nav-menu-link {
+    text-decoration: none;
+}

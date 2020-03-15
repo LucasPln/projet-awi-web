@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID } from './types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, LOGIN } from './types'
 import axios from 'axios'
 
 export const getPosts = () => dispatch => {
@@ -119,4 +119,75 @@ export const writeComment = (postId, createur, texte, token) => dispatch => {
             dispatch(getPostById(postId))
         })
         .catch(err => console.log(err))
+
+export const toggleAdminView = () => dispatch => {
+    dispatch({
+        type: TOGGLE_ADMIN_VIEW
+    })
+}
+
+export const supprimerPost = (postId, token) => dispatch => {
+    axios.delete(`${ process.env.REACT_APP_URL }/posts/${ postId }`, {
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${ token }`
+        }
+    })
+        .then(
+            (res) => {
+                console.log(res)
+                dispatch(getPosts())
+                
+            },
+            (error) => {
+            })
+}
+
+export const createPost = (text,token,_id) => dispatch => {
+
+    let body = { text: text}
+
+    axios.post(`${process.env.REACT_APP_URL}/post`, body,{
+
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`}
+    })
+        .then(
+            (res) => {
+                console.log(res);
+                dispatch({  // envoi l'infos au reduceur
+                    type: LOGIN,
+                    payload: {
+                        token: res.data.token,
+                        user: {
+                            text: res.data.data.text,
+                            _id: res.data.data._id
+                        }
+                    }
+                })
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+}
+
+export const viderSignalement = (post,token) => dispatch => {
+    post.signaler = []
+    axios.patch(`${ process.env.REACT_APP_URL }/posts/${ post._id }`, post, {
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${ token }`
+        }
+    })
+        .then(
+            (res) => {
+                console.log(res)
+                dispatch(getPosts())
+                
+            },
+            (error) => {
+              console.log(error)
+            })
 }
