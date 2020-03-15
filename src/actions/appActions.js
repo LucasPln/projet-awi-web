@@ -145,12 +145,11 @@ export const supprimerPost = (postId, token) => dispatch => {
             })
 }
 
-export const createPost = (text,token,_id) => dispatch => {
+export const createPost = (createur, texte, token) => dispatch => {
 
-    let body = { text: text}
+    let body = { createur: createur, texte: texte, dateCreation: Date.now() }
 
-    axios.post(`${process.env.REACT_APP_URL}/post`, body,{
-
+    axios.post(`${process.env.REACT_APP_URL}/posts`, body, {
         headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${token}`}
@@ -158,16 +157,7 @@ export const createPost = (text,token,_id) => dispatch => {
         .then(
             (res) => {
                 console.log(res);
-                dispatch({  // envoi l'infos au reduceur
-                    type: LOGIN,
-                    payload: {
-                        token: res.data.token,
-                        user: {
-                            text: res.data.data.text,
-                            _id: res.data.data._id
-                        }
-                    }
-                })
+                dispatch(getPosts())
             },
             (error) => {
                 console.log(error)

@@ -10,6 +10,7 @@
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .3s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
     z-index: 100;
+    overflow-wrap: break-word;
 }
 
 .post:hover {

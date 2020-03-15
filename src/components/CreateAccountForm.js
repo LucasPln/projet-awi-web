@@ -13,16 +13,14 @@ class CreateAccountForm extends Component {
         super(props)
 
         this.state = {
-            opacity: 0,
+            opacity: 1,
             redirect: false
         }
     }
 
     componentDidMount = () => {
         this.refs.pseudo.focus()
-        setTimeout(this.setState({...this.state, opacity: 1}), 1)
     }
-
 
     componentDidUpdate = () => {
         if (this.props.loggedIn === true && this.state.opacity) {
@@ -34,7 +32,6 @@ class CreateAccountForm extends Component {
         if (this.refs.pseudo.value !== '' && this.refs.mdp.value !== '' && this.refs.email.value !== '')
             this.props.createAccount(this.refs.email.value, this.refs.pseudo.value, this.refs.mdp.value);
     }
-
 
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0 });
@@ -56,13 +53,13 @@ class CreateAccountForm extends Component {
             <div id="createaccount" className="createaccount"  style={ style }  onKeyPress={ e => (e.key === "Enter" ? this.sendCreateAccountInfo() : '') }>
                 <h2 id="createaccount-title">Créer votre compte <i>Equal Report</i> !</h2>
                     <span id="createaccount-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
-                <label>Renseignez votre email :</label>
-                    <input id="createaccount-pseudo" placeholder="email" ref="email" type="email"/>
-                <label>Choisissez votre pseudo :</label>
+                <label className="createaccount-label">Choisissez votre pseudo :</label>
                     <input id="createaccount-pseudo" placeholder="pseudo" ref="pseudo"/>
-                <label>Choisissez votre Mot de passe :</label>
+                <label className="createaccount-label">Renseignez votre email :</label>
+                    <input id="createaccount-pseudo" placeholder="email" ref="email" type="email"/>
+                <label className="createaccount-label">Choisissez votre Mot de passe :</label>
                     <input id="createaccount-mdp" type="password" placeholder="mot de passe" ref="mdp" />
-                <label>Confirmez votre Mot de passe : </label>
+                <label className="createaccount-label">Confirmez votre Mot de passe : </label>
                     <input id="createaccount-mdp" type="password" placeholder="confirmation du mot de passe" ref="mdp"  />
                 <button id="createaccount-submit" onClick={this.sendCreateAccountInfo}>Sign in</button>
             </div>

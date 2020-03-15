@@ -22,12 +22,6 @@ class ViderSignalementForm extends Component {
         setTimeout(this.setState({...this.state, opacity: 1}), 1)
     }
 
-    // componentDidUpdate = () => {
-    //     if ( this.state.opacity) {
-    //         this.handleClose();
-    //     }
-    // }
-
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0 });
         setTimeout(() => this.setState({...this.state, redirect: true}), 300)

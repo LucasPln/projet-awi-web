@@ -16,7 +16,8 @@ class CreatePostForm extends Component {
     }
 
     sendCreatePostInfo = () => {
-        console.log(this.refs.text.value);
+        this.props.createPost(this.props.user._id, this.refs.text.value, this.props.token);
+        this.setState({...this.state, redirect: true})
     }
 
     componentDidMount = () => {
@@ -39,7 +40,6 @@ class CreatePostForm extends Component {
 
 
     render() {
-    console.log(this.state);
         let style = {
             width: this.props.width,
             height: this.props.height,
@@ -69,5 +69,4 @@ const mapStateToProps = state => ({
     user: state.auth.user,
 })
 
-//export default CreatePostForm;
 export default connect(mapStateToProps,{createPost})(CreatePostForm);

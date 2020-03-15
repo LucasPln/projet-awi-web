@@ -7,21 +7,10 @@
     border-radius: .5rem;
     backdrop-filter: blur(10px);
     transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    z-index: 101;
+    z-index: 110;
+    background: rgba(255, 255, 255, .3)
 }
 
-#createaccount::after {
-    content: "";
-    background: rgb(255, 255, 255)!important;
-    opacity: .3;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-    border-radius: .5rem;
-}
 
 #createaccount-close {
     position: absolute;
@@ -29,6 +18,11 @@
     right: 30px;
     font-size: 2rem;
     color: rgb(93, 93, 187);
+    cursor: pointer;
+}
+
+.createaccount-label {
+    padding-bottom: .5rem;
 }
 
 #createaccount-title {
