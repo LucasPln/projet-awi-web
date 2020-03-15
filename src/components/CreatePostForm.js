@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {createPost} from "../actions/appActions"
-import {Link, Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom"
 
 
 class CreatePostForm extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {createAccount} from "../actions/authActions";
-import {Link, Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import { IoIosCloseCircle } from 'react-icons/io'
 
 import '../styles/CreateAccountForm.css'

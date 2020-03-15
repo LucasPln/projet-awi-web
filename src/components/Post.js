@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { modifierLike, modifierSignaler, getPostById } from '../actions/appActions'
 import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore, IoIosTrash } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { formatDate } from '../globals'
 
 

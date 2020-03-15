@@ -105,13 +105,13 @@ export const getCommentsByPostId = (postId) => dispatch => {
 }
 
 export const writeComment = (postId, createur, texte, token) => dispatch => {
-    let body = {parentId: postId, createur: createur, texte: texte, dateCreation: Date.now()}
-    axios.post(`${ process.env.REACT_APP_URL }/commentaires`, body,{
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${token}`
-            }
-        })
+    let body = { parentId: postId, createur: createur, texte: texte, dateCreation: Date.now() }
+    axios.post(`${ process.env.REACT_APP_URL }/commentaires`, body, {
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${ token }`
+        }
+    })
         .then(res => {
             console.log(res)
             dispatch(getCommentsByPostId(postId))
@@ -119,6 +119,7 @@ export const writeComment = (postId, createur, texte, token) => dispatch => {
             dispatch(getPostById(postId))
         })
         .catch(err => console.log(err))
+}
 
 export const toggleAdminView = () => dispatch => {
     dispatch({
@@ -140,6 +141,7 @@ export const supprimerPost = (postId, token) => dispatch => {
                 
             },
             (error) => {
+                console.log(error)
             })
 }
 

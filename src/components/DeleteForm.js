@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { login } from '../actions/authActions'
 import {supprimerPost} from '../actions/appActions'
 import '../styles/LoginForm.css'
-import { Redirect, Link } from 'react-router-dom'
-import { IoIosCloseCircle } from 'react-icons/io'
+import { Redirect } from 'react-router-dom'
 
 class DeleteForm extends Component {
 
