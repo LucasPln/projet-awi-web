@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { login } from '../actions/authActions'
-import '../styles/LoginForm.css'
 import { Redirect } from 'react-router-dom'
 import { IoIosCloseCircle } from 'react-icons/io'
 import { Link } from 'react-router-dom'
@@ -19,7 +18,7 @@ class LoginForm extends Component {
 
     componentDidMount = () => {
         this.refs.pseudo.focus()
-        setTimeout(this.setState({...this.state, opacity: 1}), 1)
+        setTimeout(() => this.setState({...this.state, opacity: 1}), 1)
     }
 
     componentDidUpdate = () => {
@@ -45,7 +44,6 @@ class LoginForm extends Component {
             opacity: this.state.opacity
         }
 
-
         if (this.state.redirect) 
             return <Redirect to="/" />
         
@@ -59,7 +57,6 @@ class LoginForm extends Component {
                 <button id="login-submit" onClick={ this.sendLoginInfo }>Log in</button>
                 <p>Vous n'avez pas de compte ? Inscrivez-vous <Link to={'/createaccount'}>ici</Link>.</p>
                 </div>
-
         )
     }
 }

@@ -1,5 +1,6 @@
 import { LOGIN, LOGOUT } from './types'
 import axios from 'axios'
+import { saveState } from '../localStorage'
 
 export const login = (pseudo, mdp) => dispatch => {
     let body = { pseudo: pseudo, mdp: mdp }
@@ -51,6 +52,7 @@ export const createAccount = (email,pseudo, mdp) => dispatch => {
 }
 
 export const logout = () => dispatch => {
+    saveState(undefined); 
     dispatch({
         type: LOGOUT
     })

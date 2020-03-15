@@ -3,7 +3,7 @@
     top: 0;
     width: 100%;
     height: 60px !important;
-    z-index: 100!important;
+    z-index: 110!important;
     display: flex;
     align-items: center;
     backdrop-filter: saturate(200%) blur(7px);
@@ -13,7 +13,7 @@
 #navbar::after {
     content: "";
     background: rgb(255, 255, 255)!important;
-    opacity: .6;
+    opacity: .8;
     top: 0;
     left: 0;
     bottom: 0;
@@ -42,7 +42,6 @@
 }
 
 #nav-pseudo-div:hover {
-    /* background: rgb(93, 93, 187); */
     color: white;
 }
 

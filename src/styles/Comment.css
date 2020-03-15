@@ -1,0 +1,135 @@
+.comment-entity {
+    opacity: 0;
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin: 1rem 0rem;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: left;
+    transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.comment-entity.own-comment {
+    opacity: 0;
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin: 1rem 0rem;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: right;
+    transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.comment-div {
+    margin: 0rem 1rem;
+    position: relative;
+    font-size: medium;
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+    border-radius: 1rem 1rem 1rem .4rem;
+    height: auto;
+    width: auto;
+    max-width: 70%;
+    overflow: visible;
+    overflow-wrap: break-word;
+    background: rgba(231, 231, 231, .6);
+}
+
+.comment-div.own-comment {
+    border-radius: 1rem 1rem 1rem .4rem;
+    overflow-wrap: break-word;
+    background: rgba(174, 174, 223, .6);
+    border-radius: 1rem 1rem .4rem 1rem;
+}
+
+.comment-user-div {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.comment-photo {
+    position: relative;
+    border-radius: 100%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: .5rem;
+    object-fit: cover;
+    display: inline-block;
+}
+
+.comment-pseudo {
+    position: relative;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.comment-date {
+    position: relative;
+    font-size: smaller;
+    color: rgb(90, 90, 90);
+    padding: 0rem .5rem;
+}
+
+.comment-texte {
+    position: relative;
+    display: block;
+    padding-top: .5rem;
+}
+
+.comment-num-likes-div {
+    position: absolute;
+    font-size: small;
+    background: rgb(93, 93, 187);
+    color: white;
+    border-radius: .6rem;
+    height: 1rem;
+    width: 2rem;
+    padding: .1rem;
+    right: -.2rem;
+}
+
+.comment-num-likes-div.own-comment {
+    left: -.2rem;
+}
+
+.comment-num-likes-icon {
+    position: absolute;
+    left: .24rem;
+    top: .18rem;
+}
+
+.comment-num-likes {
+    position: absolute;
+    font-weight: bold;
+    right: .25rem;
+}
+
+.comment-like {
+    position: relative;
+    font-size: small;
+    font-weight: 600;
+    color: rgb(93, 93, 187);
+    cursor: pointer;
+    left: 2rem;
+    bottom: -.1rem;
+    padding: .15rem .4rem;
+    border-radius: .15rem;
+}
+
+/* .comment-like.comment-liked {
+    font-weight: 850;
+} */
+
+.comment-signaler {
+    position: relative;
+    font-size: small;
+    font-weight: 600;
+    color: red;
+    cursor: pointer;
+    right: -5rem;
+    bottom: -.1rem;
+    padding: .15rem .4rem;
+}

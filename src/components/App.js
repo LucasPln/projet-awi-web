@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import '../styles/App.css'
-import '../styles/LoginForm.css'
 import LoginForm from './LoginForm'
-import PostView from './LoginForm'
+import PostView from './PostView'
 import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
@@ -15,16 +13,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 class App extends Component {
   componentDidMount() {
-        this.props.getPosts();
-        window.addEventListener('resize', () => this.props.updateDimensions(window.innerHeight, window.innerWidth));
+      this.props.getPosts();
+      window.addEventListener('resize', () => this.props.updateDimensions(window.innerHeight, window.innerWidth));
     }
 
   render() {
     return (
       <Router>
         <div id="main">
-          <Route path="/" component={Navbar} />
-          <PostList/>
+          <Navbar />
+          <Route path="/" component={PostList} />
           <Switch>
               <Route path="/createpost" component={ CreatePostForm } />
               <Route path="/createaccount" component={ CreateAccountForm } />
@@ -40,7 +38,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-    posts: state.app.posts
+  posts: state.app.posts,
+  auth: state.auth
 })
 
 export default connect(mapStateToProps, {getPosts, updateDimensions})(App);

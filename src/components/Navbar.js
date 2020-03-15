@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
-import '../styles/Navbar.css'
 import { Link } from 'react-router-dom'
 import { IoIosPower } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
@@ -28,11 +27,10 @@ class Navbar extends Component{
     }
 
     render() {
-        console.log(this.props.user.isAdmin)
-        let style = this.props.location.pathname === '/login' ? {boxShadow: "0px 0px 0px rgb(235, 235, 235)"} : {}
+        let btnStyle = this.state.opacity === 0 ? { display: 'none' } : {}
 
         return (
-            <div id="navbar" style={style}>
+            <div id="navbar" >
                 <h1 id="nav-title">Equal Report</h1>
                 { this.props.loggedIn ?
                     <div id="nav-pseudo-div"
@@ -43,20 +41,16 @@ class Navbar extends Component{
                         <h2 id="nav-pseudo">{ this.props.user.pseudo }</h2>
                         <div id="nav-menu" style={ this.state }>
                             <span id="nav-menu-spacer"></span>
-                            <span className="nav-menu-btn">Mon Profil</span>
+                            <span style={ btnStyle } className="nav-menu-btn">Mon Profil</span>
                             {this.props.user.isAdmin ? 
                                 this.props.adminView ?
-                                    <Link to="/" className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Accueil</Link> 
-                                    : <Link to="/admin" className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Admin</Link>
+                                    <Link to="/" style={ btnStyle } className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Accueil</Link> 
+                                    : <Link to="/admin" style={ btnStyle } className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Admin</Link>
                                 : null }
-                            <span className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout() } }>Déconnexion</span>
-                            
+                            <span style={ btnStyle } className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout() } }>Déconnexion</span>
                         </div>
                     </div>
-                    : this.props.location.pathname !== '/login'
-                        ?
-                        <Link to="/login" id="nav-power"><IoIosPower /></Link>
-                        : ""
+                    : <Link to="/login" id="nav-power"><IoIosPower /></Link>
                        
                 }
             </div>

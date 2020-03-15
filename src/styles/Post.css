@@ -8,11 +8,43 @@
     min-width: 30rem;
     border-radius: .4rem;
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    z-index: 100;
 }
 
 .post:hover {
     background: rgb(246, 246, 253);
     box-shadow: 0px 5px 15px 1px rgb(197, 197, 221);
+}
+
+.post.view {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    max-width: 55rem;
+    margin-bottom: 0rem;
+    margin-top: 1.5rem;
+    cursor: auto;
+    border-radius: .4rem;
+    background: rgba(255, 255, 255, .8);
+    z-index: 100;
+}
+
+.post.view::after {
+    backdrop-filter: blur(10px);
+    content: '';
+    position: absolute;
+    border-radius: .4rem;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.post.view:hover {
+    background: rgba(255, 255, 255, .8);
+    box-shadow: 0px 3px 15px rgb(216, 216, 216);
 }
 
 .post-more {
@@ -22,6 +54,15 @@
     right: 1rem;
     top: .3rem;
     cursor: pointer !important;
+    border-radius: 50%;
+    height: 1.5rem;
+    z-index: 100;
+    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
+}
+
+.post-more:hover {
+    background: rgb(93, 93, 187);
+    color: white;
 }
 
 .post-user-div {
@@ -73,18 +114,7 @@
     height: 1.5rem;
     margin-bottom: .3rem;
     z-index: 10;
-}
-
-.post-info-div::after {
-    content: '';
-    position: absolute;
-    background: rgb(231, 231, 231);
-    opacity: .5;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
+    background: rgba(231, 231, 231, .5);
 }
 
 .post-info-badge {
@@ -149,6 +179,10 @@
     margin: .5rem;
     cursor: pointer;
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
+}
+
+.post-btn.comment.view {
+    display: none;
 }
 
 .post-btn.signaler {
