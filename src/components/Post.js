@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { modifierLike, getPostById } from '../actions/appActions'
+import { modifierLike, modifierSignaler, getPostById } from '../actions/appActions'
 import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Redirect } from 'react-router-dom'
@@ -13,6 +13,7 @@ class Post extends Component{
 
         this.state = {
             liked: this.props.post.reactions.includes(this.props.user._id),
+            signaler: this.props.post.signaler.includes(this.props.user._id),
             redirect: false
         }
     }
@@ -23,15 +24,29 @@ class Post extends Component{
                 liked: !this.state.liked
             })
         }
+        if (this.props.post.signaler.includes(this.props.user._id) !== this.state.signaler) {
+            this.setState({
+                signaler: !this.state.signaler
+            })
+        }
     }
 
-    ajouterLike = (e) => {
+    handleLike = (e) => {
         e.stopPropagation();
         this.setState({
             ...this.state,
             liked: !this.state.liked
         })
         this.props.modifierLike(this.props.post, this.props.user._id, this.props.token, this.state.liked)
+    }
+
+    handleSignaler = (e) => {
+        e.stopPropagation();
+        this.setState({
+            ...this.state,
+            signaler: !this.state.signaler
+        })
+        this.props.modifierSignaler(this.props.post, this.props.user._id, this.props.token, this.state.signaler)
     }
 
     handleRedirect = () => {
@@ -43,6 +58,7 @@ class Post extends Component{
 
     render() {
         let likeStyle = this.state.liked ? { background: "rgb(93, 93, 187)", color: "white" } : {};
+        let signalStyle = this.state.signaler ? { background: "red", color: "white" } : {};
         let postView = this.props.postView ? "view" : "";
         
         if (this.state.redirect) {
@@ -71,8 +87,8 @@ class Post extends Component{
                 </div>
                 {this.props.loggedIn ? 
                 <div className={`post-btn-div ${postView}` }>
-                    <span className={`post-btn like ${postView}` } style={ likeStyle } onClick={e => this.ajouterLike(e)}>Like &nbsp;<IoIosThumbsUp /></span>
-                    <span className={`post-btn signaler ${postView}` }>Signaler&nbsp;<IoIosWarning /></span> 
+                    <span className={`post-btn like ${postView}` } style={ likeStyle } onClick={e => this.handleLike(e)}>Like &nbsp;<IoIosThumbsUp /></span>
+                    <span className={`post-btn signaler ${postView}` } style={signalStyle} onClick={e => this.handleSignaler(e)}>Signaler&nbsp;<IoIosWarning /></span> 
                 </div> 
                 : ""}
                 </div>
@@ -87,4 +103,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { modifierLike, getPostById })(Post)
+export default connect(mapStateToProps, { modifierLike, modifierSignaler, getPostById })(Post)

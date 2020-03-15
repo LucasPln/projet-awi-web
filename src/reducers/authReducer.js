@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../actions/types'
+import { LOGIN, LOGOUT, SET_AUTH } from '../actions/types'
 const initialState = {
     loggedIn: false,
     user: {
@@ -32,6 +32,11 @@ export default function (state = initialState, action) {
                     isAdmin: false
                 },
                 token: ''
+            }
+        case SET_AUTH:
+            return {
+                ...state,
+                ...action.payload.auth
             }
         default: return state
     }

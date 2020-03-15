@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { formatDate } from '../globals'
 import egg from '../globals/egg.jpg'
 import { IoIosThumbsUp } from 'react-icons/io'
-import { modifierLike } from '../actions/appActions'
+import { modifierLike, modifierSignaler } from '../actions/appActions'
 
 class Comment extends Component {
     constructor(props) {
@@ -11,6 +11,7 @@ class Comment extends Component {
 
         this.state = {
             liked: this.props.comment.reactions.includes(this.props.user._id),
+            signaler: this.props.comment.signaler.includes(this.props.user._id),
             opacity: 0
         }
     }
@@ -28,6 +29,11 @@ class Comment extends Component {
                 liked: !this.state.liked
             })
         }
+        if (this.props.comment.signaler.includes(this.props.user._id) !== this.state.signaler) {
+            this.setState({
+                signaler: !this.state.signaler
+            })
+        }
     }
 
     handleLike = () => {
@@ -38,10 +44,19 @@ class Comment extends Component {
         this.props.modifierLike(this.props.comment, this.props.user._id, this.props.token, this.state.liked, true);
     }
 
+    handleSignaler = () => {
+        this.setState({
+            ...this.state,
+            signaler: !this.state.signaler
+        })
+        this.props.modifierSignaler(this.props.comment, this.props.user._id, this.props.token, this.state.signaler, true);
+    }
+
     render() {
         let style = this.props.comment.createur._id === this.props.user._id ? "own-comment" : ""
         let likeIcon = this.props.comment.reactions.length === 0 ? { display: "none" } : {}
-        let likeState = this.state.liked ? "comment-liked" : ""
+        let likeState = this.state.liked ? { fontWeight: "850" } : {}
+        let signalerState = this.state.signaler ? { fontWeight: "850" } : {}
         return (
             <div className={ `comment-entity ${style}` } key={this.props.comment._id} style={{opacity: this.state.opacity}}>
                 <div className={ `comment-div ${ style }` } >
@@ -58,8 +73,8 @@ class Comment extends Component {
                 </div>
                 { this.props.loggedIn && style === "" ? 
                     <div className="comment-btn-div">
-                        <span className={`comment-like ${likeState}`} onClick={() => this.handleLike()}>Like</span>
-                        <span className="comment-signaler">Signaler</span>
+                        <span className="comment-like" style={ likeState } onClick={() => this.handleLike()}>Like</span>
+                        <span className="comment-signaler" style={ signalerState } onClick={() => this.handleSignaler()}>Signaler</span>
                     </div> 
                     :""
                 }
@@ -74,4 +89,4 @@ const mapStateToProps = state => ({
     token: state.auth.token
 })
 
-export default connect(mapStateToProps, {modifierLike})(Comment);
+export default connect(mapStateToProps, {modifierLike, modifierSignaler})(Comment);

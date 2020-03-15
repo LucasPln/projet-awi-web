@@ -28,8 +28,8 @@ class PostView extends Component {
         if (prevProps.commentaires.length !== this.props.commentaires.length) {
             setTimeout(() => this.refs.list.scrollTop = this.refs.list.scrollHeight, 40);
         }
-        let post = document.getElementById(`post/${this.props.post._id}`)
-        if (prevState.spacerHeight === 0 && post)
+        let post = document.getElementById(`post/${ this.props.post._id }`)
+        if (post && prevState.spacerHeight !== post.clientHeight)
             this.setState({ ...this.state, spacerHeight: post.clientHeight });
     }
 
@@ -39,7 +39,8 @@ class PostView extends Component {
     }
 
     componentDidMount = () => {
-        setTimeout(() => this.setState({...this.state, opacity: 1}), 1)
+        setTimeout(() => this.setState({ ...this.state, opacity: 1 }), 1)
+        setTimeout(() => this.refs.list.scrollTop = 0, 20)
     }
 
     handleClose = () => {

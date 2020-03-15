@@ -114,18 +114,7 @@
     height: 1.5rem;
     margin-bottom: .3rem;
     z-index: 10;
-}
-
-.post-info-div::after {
-    content: '';
-    position: absolute;
-    background: rgb(231, 231, 231);
-    opacity: .5;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
+    background: rgba(231, 231, 231, .5);
 }
 
 .post-info-badge {

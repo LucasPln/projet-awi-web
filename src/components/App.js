@@ -9,8 +9,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 class App extends Component {
   componentDidMount() {
-        this.props.getPosts();
-        window.addEventListener('resize', () => this.props.updateDimensions(window.innerHeight, window.innerWidth));
+      this.props.getPosts();
+      window.addEventListener('resize', () => this.props.updateDimensions(window.innerHeight, window.innerWidth));
     }
 
   render() {
@@ -30,7 +30,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-    posts: state.app.posts
+  posts: state.app.posts,
+  auth: state.auth
 })
 
 export default connect(mapStateToProps, {getPosts, updateDimensions})(App);

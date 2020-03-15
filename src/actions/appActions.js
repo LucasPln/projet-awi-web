@@ -61,7 +61,21 @@ export const modifierLike = (post, idUser, token, liked, commentaire = false) =>
             }
         })
         .then(res => {
-            console.log(res);
+            commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
+        })
+        .catch(err => console.log(err))
+}
+
+export const modifierSignaler = (post, idUser, token, signaler, commentaire = false) => dispatch => {
+    signaler ? post.signaler = post.signaler.filter(id => id !== idUser) : post.signaler.push(idUser)
+    let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`
+    axios.patch(url, post, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`
+            }
+        })
+        .then(res => {
             commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
         })
         .catch(err => console.log(err))
