@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, modifierSignaler, getPostById } from '../actions/appActions'
-import { IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash } from 'react-icons/io'
+import { IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash, IoIosConstruct } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Redirect, Link } from 'react-router-dom'
 import { formatDate } from '../globals'
+import AnimateHeight from 'react-animate-height'
 
 
 class Post extends Component{
@@ -14,7 +15,8 @@ class Post extends Component{
         this.state = {
             liked: this.props.post.reactions.includes(this.props.user._id),
             signaler: this.props.post.signaler.includes(this.props.user._id),
-            redirect: false
+            redirect: false,
+            menuOpen: 0
         }
     }
 
@@ -56,6 +58,13 @@ class Post extends Component{
         })
     }
 
+    toggleMenu = (type) => {
+        this.setState({
+            ...this.state,
+            menuOpen: type === 'enter' ? 'auto' : 0
+        })
+    }
+
     render() {
         let likeStyle = this.state.liked ? { background: "rgb(93, 93, 187)", color: "white" } : {};
         let signalStyle = this.state.signaler ? { background: "red", color: "white" } : {};
@@ -69,7 +78,20 @@ class Post extends Component{
         
         return (
             <div className={ `post ${postView}` } id={`post/${this.props.post._id}`} onClick={() => !this.props.postView ? this.handleRedirect() : ''}>
-                { this.props.user._id === this.props.post.createur._id ? <span className="post-more"><IoIosMore /></span> : "" }
+                { this.props.user._id === this.props.post.createur._id
+                    ?
+                    <div className="post-menu-div" onClick={ e => { e.stopPropagation() } } onMouseEnter={ () => this.toggleMenu('enter') }
+                        onMouseLeave={ () => this.toggleMenu('leave') }>
+                        <span className="post-more" ><IoIosMore /></span>
+                        <AnimateHeight className="post-menu-rah" height={this.state.menuOpen} easing="cubic-bezier(0.165, 0.84, 0.44, 1)" duration={300}>
+                            <div className="post-menu">
+                                <Link to={ `/delete/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn modifier"  >Modifier&nbsp;<IoIosConstruct /></Link>
+                                <Link to={ `/delete/${ this.props.post._id }` } style={ { textDecoration: "none" } } className="post-btn supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link>
+                            </div>
+                        </AnimateHeight>
+                    </div>
+                    : "" }
+                
                 <div className={ `post-user-div ${postView}` }>
                     <img src={ egg } className={ `post-photo ${postView}` } alt="tt"></img>
                     <h3 className={ `post-pseudo ${postView}` }>{this.props.post.createur.pseudo}</h3>
@@ -88,9 +110,6 @@ class Post extends Component{
                 {this.props.loggedIn ? 
                 <div className={`post-btn-div ${postView}` }>
                     <span className={`post-btn like ${postView}` } style={ likeStyle } onClick={e => this.handleLike(e)}>Like &nbsp;<IoIosThumbsUp /></span>
-                    {this.props.post.createur._id === this.props.user._id ? 
-                            <Link to={ `/delete/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link>
-                            : ""}
                     <span className={`post-btn signaler ${postView}` } style={signalStyle} onClick={e => this.handleSignaler(e)}>Signaler&nbsp;<IoIosWarning /></span> 
                 </div> 
                 : ""}

@@ -20,7 +20,8 @@ export default function (state = initialState, action) {
                 user: {
                     ...action.payload.user
                 },
-                token: action.payload.token
+                token: action.payload.token,
+                waiting: false
             }
         case LOGOUT:
             return {
@@ -32,7 +33,8 @@ export default function (state = initialState, action) {
                     _id: '',
                     isAdmin: false
                 },
-                token: ''
+                token: '',
+                waiting: false
             }
         case SET_AUTH:
             return {
@@ -45,7 +47,7 @@ export default function (state = initialState, action) {
                     isAdmin: action.payload.auth.user.isAdmin
                 },
                 token: action.payload.auth.token,
-                waiting: action.payload.auth.waiting
+                waiting: false
             }
         case STATE_WAITING:
             return {

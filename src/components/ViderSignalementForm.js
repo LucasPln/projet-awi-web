@@ -15,7 +15,7 @@ class ViderSignalementForm extends Component {
     componentDidMount = () => {
         let id = this.props.location.pathname.split("/")[3]
         this.props.getPostById(id)
-        setTimeout(this.setState({...this.state, opacity: 1}), 3)
+        setTimeout(() => this.setState({...this.state, opacity: 1}), 1)
     }
 
     handleClose = () => {

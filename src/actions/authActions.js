@@ -25,6 +25,7 @@ export const login = (pseudo, mdp) => dispatch => {
                 dispatch(stateWaiting(false))
             },
             (error) => {
+                dispatch(stateWaiting(false))
                 console.log(error)
             }
     )

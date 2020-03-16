@@ -46,8 +46,8 @@ class DeleteForm extends Component {
         return (
             <div id="login" className="login" style={ style } >
                 <h2 id="login-title">Voulez vous vraiment supprimer ce Post ?</h2>
-                <button id="login-submit" onClick={this.supprimerPost} style={{marginBottom: ".5rem"}}>Oui</button>
-                <button id="login-submit" onClick={this.handleClose}>Non</button>
+                <button id="login-submit" onClick={() => this.supprimerPost()} style={{marginBottom: ".5rem"}}>Oui</button>
+                <button id="login-submit" onClick={() => this.handleClose(false)}>Non</button>
             </div>
         )
     }

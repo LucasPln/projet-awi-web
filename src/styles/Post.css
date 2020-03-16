@@ -11,6 +11,7 @@
     cursor: pointer;
     z-index: 100;
     overflow-wrap: break-word;
+    border: none;
 }
 
 .post:hover {
@@ -48,16 +49,34 @@
     box-shadow: 0px 3px 15px rgb(216, 216, 216);
 }
 
+.post-menu-div {
+    position: absolute;
+    top: -.5rem;
+    right: 0;
+    z-index: 101;
+}
+
+.post-menu-rah {}
+
+.post-menu {
+    position: relative;
+    /* top:0; */
+    background: rgb(93, 93, 187);
+    width: 100%;
+    /* padding-top: 1.5rem; */
+    border-radius: .2rem .4rem .2rem .4rem;
+}
+
 .post-more {
     position: absolute;
     font-size: 1rem;
     color: rgb(93, 93, 187);
-    right: 1rem;
-    top: .5rem;
+    right: .7rem;
+    top: .8rem;
     cursor: pointer !important;
     border-radius: 50%;
     height: 1rem;
-    padding:.3rem;
+    padding: .3rem;
     z-index: 100;
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
 }
@@ -192,4 +211,30 @@
     color: red;
     margin-left: auto;
     margin-right: 1.5rem;
+}
+
+.post-btn.modifier {
+    position: relative;
+    color: white;
+    margin-left: auto;
+    margin-right: 1.5rem;
+    padding: .5rem;
+    margin-bottom: 0rem;
+}
+
+.post-btn.supprimer {
+    position: relative;
+    color: white;
+    margin-left: auto;
+    margin-right: 1.5rem;
+    padding: .5rem;
+    margin-top: 0rem;
+}
+
+.post-btn.modifier:hover {
+    color: rgb(0, 217, 255);
+}
+
+.post-btn.supprimer:hover {
+    color: rgb(255, 0, 0);
 }
