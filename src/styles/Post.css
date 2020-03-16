@@ -50,13 +50,14 @@
 
 .post-more {
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: rgb(93, 93, 187);
     right: 1rem;
-    top: .3rem;
+    top: .5rem;
     cursor: pointer !important;
     border-radius: 50%;
-    height: 1.5rem;
+    height: 1rem;
+    padding:.3rem;
     z-index: 100;
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
 }

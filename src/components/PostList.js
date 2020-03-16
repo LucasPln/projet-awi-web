@@ -12,7 +12,7 @@ class PostList extends Component {
                 <div id="post-filter"></div>
                 <div id="post-spacer"></div>
                 { this.props.loggedIn ? <Link to={'/createpost'} id="post-write-btn"><IoIosAddCircle /></Link> : '' }
-                { this.props.posts.map(p => this.props.adminView ? <PostAdmin post={p} key={p._id}/> : <Post post={ p } key={ p._id } postView={ false } />)}
+                { this.props.posts.map(p => this.props.adminView && this.props.loggedIn ? <PostAdmin post={p} key={p._id}/> : <Post post={ p } key={ p._id } postView={ false } />)}
             </div>
         )
     }

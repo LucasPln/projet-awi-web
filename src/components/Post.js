@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, modifierSignaler, getPostById } from '../actions/appActions'
-import { IoIosThumbsUp, IoIosWarning, IoIosChatboxes, IoIosMore, IoIosTrash } from 'react-icons/io'
+import { IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Redirect, Link } from 'react-router-dom'
 import { formatDate } from '../globals'
@@ -79,11 +79,11 @@ class Post extends Component{
                 <div className={`post-info-div ${postView}` }>
                     <span className={`post-info-badge like ${postView}` }><span className={`post-icon like ${postView}` }><IoIosThumbsUp /></span></span>
                     <span className={`post-info like ${postView}` }>{ this.props.post.reactions.length }</span>
-                    <span className={`post-info-badge comment ${postView}` }><span className={`post-icon comment ${postView}` }><IoIosChatboxes /></span></span>
+                    <span className={`post-info-badge comment ${postView}` }><span className={`post-icon comment ${postView}` }><IoIosText /></span></span>
                     <span className={`post-info comment ${postView}` }>{ this.props.post.numCommentaires }</span>
 
-                    <span className={`post-info-tag ${postView}` }>tag1</span>
-                    <span className={`post-info-tag ${postView}` }>tag2</span>
+                    {/* <span className={`post-info-tag ${postView}` }>tag1</span>
+                    <span className={`post-info-tag ${postView}` }>tag2</span> */}
                 </div>
                 {this.props.loggedIn ? 
                 <div className={`post-btn-div ${postView}` }>
