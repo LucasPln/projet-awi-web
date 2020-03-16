@@ -15,6 +15,7 @@ store.subscribe(() => {
     let auth = ""
     if (store.getState().auth.token !== "" && persistedState === undefined) {
         auth = store.getState().auth;
+        console.log(auth)
         auth = cipher(JSON.stringify(auth));
         saveState({
             auth: auth

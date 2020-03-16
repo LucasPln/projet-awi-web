@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, SET_AUTH } from '../actions/types'
+import { LOGIN, LOGOUT, SET_AUTH, STATE_WAITING } from '../actions/types'
 const initialState = {
     loggedIn: false,
     user: {
@@ -7,6 +7,7 @@ const initialState = {
         _id: '',
         isAdmin: false
     },
+    waiting: false,
     token: '',
 }
 
@@ -36,7 +37,20 @@ export default function (state = initialState, action) {
         case SET_AUTH:
             return {
                 ...state,
-                ...action.payload.auth
+                loggedIn: action.payload.auth.loggedIn,
+                user: {
+                    pseudo: action.payload.auth.user.pseudo,
+                    email: action.payload.auth.user.email,
+                    _id: action.payload.auth.user._id,
+                    isAdmin: action.payload.auth.user.isAdmin
+                },
+                token: action.payload.auth.token,
+                waiting: action.payload.auth.waiting
+            }
+        case STATE_WAITING:
+            return {
+                ...state,
+                waiting: action.payload.waiting
             }
         default: return state
     }

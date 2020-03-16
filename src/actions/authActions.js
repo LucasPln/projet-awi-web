@@ -1,8 +1,10 @@
-import { LOGIN, LOGOUT } from './types'
+import { LOGIN, LOGOUT, STATE_WAITING } from './types'
 import axios from 'axios'
 import { saveState } from '../localStorage'
 
 export const login = (pseudo, mdp) => dispatch => {
+    console.log("login")
+    dispatch(stateWaiting(true))
     let body = { pseudo: pseudo, mdp: mdp }
     axios.post(`${process.env.REACT_APP_URL}/auth/login`, body)
         .then(
@@ -20,11 +22,21 @@ export const login = (pseudo, mdp) => dispatch => {
                         }
                     }
                 })
+                dispatch(stateWaiting(false))
             },
             (error) => {
                 console.log(error)
             }
     )
+}
+
+export const stateWaiting = (waiting) => dispatch => {
+    dispatch({
+        type: STATE_WAITING,
+        payload: {
+            waiting: waiting
+        }
+    })
 }
 
 export const createAccount = (email,pseudo, mdp) => dispatch => {

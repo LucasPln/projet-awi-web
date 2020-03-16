@@ -68,3 +68,8 @@
     background: rgb(93, 93, 187);
     cursor: pointer;
 }
+
+#login-state-waiting {
+    position:absolute;
+    margin-top:-3.2rem;
+}

@@ -1,4 +1,5 @@
 export const LOGIN = "LOGIN"
+export const STATE_WAITING = "STATE_WAITING"
 export const LOGOUT = "LOGOUT"
 export const SET_TOKEN = "SET_TOKEN"
 export const GET_POSTS = "GET_POSTS"

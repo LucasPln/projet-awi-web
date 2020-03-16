@@ -42,14 +42,18 @@ class LoginForm extends Component {
             opacity: this.state.opacity
         }
 
+        let waiting = this.props.waiting ? {} : { display: "none" }
+        let waitingText = this.props.waiting ? { opacity: "0" } : {}
+
         return (
             <div id="login" className="login" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendLoginInfo() : '') } >
                 <h2 id="login-title">Connectez-vous à <i>Equal Report</i> !</h2>
                 <span id="login-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
                 <input id="login-pseudo" placeholder="pseudo" ref="pseudo" />
                 <input id="login-mdp" type="password" placeholder="mot de passe" ref="mdp" />
-                <button id="login-submit" onClick={ this.sendLoginInfo }>Log in</button>
+                <button id="login-submit" onClick={ this.sendLoginInfo }><span style={waitingText}>Log in</span></button>
                 <p>Vous n'avez pas de compte ? Inscrivez-vous <Link to={'/createaccount'}>ici</Link>.</p>
+                <span className="state-waiting" id="login-state-waiting" style={waiting}></span>
             </div>
         )
     }
@@ -58,7 +62,8 @@ class LoginForm extends Component {
 const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
     height: state.app.height,
-    width: state.app.width
+    width: state.app.width,
+    waiting: state.auth.waiting
 })
 
 
