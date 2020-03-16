@@ -2,7 +2,6 @@
     position: absolute;
     bottom: 0px;
     width: 100%;
-    height: calc(100%-60px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,7 +10,6 @@
     backdrop-filter: blur(10px);
     transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
     z-index: 103;
-    height: calc(100% - 60px);
 }
 
 #post-view-close {

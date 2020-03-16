@@ -8,6 +8,7 @@
     min-width: 30rem;
     border-radius: .4rem;
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    overflow-wrap: break-word;
 }
 
 .post-admin:hover {
@@ -97,6 +98,10 @@
     padding: .1rem;
 }
 
+.post-info-badge-admin.signaler {
+    background: red;
+}
+
 .post-icon-admin.like {
     position: absolute;
     margin-left: .1rem;
@@ -111,8 +116,8 @@
 
 .post-icon-admin.signaler {
     position: absolute;
-    margin-left: .3rem;
-    margin-top: .1rem;
+    margin-left: .1rem;
+    margin-top: .05rem;
 }
 
 .post-info-admin {
