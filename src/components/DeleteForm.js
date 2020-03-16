@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../actions/authActions'
-import {supprimerPost} from '../actions/appActions'
-import '../styles/LoginForm.css'
+import { supprimerPost } from '../actions/appActions'
 import { Redirect } from 'react-router-dom'
 
 class DeleteForm extends Component {
@@ -17,26 +15,22 @@ class DeleteForm extends Component {
     }
 
     componentDidMount = () => {
-        setTimeout(this.setState({...this.state, opacity: 1}), 1)
+        setTimeout(() => this.setState({...this.state, opacity: 1}), 1)
     }
 
-    // componentDidUpdate = () => {
-    //     if ( this.state.opacity) {
-    //         this.handleClose();
-    //     }
-    // }
-
-    handleClose = () => {
+    handleClose = (deleted = false) => {
         this.setState({ ...this.state, opacity: 0 });
-        setTimeout(() => this.setState({...this.state, redirect: true}), 300)
+        if (deleted)
+            setTimeout(() => this.setState({...this.state, redirect: true}), this.props.adminView ? 300 : 0)
+        else
+            setTimeout(() => this.props.history.goBack(), this.props.adminView ? 300 : 0)
     }
 
     supprimerPost = () => {
-        //console.log(this.props.location.pathname)
         let id = this.props.location.pathname.split("/")[2]
         console.log(id)
         this.props.supprimerPost(id, this.props.token)
-        this.handleClose()
+        this.handleClose(true)
     }
 
     render() {
@@ -46,18 +40,15 @@ class DeleteForm extends Component {
             opacity: this.state.opacity
         }
 
-        if (this.state.redirect) 
+        if (this.state.redirect)
             return <Redirect to="/" />
-        
+
         return (
-            <div id="login" className="login" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendLoginInfo() : '') } >
+            <div id="login" className="login" style={ style } >
                 <h2 id="login-title">Voulez vous vraiment supprimer ce Post ?</h2>
-                    
-                <button id="login-submit" onClick={this.supprimerPost}>Oui</button>
+                <button id="login-submit" onClick={this.supprimerPost} style={{marginBottom: ".5rem"}}>Oui</button>
                 <button id="login-submit" onClick={this.handleClose}>Non</button>
-                </div>
-
-
+            </div>
         )
     }
 }
@@ -66,8 +57,9 @@ const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
     height: state.app.height,
     width: state.app.width,
-    token: state.auth.token
+    token: state.auth.token,
+    adminView: state.app.adminView
 })
 
 
-export default connect(mapStateToProps, {login, supprimerPost})(DeleteForm);
+export default connect(mapStateToProps, {supprimerPost})(DeleteForm);

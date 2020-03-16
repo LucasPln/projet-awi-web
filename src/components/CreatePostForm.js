@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {createPost} from "../actions/appActions"
 import { Redirect } from "react-router-dom"
+import { IoIosCloseCircle } from 'react-icons/io'
 
 
 class CreatePostForm extends Component {
@@ -17,7 +18,7 @@ class CreatePostForm extends Component {
 
     sendCreatePostInfo = () => {
         this.props.createPost(this.props.user._id, this.refs.text.value, this.props.token);
-        this.setState({...this.state, redirect: true})
+        this.handleClose()
     }
 
     componentDidMount = () => {
@@ -42,7 +43,7 @@ class CreatePostForm extends Component {
     render() {
         let style = {
             width: this.props.width,
-            height: this.props.height,
+            height: this.props.height - 60,
             opacity: this.state.opacity
         }
 
@@ -50,11 +51,14 @@ class CreatePostForm extends Component {
             return <Redirect to="/" />
 
         return (
-            <div id="createpost" className="createpost"  style={ style }  onKeyPress={ e => (e.key === "Enter" ? this.sendCreatePostInfo() : '') }>
-                <h2 id="createpost-title"> <i>Equal Report</i> !</h2>
-                <label>3,2,1 ... Postez ! n'oubliez pas que votre contenu peut-être modéré...</label>
-                <textarea id="createpost-text" placeholder="text" ref="text" type="text"/>
-                <button id="createaccount-submit" onClick={this.sendCreatePostInfo}>Postez !</button>
+            <div id="createpost" className="createpost" style={ style } onClick={this.handleClose } onKeyPress={ e => (e.key === "Enter" ? this.sendCreatePostInfo() : '') }>
+                <span id="createpost-close" onClick={ this.handleClose }><IoIosCloseCircle /></span>
+                <div id="createpost-zone" onClick={e => e.stopPropagation()}>
+                    <h2 id="createpost-title"> <i>Equal Report</i> !</h2>
+                    <label>3,2,1 ... Postez ! n'oubliez pas que votre contenu peut-être modéré...</label>
+                    <textarea id="createpost-text" placeholder="Ecrivez ici..." ref="text" type="text"/>
+                    <button id="createpost-submit" onClick={this.sendCreatePostInfo}>Postez !</button>
+                </div>
             </div>
         )
     }

@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../actions/authActions'
 import { viderSignalement, getPostById } from '../actions/appActions'
-import '../styles/LoginForm.css'
-import { Redirect } from 'react-router-dom'
 
 class ViderSignalementForm extends Component {
 
@@ -11,20 +8,19 @@ class ViderSignalementForm extends Component {
         super(props)
 
         this.state = {
-            opacity: 0,
-            redirect: false
+            opacity: 0
         }
     }
 
     componentDidMount = () => {
         let id = this.props.location.pathname.split("/")[3]
         this.props.getPostById(id)
-        setTimeout(this.setState({...this.state, opacity: 1}), 1)
+        setTimeout(this.setState({...this.state, opacity: 1}), 3)
     }
 
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0 });
-        setTimeout(() => this.setState({...this.state, redirect: true}), 300)
+        setTimeout(() => this.props.history.goBack(), 200)
     }
 
     viderSignalement = () => {
@@ -39,14 +35,10 @@ class ViderSignalementForm extends Component {
             opacity: this.state.opacity
         }
 
-        if (this.state.redirect) 
-            return <Redirect to="/" />
-        
         return (
-            <div id="login" className="login" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendLoginInfo() : '') } >
+            <div id="login" className="login" style={ style } >
                 <h2 id="login-title">Voulez vous vraiment vider les signalements de ce Post ?</h2>
-                    
-                <button id="login-submit" onClick={this.viderSignalement}>Oui</button>
+                <button id="login-submit" onClick={this.viderSignalement} style={{marginBottom: ".5rem"}}>Oui</button>
                 <button id="login-submit" onClick={this.handleClose}>Non</button>
                 </div>
 
@@ -64,4 +56,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, {login, viderSignalement, getPostById})(ViderSignalementForm);
+export default connect(mapStateToProps, {viderSignalement, getPostById})(ViderSignalementForm);
