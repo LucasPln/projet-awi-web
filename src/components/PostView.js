@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getPostById, getCommentsByPostId, writeComment } from '../actions/appActions'
+import { stateWaiting } from '../actions/authActions'
 import Post from './Post'
 import Comment from './Comment'
 import { IoIosCloseCircle, IoIosSend } from 'react-icons/io'
@@ -24,6 +25,7 @@ class PostView extends Component {
                 ...this.state,
                 commentOpacity: 1
             })
+            this.props.stateWaiting(false)
         }
         if (prevProps.commentaires.length !== this.props.commentaires.length) {
             setTimeout(() => this.refs.list.scrollTop = this.refs.list.scrollHeight, 40);
@@ -34,6 +36,8 @@ class PostView extends Component {
     }
 
     componentWillMount = () => {
+        if (this.props.commId !== this.props.post._id)
+            this.props.stateWaiting(true);
         this.props.getCommentsByPostId(this.props.match.params.postId)
         this.props.getPostById(this.props.match.params.postId)
     }
@@ -67,12 +71,14 @@ class PostView extends Component {
         
         
         let padding = this.props.loggedIn ? { paddingBottom: "96px" } : {}
+        let waiting = this.props.waiting ? {opacity: 1} : {opacity: 0}
 
         return (
             <div id="post-view" style={ style } onClick={ this.handleClose }>
+                <span className="state-waiting" id="post-view-state-waiting" style={waiting}></span>
                 <span id="post-view-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
                 <span id="post-zone" onClick={ e => e.stopPropagation() }>
-                    <Post post={ this.props.post } postView={ true }  />
+                    <Post post={ this.props.post } postView={ true } />
                     <div id="post-view-comment-list" ref="list" style={ { height: style.height, ...padding, opacity: this.state.commentOpacity, paddingTop: this.state.spacerHeight } }>
                         { this.props.commentaires.map(c => <Comment key={ c._id } comment={ c } />) }
                     </div>
@@ -96,9 +102,11 @@ const mapStateToProps = state => ({
     post: state.app.activePost,
     height: state.app.height,
     width: state.app.width,
-    commentaires: state.app.activeCommentaires,
+    commentaires: state.app.activeCommentaires.commentaires,
+    commId: state.app.activeCommentaires.id,
     token: state.auth.token,
-    user: state.auth.user
+    user: state.auth.user,
+    waiting: state.auth.waiting
 })
 
-export default connect(mapStateToProps, {getPostById, getCommentsByPostId, writeComment})(PostView);
+export default connect(mapStateToProps, {getPostById, getCommentsByPostId, writeComment, stateWaiting})(PostView);

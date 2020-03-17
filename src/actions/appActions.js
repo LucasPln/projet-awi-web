@@ -112,11 +112,14 @@ export const getCommentsByPostId = (postId) => dispatch => {
             dispatch({
                 type: GET_COMMENTS_BY_POST_ID,
                 payload: {
+                    id: postId,
                     commentaires: res.data
                 }
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+        })
 }
 
 export const writeComment = (postId, createur, texte, token) => dispatch => {

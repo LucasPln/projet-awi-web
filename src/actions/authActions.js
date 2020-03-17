@@ -3,13 +3,11 @@ import axios from 'axios'
 import { saveState } from '../localStorage'
 
 export const login = (pseudo, mdp) => dispatch => {
-    console.log("login")
     dispatch(stateWaiting(true))
     let body = { pseudo: pseudo, mdp: mdp }
     axios.post(`${process.env.REACT_APP_URL}/auth/login`, body)
         .then(
             (res) => {
-                console.log(res)
                 dispatch({
                     type: LOGIN,
                     payload: {

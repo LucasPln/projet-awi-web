@@ -14,7 +14,10 @@ const initialState = {
         signaler: [],
         numCommentaires: ''
     },
-    activeCommentaires: [],
+    activeCommentaires: {
+        id: '',
+        commentaires: []
+    },
     height: window.innerHeight,
     width: window.innerWidth,
     adminView: false
@@ -35,7 +38,10 @@ export default function (state = initialState, action) {
         case GET_COMMENTS_BY_POST_ID:
             return {
                 ...state,
-                activeCommentaires: action.payload.commentaires
+                activeCommentaires: {
+                    id: action.payload.id,
+                    commentaires: action.payload.commentaires
+                }
             }
         case UPDATE_DIMENSIONS:
             return {
