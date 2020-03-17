@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { supprimerPost } from '../actions/appActions'
+import { supprimerPost, viderSignalement, getPostById } from '../actions/appActions'
 import { Redirect } from 'react-router-dom'
 
-class DeleteForm extends Component {
+class SelectionForm extends Component {
 
     constructor(props) {
         super(props)
@@ -15,22 +15,35 @@ class DeleteForm extends Component {
     }
 
     componentDidMount = () => {
+        let id = this.props.location.pathname.split("/")[2]
+        this.props.getPostById(id)
         setTimeout(() => this.setState({...this.state, opacity: 1}), 1)
     }
 
     handleClose = (deleted = false) => {
         this.setState({ ...this.state, opacity: 0 });
         if (deleted)
-            setTimeout(() => this.setState({...this.state, redirect: true}), this.props.adminView ? 300 : 0)
+            setTimeout(() => this.setState({...this.state, redirect: true}), 200)
         else
-            setTimeout(() => this.props.history.goBack(), this.props.adminView ? 300 : 0)
+            setTimeout(() => this.props.history.goBack(), 200)
+    }
+
+    handleClick = () => {
+        if (this.props.location.state.type === "supprimer")
+            this.supprimerPost()
+        else 
+            this.viderSignalement()
     }
 
     supprimerPost = () => {
         let id = this.props.location.pathname.split("/")[2]
-        console.log(id)
         this.props.supprimerPost(id, this.props.token)
         this.handleClose(true)
+    }
+
+    viderSignalement = () => {
+        this.props.viderSignalement(this.props.activePost, this.props.token)
+        this.handleClose()
     }
 
     render() {
@@ -45,8 +58,12 @@ class DeleteForm extends Component {
 
         return (
             <div id="login" className="login" style={ style } >
-                <h2 id="login-title">Voulez vous vraiment supprimer ce Post ?</h2>
-                <button id="login-submit" onClick={() => this.supprimerPost()} style={{marginBottom: ".5rem"}}>Oui</button>
+                <h2 id="login-title">{
+                    this.props.location.state.type === "supprimer"
+                        ? "Voulez vous vraiment supprimer ce Post ?"
+                        : "Voulez vous vraiment vider les signalements de ce Post ?" }
+                </h2>
+                <button id="login-submit" onClick={() => this.handleClick()} style={{marginBottom: ".5rem"}}>Oui</button>
                 <button id="login-submit" onClick={() => this.handleClose(false)}>Non</button>
             </div>
         )
@@ -58,8 +75,9 @@ const mapStateToProps = state => ({
     height: state.app.height,
     width: state.app.width,
     token: state.auth.token,
-    adminView: state.app.adminView
+    adminView: state.app.adminView,
+    activePost: state.app.activePost
 })
 
 
-export default connect(mapStateToProps, {supprimerPost})(DeleteForm);
+export default connect(mapStateToProps, {supprimerPost, viderSignalement, getPostById})(SelectionForm);

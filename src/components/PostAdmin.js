@@ -42,13 +42,10 @@ class PostAdmin extends Component{
                     <span className="post-info-admin comment">{ this.props.post.numCommentaires }</span>
                     <span className="post-info-badge-admin signaler"><span className="post-icon-admin signaler"><IoIosWarning /></span></span>
                     <span className="post-info-admin signaler">{ this.props.post.signaler.length }</span>
-
-                    {/* <span className="post-info-tag-admin">tag1</span>
-                    <span className="post-info-tag-admin">tag2</span> */}
                 </div> 
                 <div className="post-btn-div-admin">
-                    <Link to={ `/signalement/vider/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn-admin signaler"  >Vider les signalements&nbsp;<IoIosWarning /></Link>
-                    <Link to={ `/delete/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link> 
+                    <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "vider"} }} style={ {textDecoration: "none"} } className="post-btn-admin signaler"  >Vider les signalements&nbsp;<IoIosWarning /></Link>
+                    <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "supprimer"} } } style={ {textDecoration: "none"} } className="post-btn-admin supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link> 
                     </div>
                 </div>
         )

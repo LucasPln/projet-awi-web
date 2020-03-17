@@ -4,10 +4,9 @@ import PostView from './PostView'
 import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
-import DeleteForm from './DeleteForm'
+import SelectionForm from './SelectionForm'
 import CreateAccountForm from "./CreateAccountForm";
-import ViderSignalementForm from "./ViderSignalementForm"
-import CreatePostForm from "./CreatePostForm";
+import TexteForm from "./TexteForm";
 import { getPosts, updateDimensions } from '../actions/appActions'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -24,12 +23,11 @@ class App extends Component {
           <Navbar />
           <Route path="/" component={PostList} />
           <Switch>
-              <Route path="/createpost" component={ CreatePostForm } />
+              <Route path="/texteform" component={ TexteForm } />
               <Route path="/createaccount" component={ CreateAccountForm } />
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />
-              <Route path="/delete/:postId" component={ DeleteForm } />
-              <Route path="/signalement/vider/:postId" component={ ViderSignalementForm } />
+              <Route path="/selectionform/:postId" component={ SelectionForm } />
           </Switch> 
         </div>
       </Router>

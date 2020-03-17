@@ -81,6 +81,21 @@ export const modifierSignaler = (post, idUser, token, signaler, commentaire = fa
         .catch(err => console.log(err))
 }
 
+export const modifierPost = (post, texte, token, commentaire = false) => dispatch => {
+    post.texte = texte
+    let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`
+    axios.patch(url, post, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
+        })
+        .catch(err => console.log(err))
+}
+
 export const updateDimensions = (height, width) => dispatch => {
     dispatch({
         type: UPDATE_DIMENSIONS,

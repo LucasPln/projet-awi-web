@@ -13,6 +13,7 @@ export const cipher = text => {
 export const decipher = encoded => {
     let textToChars = text => text.split('').map(c => c.charCodeAt(0))
     let applySaltToChar = code => textToChars(process.env.REACT_APP_SALT).reduce((a, b) => a ^ b, code)
+
     return encoded.match(/.{1,2}/g)
         .map(hex => parseInt(hex, 16))
         .map(applySaltToChar)

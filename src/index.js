@@ -8,7 +8,7 @@ import './styles/Post.css';
 import './styles/PostList.css';
 import './styles/PostView.css';
 import './styles/Comment.css';
-import './styles/CreatePostForm.css';
+import './styles/TexteForm.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'

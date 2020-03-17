@@ -85,8 +85,8 @@ class Post extends Component{
                         <span className="post-more" ><IoIosMore /></span>
                         <AnimateHeight className="post-menu-rah" height={this.state.menuOpen} easing="cubic-bezier(0.165, 0.84, 0.44, 1)" duration={300}>
                             <div className="post-menu">
-                                <Link to={ `/delete/${ this.props.post._id }` } style={ {textDecoration: "none"} } className="post-btn modifier"  >Modifier&nbsp;<IoIosConstruct /></Link>
-                                <Link to={ `/delete/${ this.props.post._id }` } style={ { textDecoration: "none" } } className="post-btn supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link>
+                                <Link to={{ pathname: '/texteform', state: {type: "modifier", id: this.props.post._id} }} style={ {textDecoration: "none"} } className="post-btn modifier">Modifier&nbsp;<IoIosConstruct /></Link>
+                                <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "supprimer"} }} style={ { textDecoration: "none" } } className="post-btn supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link>
                             </div>
                         </AnimateHeight>
                     </div>
