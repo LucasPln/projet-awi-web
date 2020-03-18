@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <Router>
         <div id="main">
-          <Navbar />
+          <Route path="/" component={Navbar} />
           <Route path="/" component={PostList} />
           <Switch>
               <Route path="/texteform" component={ TexteForm } />

@@ -32,7 +32,7 @@ class LoginForm extends Component {
 
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0 });
-        setTimeout(() => this.props.history.goBack(), 300)
+        setTimeout(() => this.props.history.goBack(), 100)
     }
 
     render() {
