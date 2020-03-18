@@ -58,17 +58,17 @@
     font-size: large;
     position: relative;
     width: 100%;
+    color:white;
     height: 1.5rem;
     border-radius: 2rem;
-    border: 2px solid rgb(93, 93, 187);
     border: none;
     padding: .8rem 1rem;
-    background: rgb(236, 236, 236);
+    background: rgba(93, 93, 187, 0.5);
     margin: 0rem .5rem;
 }
 
 #post-view-input::placeholder {
-    color: rgb(94, 94, 94);
+    color: white;
 }
 
 #post-view-submit {
