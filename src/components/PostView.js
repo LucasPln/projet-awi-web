@@ -49,7 +49,7 @@ class PostView extends Component {
 
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0, commentOpacity: 0 });
-        setTimeout(() => this.setState({...this.state, redirect: true}), 300)
+        setTimeout(() => this.setState({...this.state, redirect: true}), 100)
     }
 
     sendComment = () => {
@@ -85,7 +85,7 @@ class PostView extends Component {
                     {
                         this.props.loggedIn ? 
                             <div id="post-view-write-comment-div" onKeyPress={ e => (e.key === "Enter" ? this.sendComment() : '') }>
-                                <textarea id="post-view-input" placeholder="Écrire un commentaire..." ref="texte" />
+                                <input type="text" id="post-view-input" placeholder="Écrire un commentaire..." ref="texte" />
                                 <span id="post-view-submit" onClick={this.sendComment}><span id="post-view-icon"><IoIosSend /></span></span>
                             </div> 
                             :''

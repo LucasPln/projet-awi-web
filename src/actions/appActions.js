@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW } from './types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_FILTER, UPDATE_SEARCH } from './types'
 import axios from 'axios'
 
 export const getPosts = () => dispatch => {
@@ -200,4 +200,26 @@ export const viderSignalement = (post,token) => dispatch => {
             (error) => {
               console.log(error)
             })
+}
+
+export const toggleFilter = (type, directionDate, directionLike) => dispatch => {
+    dispatch({
+        type: TOGGLE_FILTER,
+        payload: {
+            filter: {
+                type: type,
+                directionDate: directionDate,
+                directionLike: directionLike
+            }
+        }
+    })
+}
+
+export const updateSearch = (searchValue) => dispatch => {
+    dispatch({
+        type: UPDATE_SEARCH,
+        payload: {
+            searchValue: searchValue
+        }
+    })
 }

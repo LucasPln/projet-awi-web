@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW } from '../actions/types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_FILTER, UPDATE_SEARCH } from '../actions/types'
 
 const initialState = {
     posts: [],
@@ -20,7 +20,13 @@ const initialState = {
     },
     height: window.innerHeight,
     width: window.innerWidth,
-    adminView: false
+    adminView: false,
+    filter: {
+        type: 'date',
+        directionDate: true,
+        directionLike: true
+    },
+    searchValue: ''
 }
 
 export default function (state = initialState, action) {
@@ -53,6 +59,20 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 adminView: !state.adminView
+            }
+        case TOGGLE_FILTER:
+            return {
+                ...state,
+                filter: {
+                    type: action.payload.filter.type,
+                    directionDate: action.payload.filter.directionDate,
+                    directionLike: action.payload.filter.directionLike
+                }
+            }
+        case UPDATE_SEARCH:
+            return {
+                ...state,
+                searchValue: action.payload.searchValue
             }
         default: return state;
     }
