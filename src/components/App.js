@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import PostList from './PostList'
 import Navbar from './Navbar'
 import SelectionForm from './SelectionForm'
-import CreateAccountForm from "./CreateAccountForm";
-import TexteForm from "./TexteForm";
+import CreateAccountForm from "./CreateAccountForm"
+import MonProfil from "./MonProfil"
+import TexteForm from "./TexteForm"
 import { getPosts, updateDimensions } from '../actions/appActions'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -28,6 +29,7 @@ class App extends Component {
               <Route path="/login" component={ LoginForm } />
               <Route path="/post/:postId" component={ PostView } />
               <Route path="/selectionform/:postId" component={ SelectionForm } />
+              <Route path="/monprofil" component={ MonProfil } />
           </Switch> 
         </div>
       </Router>

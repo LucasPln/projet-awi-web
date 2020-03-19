@@ -74,13 +74,13 @@ class Navbar extends Component{
                         <AnimateHeight id="nav-rah" height={ this.state.height } easing="cubic-bezier(0.165, 0.84, 0.44, 1)" duration={300}>
                             <div id="nav-menu" >
                                 <span id="nav-menu-spacer"></span>
-                                <span  className="nav-menu-btn">Mon Profil</span>
+                                <Link to="/monprofil" className="nav-menu-btn">Mon Profil</Link>
                                 {this.props.user.isAdmin ? 
                                     this.props.adminView ?
                                         <Link to="/"  className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Accueil</Link> 
                                         : <Link to="/"  className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Admin</Link>
                                     : null }
-                                <span className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout(); if (this.props.adminView)this.props.toggleAdminView() } }>Déconnexion</span>
+                                <Link to='/' className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout(); if (this.props.adminView)this.props.toggleAdminView() } }>Déconnexion</Link>
                             </div>
                         </AnimateHeight>
                     </div>
