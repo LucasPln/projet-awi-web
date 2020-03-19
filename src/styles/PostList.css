@@ -7,6 +7,15 @@
     margin: auto;
 }
 
+#post-list-state-waiting {
+    position: absolute;
+    border-left-color: rgb(93, 93, 187);
+    top:5rem;
+    right: 0;
+    left:0;
+    margin: auto;
+}
+
 #aucun-res {
     position: absolute;
     width: 100%;

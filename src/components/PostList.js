@@ -42,9 +42,11 @@ class PostList extends Component {
     }
 
     render() {
+        let waiting = this.props.waiting ? { opacity: 1 } : { opacity: 0 }
+        
         return (
             <div id="post-list">
-
+                <span className="state-waiting" id="post-list-state-waiting" style={waiting}></span>
                 <div id="post-spacer"></div>
                 { this.props.loggedIn ? <Link to={ { pathname: '/texteform', state: { type: 'create' } } } id="post-write-btn"><IoIosAddCircle /></Link> : '' }
                 <FlipMove duration={500} easing={'ease-in-out'} staggerDelayBy={10} staggerDurationBy={30}>
@@ -60,7 +62,8 @@ const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
     adminView: state.app.adminView,
     filter: state.app.filter,
-    searchValue: state.app.searchValue
+    searchValue: state.app.searchValue,
+    waiting: state.auth.waiting
 })
 
 

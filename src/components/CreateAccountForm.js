@@ -50,7 +50,8 @@ class CreateAccountForm extends Component {
             return <Redirect to="/" />
 
         return (
-            <div id="createaccount" className="createaccount"  style={ style }  onKeyPress={ e => (e.key === "Enter" ? this.sendCreateAccountInfo() : '') }>
+            <div id="createaccount" className="createaccount" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendCreateAccountInfo() : '') }>
+                <span style={ { color: 'red', position: 'absolute', marginTop: '-19.9rem'}}>{ this.props.msg }</span>
                 <h2 id="createaccount-title">Créer votre compte <i>Equal Report</i> !</h2>
                     <span id="createaccount-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
                 <label className="createaccount-label">Choisissez votre pseudo :</label>
@@ -71,7 +72,8 @@ class CreateAccountForm extends Component {
 const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
     height: state.app.height,
-    width: state.app.width
+    width: state.app.width,
+    msg: state.auth.msg
 })
 
 

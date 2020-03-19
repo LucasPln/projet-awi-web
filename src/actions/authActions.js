@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, STATE_WAITING } from './types'
+import { LOGIN, LOGOUT, STATE_WAITING, LOGIN_ERROR } from './types'
 import axios from 'axios'
 import { saveState } from '../localStorage'
 
@@ -24,7 +24,12 @@ export const login = (pseudo, mdp) => dispatch => {
             },
             (error) => {
                 dispatch(stateWaiting(false))
-                console.log(error)
+                dispatch({
+                    type: LOGIN_ERROR,
+                    payload: {
+                        msg: "Pseudo ou mot de passe incorrecte"
+                    }
+                })
             }
     )
 }
@@ -38,12 +43,13 @@ export const stateWaiting = (waiting) => dispatch => {
     })
 }
 
-export const createAccount = (email,pseudo, mdp) => dispatch => {
-
+export const createAccount = (email, pseudo, mdp) => dispatch => {
+    dispatch(stateWaiting(true))
     let body = { email: email, pseudo: pseudo, mdp: mdp }
     axios.post(`${process.env.REACT_APP_URL}/auth/createaccount`, body)
         .then(
             (res) => {
+                dispatch(stateWaiting(false))
                 dispatch({  // envoi l'infos au reduceur
                     type: LOGIN,
                     payload: {
@@ -57,7 +63,13 @@ export const createAccount = (email,pseudo, mdp) => dispatch => {
                 })
             },
             (error) => {
-                console.log(error)
+                dispatch(stateWaiting(false))
+                dispatch({
+                    type: LOGIN_ERROR,
+                    payload: {
+                        msg: "Ce pseudo existe déjà"
+                    }
+                })
             }
         )
 }

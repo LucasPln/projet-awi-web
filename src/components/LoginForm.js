@@ -48,7 +48,8 @@ class LoginForm extends Component {
         return (
             <div id="login" className="login" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendLoginInfo() : '') } >
                 <h2 id="login-title">Connectez-vous à <i>Equal Report</i> !</h2>
-                <span id="login-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
+                <span id="login-close" onClick={ this.handleClose }><IoIosCloseCircle /></span>
+                <span style={ { color: 'red', position: 'absolute', marginTop: '-14rem'}}>{ this.props.msg }</span>
                 <input id="login-pseudo" placeholder="pseudo" ref="pseudo" />
                 <input id="login-mdp" type="password" placeholder="mot de passe" ref="mdp" />
                 <button id="login-submit" onClick={ this.sendLoginInfo }><span style={waitingText}>Log in</span></button>
@@ -63,7 +64,8 @@ const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
     height: state.app.height,
     width: state.app.width,
-    waiting: state.auth.waiting
+    waiting: state.auth.waiting,
+    msg: state.auth.msg
 })
 
 

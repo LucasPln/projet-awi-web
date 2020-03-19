@@ -1,10 +1,13 @@
 import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_FILTER, UPDATE_SEARCH } from './types'
 import axios from 'axios'
+import { stateWaiting } from './authActions'
 
 export const getPosts = () => dispatch => {
+    dispatch(stateWaiting(true))
     axios.get(`${process.env.REACT_APP_URL}/posts`)
         .then(
             (res) => {
+                dispatch(stateWaiting(false))
                 dispatch({
                     type: GET_POSTS,
                     payload: {
@@ -15,6 +18,7 @@ export const getPosts = () => dispatch => {
             },
             (error) => {
                 console.log(error)
+                dispatch(stateWaiting(false))
             }
         )
 }
