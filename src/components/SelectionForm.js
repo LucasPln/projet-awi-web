@@ -23,9 +23,9 @@ class SelectionForm extends Component {
     handleClose = (deleted = false) => {
         this.setState({ ...this.state, opacity: 0 });
         if (deleted)
-            setTimeout(() => this.setState({...this.state, redirect: true}), 100)
+            setTimeout(() => this.setState({...this.state, redirect: true}), 200)
         else
-            setTimeout(() => this.props.history.goBack(), 100)
+            setTimeout(() => this.props.history.goBack(), 200)
     }
 
     handleClick = () => {

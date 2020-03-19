@@ -44,12 +44,12 @@ class PostView extends Component {
 
     componentDidMount = () => {
         setTimeout(() => this.setState({ ...this.state, opacity: 1 }), 1)
-        setTimeout(() => this.refs.list.scrollTop = 0, 20)
+        setTimeout(() => this.refs.list.scrollTop = 0, 1)
     }
 
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0, commentOpacity: 0 });
-        setTimeout(() => this.setState({...this.state, redirect: true}), 100)
+        setTimeout(() => this.setState({ ...this.state, redirect: true }), 200)
     }
 
     sendComment = () => {

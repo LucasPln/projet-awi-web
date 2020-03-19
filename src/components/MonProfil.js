@@ -32,15 +32,9 @@ class MonProfil extends Component {
         }), 1)
     }
 
-    // componentDidUpdate = () => {
-    //     if (this.state.modif) {
-    //         this.handleModif();
-    //     }
-    // }
-
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0 });
-        setTimeout(() => this.setState({...this.state, redirect: true}), 100)
+        setTimeout(() => this.setState({...this.state, redirect: true}), 200)
     }
 
     handleModif = () => {

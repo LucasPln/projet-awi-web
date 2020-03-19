@@ -35,7 +35,7 @@ class CreateAccountForm extends Component {
 
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0 });
-        setTimeout(() => this.setState({...this.state, redirect: true}), 100)
+        setTimeout(() => this.setState({...this.state, redirect: true}), 200)
     }
 
     render() {
