@@ -1,6 +1,6 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_FILTER, UPDATE_SEARCH } from './types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_FILTER, UPDATE_SEARCH, SET_USER } from './types'
 import axios from 'axios'
-import { stateWaiting } from './authActions'
+import { stateWaiting, login, loginError } from './authActions'
 
 export const getPosts = () => dispatch => {
     dispatch(stateWaiting(true))
@@ -98,6 +98,52 @@ export const modifierPost = (post, texte, token, commentaire = false) => dispatc
             commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
         })
         .catch(err => console.log(err))
+}
+
+export const modifierUser = (userId, pseudo, token, params) => dispatch => {
+    if (params.mdp) {
+        axios.post(`${ process.env.REACT_APP_URL }/auth/login`, { pseudo: pseudo, mdp: params.mdp })
+            .then(res => {
+                params.mdp = params.newMdp
+                delete params.newMdp
+                axios.patch(`${ process.env.REACT_APP_URL }/utilisateurs/${ userId }`, params, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${token}`
+                    }
+                })
+                    .then(res => {
+                        dispatch(login(params.pseudo ? params.pseudo : pseudo, params.mdp))
+                        dispatch(getPosts())
+                    })
+                    .catch(err => dispatch(loginError("Erreur de modification")))
+            })
+            .catch(err => dispatch(loginError("Mot de passe incorrecte")))
+    }
+    else axios.patch(`${process.env.REACT_APP_URL}/utilisateurs/${userId}`, params, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            axios.get(`${process.env.REACT_APP_URL}/utilisateurs/${userId}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${token}`
+                    }
+            })
+                .then(res => {
+                    dispatch({
+                        type: SET_USER,
+                        payload: {
+                            user: res.data[0]
+                        }
+                    })
+                    dispatch(getPosts())
+                })
+        })
+        .catch(err => dispatch(loginError("Erreur de modification")))
 }
 
 export const updateDimensions = (height, width) => dispatch => {
