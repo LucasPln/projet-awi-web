@@ -1,0 +1,223 @@
+#mon-profil {
+    position: absolute;
+    bottom: 0px;
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    backdrop-filter: blur(10px);
+    transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 107;
+    background: rgba(255, 255, 255, .3);
+    z-index: 108;
+}
+
+#mon-profil-close {
+    position: absolute;
+    top: 18px;
+    right: 30px;
+    font-size: 2rem;
+    color: rgb(93, 93, 187);
+    cursor: pointer;
+    z-index: 108;
+}
+
+#mon-profil-div {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#mon-profil-pseudo-div {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+    /* background: rgba(255, 255, 255, 0.8); */
+    border-radius: 1rem;
+}
+
+#mon-profil-photo {
+    width: 10rem;
+    height: 9rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin: 2rem;
+}
+
+#mon-profil-pseudo-info-div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem 0rem;
+    height: 9rem;
+    width: auto;
+}
+
+#mon-profil-pseudo {
+    font-size: 3.5rem;
+    font-weight: bold;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+}
+
+#mon-profil-email {
+    font-size: 1.5rem;
+    position: relative;
+    border: none;
+}
+
+#mon-profil-admin-badge {
+    position: relative;
+    font-size: large;
+    font-weight: bold;
+    border-radius: 5rem;
+    border: none;
+    padding: .3rem .6rem;
+    color: white;
+    background: rgb(109, 187, 93);
+}
+
+#mon-profil-changer-div {
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+#mon-profil-changer-mdp {
+    cursor: pointer;
+    font-weight: bold;
+    color: rgb(93, 93, 187);
+    z-index: 110;
+    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1), opacity .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding: .3rem .6rem;
+    border-radius: 5rem;
+}
+
+#mon-profil-changer-mdp:hover {
+    cursor: pointer;
+    font-weight: bold;
+    background: rgb(93, 93, 187);
+    color: rgb(255, 255, 255);
+}
+
+#mon-profil-error {
+    color: red;
+    position: absolute;
+    bottom: -2.5rem;
+    transition: opacity .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#mon-profil-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.mon-profil-modif-label {
+    width: 95%;
+    padding: .5rem;
+    font-weight: bold;
+    color: rgb(93, 93, 187);
+}
+
+#mon-profil-modif-pseudo {
+    font-size: large;
+    font-weight: normal;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+    border: 2px solid rgb(93, 93, 187);
+    padding: .6rem;
+    margin-bottom: 1rem;
+}
+
+#mon-profil-modif-email {
+    font-size: large;
+    font-weight: normal;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+    border: 2px solid rgb(93, 93, 187);
+    padding: .6rem;
+    margin-bottom: 1rem;
+}
+
+#mon-profil-modif-mdp {
+    font-size: large;
+    font-weight: normal;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+    border: 2px solid rgb(93, 93, 187);
+    padding: .6rem;
+    margin-bottom: 1rem;
+}
+
+#mon-profil-modif-new-mdp {
+    font-size: large;
+    font-weight: normal;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+    border: 2px solid rgb(93, 93, 187);
+    padding: .6rem;
+    margin-bottom: 1rem;
+}
+
+#mon-profil-modif-new-mdp-conf {
+    font-size: large;
+    font-weight: normal;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+    border: 2px solid rgb(93, 93, 187);
+    padding: .6rem;
+    margin-bottom: 1rem;
+}
+
+#mon-profil-mes-posts-div {
+    position: relative;
+    width: 50%;
+    height: 100%;
+}
+
+#mon-profil-mes-posts-titre {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2rem 0rem;
+    z-index: 105;
+}
+
+#mon-profil-post-liste {
+    position: relative;
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+    z-index: 104;
+}
+
+#mon-profil-spacer {
+    position: relative;
+    height: 5rem !important;
+}

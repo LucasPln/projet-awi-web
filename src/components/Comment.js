@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../globals'
 import egg from '../globals/egg.jpg'
-import { IoIosThumbsUp } from 'react-icons/io'
+import { IoIosThumbsUp, IoIosWarning, IoIosTrash } from 'react-icons/io'
 import { modifierLike, modifierSignaler } from '../actions/appActions'
+import { Link } from 'react-router-dom'
 
 class Comment extends Component {
     constructor(props) {
@@ -12,15 +13,8 @@ class Comment extends Component {
         this.state = {
             liked: this.props.comment.reactions.includes(this.props.user._id),
             signaler: this.props.comment.signaler.includes(this.props.user._id),
-            opacity: 0
-        }
-    }
-
-    componentDidMount = () => {
-        setTimeout(() => this.setState({
-            ...this.state,
             opacity: 1
-        }), 200)
+        }
     }
 
     componentDidUpdate = () => {
@@ -52,11 +46,29 @@ class Comment extends Component {
         this.props.modifierSignaler(this.props.comment, this.props.user._id, this.props.token, this.state.signaler, true);
     }
 
+    displayBadge = (style) => {
+        if (this.props.adminView) {
+            return (
+                <div className={`comment-num-signal-div`} style={this.props.comment.signaler.length === 0 ? { display: "none" } : {}}>
+                    <span className="comment-num-signal-icon"><IoIosWarning /></span>
+                    <span className="comment-num-signal">{ this.props.comment.signaler.length }</span>
+                </div>
+            )
+        } else {
+            return (
+                <div className={`comment-num-likes-div ${style}`} style={this.props.comment.reactions.length === 0 ? { display: "none" } : {}}>
+                    <span className="comment-num-likes-icon"><IoIosThumbsUp /></span>
+                    <span className="comment-num-likes">{ this.props.comment.reactions.length }</span>
+                </div>
+            )
+        }
+    }
+
     render() {
-        let style = this.props.comment.createur._id === this.props.user._id ? "own-comment" : ""
-        let likeIcon = this.props.comment.reactions.length === 0 ? { display: "none" } : {}
+        let style = this.props.comment.createur._id === this.props.user._id && !this.props.adminView ? "own-comment" : ""
         let likeState = this.state.liked ? { fontWeight: "850" } : {}
         let signalerState = this.state.signaler ? { fontWeight: "850" } : {}
+
         return (
             <div className={ `comment-entity ${style}` } key={this.props.comment._id} style={{opacity: this.state.opacity}}>
                 <div className={ `comment-div ${ style }` } >
@@ -66,15 +78,18 @@ class Comment extends Component {
                         <span className="comment-date">{ formatDate(this.props.comment.dateCreation) }</span>
                     </div>
                     <span className="comment-texte">{ this.props.comment.texte }</span>
-                    <div className={`comment-num-likes-div ${style}`} style={likeIcon}>
-                        <span className="comment-num-likes-icon"><IoIosThumbsUp /></span>
-                        <span className="comment-num-likes">{ this.props.comment.reactions.length }</span>
-                    </div>
+                    { this.displayBadge(style)}
                 </div>
                 { this.props.loggedIn && style === "" ? 
+                    this.props.adminView ?
+                        <div className="comment-btn-div">
+                            <Link to={{ pathname: `/selectionform/${ this.props.comment._id }`, state: {type: "vider", comment: true, data: this.props.comment} }} style={ {textDecoration: "none"} } className="comment-btn-admin signaler"  onClick={e => e.stopPropagation()}>Vider&nbsp;<span className="react-icon" style={{position:'absolute'}}><IoIosWarning /></span></Link>
+                            <Link to={{ pathname: `/selectionform/${ this.props.comment._id }`, state: {type: "supprimer", comment: true, data: this.props.comment} } } style={ {textDecoration: "none"} } className="comment-btn-admin supprimer"  onClick={e => e.stopPropagation()}>Supprimer&nbsp;<span className="react-icon" style={{position:'absolute'}}><IoIosTrash /></span></Link> 
+                        </div>
+                    :
                     <div className="comment-btn-div">
-                        <span className="comment-like" style={ likeState } onClick={() => this.handleLike()}>Like</span>
-                        <span className="comment-signaler" style={ signalerState } onClick={() => this.handleSignaler()}>Signaler</span>
+                        <span className="comment-btn like" style={ likeState } onClick={() => this.handleLike()}>Like&nbsp;<span className="react-icon" style={{position: 'absolute'}}><IoIosThumbsUp /></span></span>
+                        <span className="comment-btn signaler" style={ signalerState } onClick={() => this.handleSignaler()}>Signaler&nbsp;<span className="react-icon" style={{position: 'absolute'}}><IoIosWarning /></span></span>
                     </div> 
                     :""
                 }
@@ -86,7 +101,8 @@ class Comment extends Component {
 const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
     user: state.auth.user,
-    token: state.auth.token
+    token: state.auth.token,
+    adminView: state.app.adminView
 })
 
 export default connect(mapStateToProps, {modifierLike, modifierSignaler})(Comment);

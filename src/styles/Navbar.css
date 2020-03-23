@@ -8,7 +8,13 @@
     align-items: center;
     backdrop-filter: blur(10px);
     box-shadow: 0px 1px 10px rgb(235, 235, 235);
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.6);
+    transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#navbar.admin {
+    background: rgba(93, 93, 187, 0.6);
+    transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 #nav-logo {}
@@ -58,8 +64,8 @@
 #nav-pseudo-photo {
     position: relative;
     border-radius: 100%;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.5rem!important;
+    height: 2.5rem!important;
     object-fit: cover;
     margin-left: 1rem;
     z-index: 99;
@@ -83,6 +89,7 @@
     flex-direction: column;
     width: 100%;
     height: auto;
+    user-select: none;
 }
 
 #nav-menu-spacer {
@@ -93,6 +100,7 @@
 .nav-menu-btn {
     padding: 1rem .5rem;
     color: white;
+    text-decoration: none;
     transition: color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -188,11 +196,6 @@
 
 .nav-filter-btn.date {
     border-radius: 1rem 0rem 0rem 1rem;
-    border-right: none;
-}
-
-.nav-filter-btn.like {
-    border-left: none;
     border-right: none;
 }
 

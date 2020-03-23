@@ -26,6 +26,11 @@ const initialState = {
         directionDate: true,
         directionLike: true
     },
+    commentFilter: {
+        type: 'date',
+        directionDate: true,
+        directionLike: true
+    },
     searchValue: ''
 }
 
@@ -61,14 +66,23 @@ export default function (state = initialState, action) {
                 adminView: !state.adminView
             }
         case TOGGLE_FILTER:
-            return {
-                ...state,
-                filter: {
-                    type: action.payload.filter.type,
-                    directionDate: action.payload.filter.directionDate,
-                    directionLike: action.payload.filter.directionLike
+            if (action.payload.comment)
+                return {
+                    ...state,
+                    commentFilter: {
+                        type: action.payload.filter.type,
+                        directionDate: action.payload.filter.directionDate,
+                        directionLike: action.payload.filter.directionLike
+                    }
                 }
-            }
+            return {
+                    ...state,
+                    filter: {
+                        type: action.payload.filter.type,
+                        directionDate: action.payload.filter.directionDate,
+                        directionLike: action.payload.filter.directionLike
+                    }
+                }
         case UPDATE_SEARCH:
             return {
                 ...state,

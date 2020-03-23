@@ -24,14 +24,18 @@ export const login = (pseudo, mdp) => dispatch => {
             },
             (error) => {
                 dispatch(stateWaiting(false))
-                dispatch({
-                    type: LOGIN_ERROR,
-                    payload: {
-                        msg: "Pseudo ou mot de passe incorrecte"
-                    }
-                })
+                dispatch(loginError("Pseudo ou mot de passe incorrecte"))
             }
     )
+}
+
+export const loginError = (msg) => dispatch => {
+    dispatch({
+        type: LOGIN_ERROR,
+        payload: {
+            msg: msg
+        }
+    })
 }
 
 export const stateWaiting = (waiting) => dispatch => {
@@ -64,12 +68,7 @@ export const createAccount = (email, pseudo, mdp) => dispatch => {
             },
             (error) => {
                 dispatch(stateWaiting(false))
-                dispatch({
-                    type: LOGIN_ERROR,
-                    payload: {
-                        msg: "Ce pseudo existe déjà"
-                    }
-                })
+                dispatch(loginError("Ce pseudo existe déjà"))
             }
         )
 }

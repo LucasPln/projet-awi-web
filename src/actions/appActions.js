@@ -1,6 +1,6 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_FILTER, UPDATE_SEARCH } from './types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_FILTER, UPDATE_SEARCH, SET_USER } from './types'
 import axios from 'axios'
-import { stateWaiting } from './authActions'
+import { stateWaiting, login, loginError } from './authActions'
 
 export const getPosts = () => dispatch => {
     dispatch(stateWaiting(true))
@@ -100,6 +100,52 @@ export const modifierPost = (post, texte, token, commentaire = false) => dispatc
         .catch(err => console.log(err))
 }
 
+export const modifierUser = (userId, pseudo, token, params) => dispatch => {
+    if (params.mdp) {
+        axios.post(`${ process.env.REACT_APP_URL }/auth/login`, { pseudo: pseudo, mdp: params.mdp })
+            .then(res => {
+                params.mdp = params.newMdp
+                delete params.newMdp
+                axios.patch(`${ process.env.REACT_APP_URL }/utilisateurs/${ userId }`, params, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${token}`
+                    }
+                })
+                    .then(res => {
+                        dispatch(login(params.pseudo ? params.pseudo : pseudo, params.mdp))
+                        dispatch(getPosts())
+                    })
+                    .catch(err => dispatch(loginError("Erreur de modification")))
+            })
+            .catch(err => dispatch(loginError("Mot de passe incorrecte")))
+    }
+    else axios.patch(`${process.env.REACT_APP_URL}/utilisateurs/${userId}`, params, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            axios.get(`${process.env.REACT_APP_URL}/utilisateurs/${userId}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${token}`
+                    }
+            })
+                .then(res => {
+                    dispatch({
+                        type: SET_USER,
+                        payload: {
+                            user: res.data[0]
+                        }
+                    })
+                    dispatch(getPosts())
+                })
+        })
+        .catch(err => dispatch(loginError("Erreur de modification")))
+}
+
 export const updateDimensions = (height, width) => dispatch => {
     dispatch({
         type: UPDATE_DIMENSIONS,
@@ -149,8 +195,9 @@ export const toggleAdminView = () => dispatch => {
     })
 }
 
-export const supprimerPost = (postId, token) => dispatch => {
-    axios.delete(`${ process.env.REACT_APP_URL }/posts/${ postId }`, {
+export const supprimerPost = (post, token, commentaire = false) => dispatch => {
+    let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`
+    axios.delete(url, {
         headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${ token }`
@@ -159,7 +206,7 @@ export const supprimerPost = (postId, token) => dispatch => {
         .then(
             (res) => {
                 console.log(res)
-                dispatch(getPosts())
+                commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
                 
             },
             (error) => {
@@ -187,9 +234,10 @@ export const createPost = (createur, texte, token) => dispatch => {
         )
 }
 
-export const viderSignalement = (post,token) => dispatch => {
+export const viderSignalement = (post, token, commentaire = false) => dispatch => {
     post.signaler = []
-    axios.patch(`${ process.env.REACT_APP_URL }/posts/${ post._id }`, post, {
+    let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`
+    axios.patch(url, post, {
         headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${ token }`
@@ -198,7 +246,7 @@ export const viderSignalement = (post,token) => dispatch => {
         .then(
             (res) => {
                 console.log(res)
-                dispatch(getPosts())
+                commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
                 
             },
             (error) => {
@@ -206,10 +254,11 @@ export const viderSignalement = (post,token) => dispatch => {
             })
 }
 
-export const toggleFilter = (type, directionDate, directionLike) => dispatch => {
+export const toggleFilter = (type, directionDate, directionLike, comment = false) => dispatch => {
     dispatch({
         type: TOGGLE_FILTER,
         payload: {
+            comment: comment,
             filter: {
                 type: type,
                 directionDate: directionDate,

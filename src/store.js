@@ -20,14 +20,22 @@ store.subscribe(() => {
             auth: auth
         }); 
     }
-    else if (store.getState().auth.token === "" && persistedState !== undefined) {
+    else if (persistedState !== undefined) {
         auth = JSON.parse(decipher(persistedState.auth))
-        store.dispatch({
-            type: SET_AUTH,
-            payload: {
+        if (store.getState().auth.token === "") 
+            store.dispatch({
+                type: SET_AUTH,
+                payload: {
+                    auth: auth
+                }
+            })
+        else if (store.getState().auth.user.pseudo !== auth.user.pseudo || store.getState().auth.email !== auth.user.email || store.getState().auth.token !== auth.token) {
+            auth = store.getState().auth;
+            auth = cipher(JSON.stringify(auth));
+            saveState({
                 auth: auth
-            }
-        })
+            })
+        }
     }
     
 });
