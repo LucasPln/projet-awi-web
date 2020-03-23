@@ -1,7 +1,6 @@
 .post-admin {
     position: relative;
     box-shadow: 0px 3px 15px rgb(216, 216, 216);
-    padding: .1rem 0rem .1rem 0rem;
     margin: 2rem auto;
     width: 50%;
     max-width: 45rem;
@@ -9,11 +8,42 @@
     border-radius: .4rem;
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .3s cubic-bezier(0.165, 0.84, 0.44, 1);
     overflow-wrap: break-word;
+    cursor: pointer;
 }
 
 .post-admin:hover {
     background: rgb(246, 246, 253);
     box-shadow: 0px 5px 15px 1px rgb(197, 197, 221);
+}
+
+.post-admin.view {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    max-width: 55rem;
+    margin-bottom: 0rem;
+    margin-top: 1.5rem;
+    cursor: auto;
+    border-radius: .4rem;
+    background: rgba(255, 255, 255, .8);
+    z-index: 100;
+}
+
+.post-admin.view::after {
+    backdrop-filter: blur(10px);
+    content: '';
+    position: absolute;
+    border-radius: .4rem;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.post-admin.view:hover {
+    background: rgba(255, 255, 255, .8);
+    box-shadow: 0px 3px 15px rgb(216, 216, 216);
 }
 
 .post-more-admin {
@@ -72,7 +102,6 @@
     align-content: space-between;
     display: flex;
     height: 1.5rem;
-    margin-bottom: .3rem;
     z-index: 10;
 }
 
@@ -143,7 +172,6 @@
 .post-btn-div-admin {
     padding-right: .5rem;
     padding-left: .5rem;
-    width: 100%;
     align-content: space-between;
     display: flex;
 }
@@ -155,7 +183,7 @@
     font-weight: bold;
     font-size: medium;
     color: rgb(93, 93, 187);
-    padding: .3rem .5rem;
+    padding: .3rem .5rem .2rem .5rem;
     border-radius: .2rem;
     margin: .5rem;
     cursor: pointer;
@@ -165,6 +193,42 @@
 .post-btn-admin.supprimer {
     position: relative;
     color: red;
-    margin-left: auto;
-    margin-right: 1.5rem;
+}
+
+.post-filter-btn-div {
+    position: relative;
+    right: 0;
+    left: 0;
+    margin: auto;
+    user-select: none;
+}
+
+.post-filter-btn {
+    position: relative;
+    font-size: large;
+    font-weight: bold;
+    display: inline-block;
+    color: rgb(93, 93, 187);
+    background: none;
+    border: 3px solid rgb(93, 93, 187);
+    padding: .2rem .6rem 0rem .6rem;
+    cursor: pointer;
+    opacity: 1;
+    transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.post-filter-btn.selected {
+    background: rgb(93, 93, 187);
+    color: white;
+    border: 3px solid rgb(93, 93, 187);
+}
+
+.post-filter-btn.date {
+    border-radius: 1rem 0rem 0rem 1rem;
+    border-right: none;
+}
+
+.post-filter-btn.signal {
+    border-radius: 0rem 1rem 1rem 0rem;
+    border-left: none;
 }
