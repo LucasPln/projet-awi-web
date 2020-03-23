@@ -15,15 +15,13 @@ class SelectionForm extends Component {
     }
 
     componentDidMount = () => {
-        let id = this.props.location.pathname.split("/")[2]
-        this.props.getPostById(id)
         setTimeout(() => this.setState({...this.state, opacity: 1}), 1)
     }
 
     handleClose = (deleted = false) => {
         this.setState({ ...this.state, opacity: 0 });
         if (deleted)
-            setTimeout(() => this.setState({...this.state, redirect: true}), 200)
+            setTimeout(() => { if (!this.state.redirect) this.setState({ ...this.state, redirect: true }) }, 200)
         else
             setTimeout(() => this.props.history.goBack(), 200)
     }
@@ -36,13 +34,12 @@ class SelectionForm extends Component {
     }
 
     supprimerPost = () => {
-        let id = this.props.location.pathname.split("/")[2]
-        this.props.supprimerPost(id, this.props.token)
-        this.handleClose(true)
+        this.props.supprimerPost(this.props.location.state.data, this.props.token, this.props.location.state.comment)
+        this.handleClose(!this.props.location.state.comment)
     }
 
     viderSignalement = () => {
-        this.props.viderSignalement(this.props.activePost, this.props.token)
+        this.props.viderSignalement(this.props.location.state.data, this.props.token, this.props.location.state.comment)
         this.handleClose()
     }
 
@@ -58,10 +55,7 @@ class SelectionForm extends Component {
 
         return (
             <div id="login" className="login" style={ style } >
-                <h2 id="login-title">{
-                    this.props.location.state.type === "supprimer"
-                        ? "Voulez vous vraiment supprimer ce Post ?"
-                        : "Voulez vous vraiment vider les signalements de ce Post ?" }
+                <h2 id="login-title">{`Voulez vous vraiment ${this.props.location.state.type === "supprimer" ? "supprimer" : "vider les signalements de" } ce ${this.props.location.state.comment ? 'commentaire' : 'post'} ?`}
                 </h2>
                 <button id="login-submit" onClick={() => this.handleClick()} style={{marginBottom: ".5rem"}}>Oui</button>
                 <button id="login-submit" onClick={() => this.handleClose(false)}>Non</button>

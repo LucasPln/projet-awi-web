@@ -34,7 +34,7 @@ class MonProfil extends Component {
 
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0 });
-        setTimeout(() => this.setState({...this.state, redirect: true}), 200)
+        setTimeout(() => { if (!this.state.redirect) this.setState({ ...this.state, redirect: true }) }, 200)
     }
 
     handleModif = () => {
@@ -124,17 +124,17 @@ class MonProfil extends Component {
                     </div>
                     <div id="mon-profil-changer-div">
                         <span id="mon-profil-changer-mdp" style={ modifSpan } onClick={() => this.handleModif()}>Modifier mes informations...</span>
-                        <div style={modif} id="mon-profil-form" onChange={() => this.onChange()}>
+                        <div style={modif} id="mon-profil-form" >
                             <span className="mon-profil-modif-label">Pseudo :</span>
-                            <input id="mon-profil-modif-pseudo" placeholder="Pseudo" ref="pseudo" value={this.state.pseudo} />
+                            <input id="mon-profil-modif-pseudo" placeholder="Pseudo" ref="pseudo" value={this.state.pseudo} onChange={() => this.onChange()} />
                             <span className="mon-profil-modif-label">Email :</span>
-                            <input id="mon-profil-modif-email" placeholder="Email" ref="email" value={this.state.email} />
+                            <input id="mon-profil-modif-email" placeholder="Email" ref="email" value={this.state.email} onChange={() => this.onChange()} />
                             <span className="mon-profil-modif-label">Mot de passe :</span>
-                            <input id="mon-profil-modif-mdp" type="password" placeholder="Mot de passe" ref="mdp" value={this.state.mdp} />
+                            <input id="mon-profil-modif-mdp" type="password" placeholder="Mot de passe" ref="mdp" value={this.state.mdp} onChange={() => this.onChange()} />
                             <span className="mon-profil-modif-label">Nouveau mot de passe :</span>
-                            <input id="mon-profil-modif-new-mdp" type="password" placeholder="Nouveau mot de passe" ref="newMdp" value={this.state.newMdp} />
+                            <input id="mon-profil-modif-new-mdp" type="password" placeholder="Nouveau mot de passe" ref="newMdp" value={this.state.newMdp} onChange={() => this.onChange()} />
                             <span className="mon-profil-modif-label">Confirmation du nouveau mot de passe:</span>
-                            <input id="mon-profil-modif-new-mdp-conf" type="password" placeholder="Confirmation" ref="newMdpConf" value={this.state.newMdpConf} />
+                            <input id="mon-profil-modif-new-mdp-conf" type="password" placeholder="Confirmation" ref="newMdpConf" value={this.state.newMdpConf} onChange={() => this.onChange()} />
                             <button id="login-submit" onClick={ this.sendModifInfo }>Modifier</button>
                             <span id="mon-profil-error" style={ error }>{ this.state.msg }</span>
                         </div>

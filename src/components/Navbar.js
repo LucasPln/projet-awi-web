@@ -51,8 +51,10 @@ class Navbar extends Component{
         let closeStyle = this.props.searchValue === '' ? { opacity: 0, zIndex: 0 } : { opacity: 1, zIndex: 100 }
         let filterDivStyle = this.props.location.pathname === '/' ? { opacity: 1 } : { opacity: 0 }
 
+        let admin = this.props.adminView ? 'admin' : ''
+
         return (
-            <div id="navbar" >
+            <div id='navbar' className={admin} >
                 <h1 id="nav-title">Equal Report</h1>
                 <div id="nav-search-filter-div" style={filterDivStyle}>
                     <input id="nav-search-bar" type="text" placeholder="Rechercher..." ref="search" value={this.props.searchValue } onChange={() => this.handleSearch()}></input>
@@ -77,8 +79,8 @@ class Navbar extends Component{
                                 <Link to="/monprofil" className="nav-menu-btn">Mon Profil</Link>
                                 {this.props.user.isAdmin ? 
                                     this.props.adminView ?
-                                        <Link to="/"  className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Accueil</Link> 
-                                        : <Link to="/"  className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Admin</Link>
+                                        <span to="/"  className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Accueil</span> 
+                                        : <span to="/"  className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Admin</span>
                                     : null }
                                 <Link to='/' className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout(); if (this.props.adminView)this.props.toggleAdminView() } }>Déconnexion</Link>
                             </div>

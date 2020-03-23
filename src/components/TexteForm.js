@@ -61,7 +61,7 @@ class TexteForm extends Component {
     handleClose = () => {
         this.setState({ ...this.state, opacity: 0 });
         if (this.props.location.state.type === 'create')
-            setTimeout(() => this.setState({...this.state, redirect: true}), 200)
+            setTimeout(() => { if (!this.state.redirect) this.setState({ ...this.state, redirect: true }) }, 200)
         else
             setTimeout(() => this.props.history.goBack(), 200)
     }
