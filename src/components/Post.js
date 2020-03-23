@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { modifierLike, modifierSignaler, getPostById } from '../actions/appActions'
-import { IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash, IoIosConstruct } from 'react-icons/io'
+import { modifierLike, modifierSignaler, getPostById, toggleFilter } from '../actions/appActions'
+import { IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash, IoIosConstruct, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Redirect, Link } from 'react-router-dom'
 import { formatDate } from '../globals'
@@ -31,6 +31,7 @@ class Post extends Component{
                 signaler: !this.state.signaler
             })
         }
+        if (this.state.redirect) this.setState({ ...this.state, redirect: false })
     }
 
     handleLike = (e) => {
@@ -58,6 +59,19 @@ class Post extends Component{
         })
     }
 
+    showDirection = (type) => {
+        if (type === 'date')
+            return this.props.commentFilter.directionDate ? <IoIosArrowRoundUp /> : <IoIosArrowRoundDown />
+        else
+            return this.props.commentFilter.directionLike ? <IoIosArrowRoundUp /> : <IoIosArrowRoundDown />
+    }
+
+    toggleFilter = (type) => {
+        let directionDate = this.props.commentFilter.type === type && type === 'date' ? !this.props.commentFilter.directionDate : this.props.commentFilter.directionDate
+        let directionLike = this.props.commentFilter.type === type && type === 'like' ? !this.props.commentFilter.directionLike : this.props.commentFilter.directionLike
+        this.props.toggleFilter(type, directionDate, directionLike, true)
+    }
+
     toggleMenu = (type) => {
         this.setState({
             ...this.state,
@@ -69,15 +83,14 @@ class Post extends Component{
         let likeStyle = this.state.liked ? { background: "rgb(93, 93, 187)", color: "white" } : {};
         let signalStyle = this.state.signaler ? { background: "red", color: "white" } : {};
         let postView = this.props.postView ? "view" : "";
-        
-        if (this.state.redirect) {
-            this.props.getPostById(null, false, this.props.post)
-            this.setState({ ...this.state, redirect: false })
-            return <Redirect to={ `/post/${ this.props.post._id }` } />
-        }
+        let filterDivStyle = this.props.postView ? { opacity: 1 } : { opacity: 0 }
+
+        if (this.state.redirect) 
+            return <Redirect to={`/post/${ this.props.post._id }`} />
         
         return (
-            <div className={ `post ${postView}` } id={`post/${this.props.post._id}`} onClick={() => !this.props.postView ? this.handleRedirect() : ''}>
+            <div className={ `post ${ postView }` } id={ this.props.postView ? '' : `post/${ this.props.post._id }` } onClick={ () => {
+                this.props.getPostById(null, false, this.props.post); if(!this.props.postView) this.handleRedirect() }}>
                 { this.props.user._id === this.props.post.createur._id
                     ?
                     <div className="post-menu-div" onClick={ e => { e.stopPropagation() } } onMouseEnter={ () => this.toggleMenu('enter') }
@@ -85,8 +98,8 @@ class Post extends Component{
                         <span className="post-more" ><IoIosMore /></span>
                         <AnimateHeight className="post-menu-rah" height={this.state.menuOpen} easing="cubic-bezier(0.165, 0.84, 0.44, 1)" duration={300}>
                             <div className="post-menu">
-                                <Link to={{ pathname: '/texteform', state: {type: "modifier", id: this.props.post._id} }} style={ {textDecoration: "none"} } className="post-btn modifier">Modifier&nbsp;<IoIosConstruct /></Link>
-                                <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "supprimer"} }} style={ { textDecoration: "none" } } className="post-btn supprimer"  >Supprimer&nbsp;<IoIosTrash /></Link>
+                                <Link to={{ pathname: '/texteform', state: {type: "modifier", id: this.props.post._id} }} style={ {textDecoration: "none"} } className="post-btn modifier">Modifier&nbsp;<span className="react-icon"><IoIosConstruct /></span></Link>
+                                <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "supprimer"} }} style={ { textDecoration: "none" } } className="post-btn supprimer" >Supprimer&nbsp;<span className="react-icon"><IoIosTrash /></span></Link>
                             </div>
                         </AnimateHeight>
                     </div>
@@ -103,14 +116,15 @@ class Post extends Component{
                     <span className={`post-info like ${postView}` }>{ this.props.post.reactions.length }</span>
                     <span className={`post-info-badge comment ${postView}` }><span className={`post-icon comment ${postView}` }><IoIosText /></span></span>
                     <span className={`post-info comment ${postView}` }>{ this.props.post.numCommentaires }</span>
-
-                    {/* <span className={`post-info-tag ${postView}` }>tag1</span>
-                    <span className={`post-info-tag ${postView}` }>tag2</span> */}
                 </div>
                 {this.props.loggedIn ? 
                 <div className={`post-btn-div ${postView}` }>
-                    <span className={`post-btn like ${postView}` } style={ likeStyle } onClick={e => this.handleLike(e)}>Like &nbsp;<IoIosThumbsUp /></span>
-                    <span className={`post-btn signaler ${postView}` } style={signalStyle} onClick={e => this.handleSignaler(e)}>Signaler&nbsp;<IoIosWarning /></span> 
+                    <span className={ `post-btn like ${ postView }` } style={ likeStyle } onClick={ e => this.handleLike(e) }>Like &nbsp;<span className="react-icon"><IoIosThumbsUp /></span></span>
+                    <div className="post-filter-btn-div" style={ filterDivStyle }>
+                        <span className={ `post-filter-btn date ${ this.props.commentFilter.type === 'date' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('date')} ><IoIosCalendar /> { this.showDirection('date') }</span>
+                        <span className={ `post-filter-btn signal ${ this.props.commentFilter.type === 'like' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('like') } >{<IoIosThumbsUp />}{ this.showDirection('like') }</span>
+                    </div>
+                    <span className={`post-btn signaler ${postView}` } style={signalStyle} onClick={e => this.handleSignaler(e)}>Signaler&nbsp;<span className="react-icon"><IoIosWarning /></span></span> 
                 </div> 
                 : ""}
                 </div>
@@ -121,8 +135,9 @@ class Post extends Component{
 const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
     user: state.auth.user,
-    token: state.auth.token
+    token: state.auth.token,
+    commentFilter: state.app.commentFilter
 })
 
 
-export default connect(mapStateToProps, { modifierLike, modifierSignaler, getPostById })(Post)
+export default connect(mapStateToProps, { modifierLike, modifierSignaler, getPostById, toggleFilter })(Post)

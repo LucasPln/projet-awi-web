@@ -195,8 +195,9 @@ export const toggleAdminView = () => dispatch => {
     })
 }
 
-export const supprimerPost = (postId, token) => dispatch => {
-    axios.delete(`${ process.env.REACT_APP_URL }/posts/${ postId }`, {
+export const supprimerPost = (post, token, commentaire = false) => dispatch => {
+    let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`
+    axios.delete(url, {
         headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${ token }`
@@ -205,7 +206,7 @@ export const supprimerPost = (postId, token) => dispatch => {
         .then(
             (res) => {
                 console.log(res)
-                dispatch(getPosts())
+                commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
                 
             },
             (error) => {
@@ -233,9 +234,10 @@ export const createPost = (createur, texte, token) => dispatch => {
         )
 }
 
-export const viderSignalement = (post,token) => dispatch => {
+export const viderSignalement = (post, token, commentaire = false) => dispatch => {
     post.signaler = []
-    axios.patch(`${ process.env.REACT_APP_URL }/posts/${ post._id }`, post, {
+    let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`
+    axios.patch(url, post, {
         headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${ token }`
@@ -244,7 +246,7 @@ export const viderSignalement = (post,token) => dispatch => {
         .then(
             (res) => {
                 console.log(res)
-                dispatch(getPosts())
+                commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
                 
             },
             (error) => {
@@ -252,10 +254,11 @@ export const viderSignalement = (post,token) => dispatch => {
             })
 }
 
-export const toggleFilter = (type, directionDate, directionLike) => dispatch => {
+export const toggleFilter = (type, directionDate, directionLike, comment = false) => dispatch => {
     dispatch({
         type: TOGGLE_FILTER,
         payload: {
+            comment: comment,
             filter: {
                 type: type,
                 directionDate: directionDate,
