@@ -13,7 +13,7 @@
 }
 
 #navbar.admin {
-    background: rgba(93, 93, 187, 0.6);
+    background: rgba(93, 93, 187, 0.5);
     transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -144,8 +144,12 @@
     max-width: 45rem;
     min-width: 30rem;
     opacity: 1;
-    transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     height: 41px;
+}
+
+#nav-search-filter-div.admin {
+    background: rgba(93, 93, 187, .35);
 }
 
 #nav-search-bar {
@@ -191,7 +195,6 @@
 .nav-filter-btn.selected {
     background: rgb(93, 93, 187);
     color: white;
-    border: 3px solid rgb(93, 93, 187);
 }
 
 .nav-filter-btn.date {
@@ -202,6 +205,12 @@
 .nav-filter-btn.signal {
     border-radius: 0rem 1rem 1rem 0rem;
     border-left: none;
+}
+
+.nav-filter-btn.post-user-toggle {
+    margin-right: .25rem;
+    border-radius: 1rem;
+    padding: .2rem .25rem 0rem .25rem;
 }
 
 #nav-search-clear {
@@ -216,5 +225,5 @@
 }
 
 #nav-search-clear:hover {
-    color: rgb(132, 132, 214);
+    color: rgb(106, 106, 184);
 }

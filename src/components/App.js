@@ -42,4 +42,9 @@ const mapStateToProps = state => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, {getPosts, updateDimensions})(App);
+const mapDispatchToProps = {
+  getPosts,
+  updateDimensions
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

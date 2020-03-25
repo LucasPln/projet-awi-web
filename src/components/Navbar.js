@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { IoIosLogIn, IoIosThumbsUp, IoIosCalendar,IoIosWarning, IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosCloseCircle } from 'react-icons/io'
+import { IoIosLogIn, IoIosThumbsUp, IoIosCalendar, IoIosWarning, IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosCloseCircle, IoIosPerson, IoIosChatboxes, IoIosBook } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { logout } from '../actions/authActions'
-import { toggleAdminView, toggleFilter, updateSearch } from '../actions/appActions'
+import { toggleAdminView, toggleFilter, updateSearch, toggleAdminUserView, getUsers } from '../actions/appActions'
 import AnimateHeight from 'react-animate-height'
 
 
@@ -56,11 +56,12 @@ class Navbar extends Component{
         return (
             <div id='navbar' className={admin} >
                 <h1 id="nav-title">Equal Report</h1>
-                <div id="nav-search-filter-div" style={filterDivStyle}>
+                <div id="nav-search-filter-div" className={admin} style={filterDivStyle}>
                     <input id="nav-search-bar" type="text" placeholder="Rechercher..." ref="search" value={this.props.searchValue } onChange={() => this.handleSearch()}></input>
                     <div id="nav-filter-btn-div" style={filterDivStyle}>
-                        <span className={ `nav-filter-btn date ${ this.props.filter.type === 'date' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('date')} style={filterStyle}><IoIosCalendar /> { this.showDirection('date') }</span>
-                        <span className={ `nav-filter-btn signal ${ this.props.filter.type === 'like' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('like') } style={filterStyle}>{ this.props.adminView ? <IoIosWarning /> : <IoIosThumbsUp /> }{ this.showDirection('like') }</span>
+                        { this.props.adminView ? <span className="nav-filter-btn post-user-toggle selected" style={ filterStyle } onClick={this.props.toggleAdminUserView}>{this.props.adminUserView ? <IoIosChatboxes /> : <IoIosPerson />}</span> : '' }
+                        <span className={ `nav-filter-btn date ${ this.props.filter.type === 'date' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('date') } style={ filterStyle }>{ this.props.adminUserView && this.props.adminView ? <IoIosBook /> : <IoIosCalendar /> } { this.showDirection('date') }</span>
+                        <span className={ `nav-filter-btn signal ${ this.props.filter.type === 'like' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('like') } style={ filterStyle }>{ this.props.adminView ? <IoIosWarning /> : <IoIosThumbsUp /> }{ this.showDirection('like') }</span>
                         <span id="nav-search-clear" style={closeStyle} onClick={() => this.handleClear()}><IoIosCloseCircle /> </span>
                     </div>
                 </div>
@@ -80,7 +81,7 @@ class Navbar extends Component{
                                 {this.props.user.isAdmin ? 
                                     this.props.adminView ?
                                         <span to="/"  className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Accueil</span> 
-                                        : <span to="/"  className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView() }} >Admin</span>
+                                        : <span to="/" className="nav-menu-btn nav-menu-link" onClick={ () => { this.props.toggleAdminView(); this.props.getUsers(this.props.token, this.props.users.length === 0) }} >Admin</span>
                                     : null }
                                 <Link to='/' className="nav-menu-btn" onClick={ () => { this.toggleHeight('leave'); this.props.logout(); if (this.props.adminView)this.props.toggleAdminView() } }>Déconnexion</Link>
                             </div>
@@ -97,10 +98,21 @@ const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
     user: state.auth.user,
     adminView: state.app.adminView,
+    adminUserView: state.app.adminUserView,
     activePost: state.app.activePost,
     filter: state.app.filter,
-    searchValue: state.app.searchValue
+    searchValue: state.app.searchValue,
+    token: state.auth.token,
+    users: state.app.users
 })
 
+const mapDispatchToProps = {
+    logout,
+    toggleAdminView,
+    toggleFilter,
+    updateSearch,
+    toggleAdminUserView,
+    getUsers
+}
 
-export default connect(mapStateToProps, {logout, toggleAdminView, toggleFilter, updateSearch})(Navbar)
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

@@ -16,7 +16,8 @@ export const login = (pseudo, mdp) => dispatch => {
                             pseudo: res.data.data.pseudo,
                             email: res.data.data.email,
                             _id: res.data.data._id,
-                            isAdmin: res.data.data.isAdmin
+                            isAdmin: res.data.data.isAdmin,
+                            photo: res.data.data.photo
                         }
                     }
                 })
@@ -47,9 +48,9 @@ export const stateWaiting = (waiting) => dispatch => {
     })
 }
 
-export const createAccount = (email, pseudo, mdp) => dispatch => {
+export const createAccount = (email, pseudo, mdp, photo = 'img0') => dispatch => {
     dispatch(stateWaiting(true))
-    let body = { email: email, pseudo: pseudo, mdp: mdp }
+    let body = { email: email, pseudo: pseudo, mdp: mdp, photo: photo }
     axios.post(`${process.env.REACT_APP_URL}/auth/createaccount`, body)
         .then(
             (res) => {
@@ -61,7 +62,8 @@ export const createAccount = (email, pseudo, mdp) => dispatch => {
                         user: {
                             pseudo: res.data.data.pseudo,
                             email: res.data.data.email,
-                            _id: res.data.data._id
+                            _id: res.data.data._id,
+                            photo: res.data.data.photo
                         }
                     }
                 })

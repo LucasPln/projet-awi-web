@@ -1,4 +1,4 @@
-import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_FILTER, UPDATE_SEARCH, SET_USER } from './types'
+import { GET_POSTS, UPDATE_DIMENSIONS, GET_POST_BY_ID, GET_COMMENTS_BY_POST_ID, TOGGLE_ADMIN_VIEW, TOGGLE_ADMIN_USER_VIEW, TOGGLE_FILTER, UPDATE_SEARCH, SET_USER, GET_USERS } from './types'
 import axios from 'axios'
 import { stateWaiting, login, loginError } from './authActions'
 
@@ -12,6 +12,32 @@ export const getPosts = () => dispatch => {
                     type: GET_POSTS,
                     payload: {
                         posts: res.data
+                    }
+                })
+
+            },
+            (error) => {
+                console.log(error)
+                dispatch(stateWaiting(false))
+            }
+        )
+}
+
+export const getUsers = (token, wait = true) => dispatch => {
+    if (wait) dispatch(stateWaiting(true))
+    axios.get(`${process.env.REACT_APP_URL}/utilisateurs`, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`
+            }
+        })
+        .then(
+            (res) => {
+                dispatch(stateWaiting(false))
+                dispatch({
+                    type: GET_USERS,
+                    payload: {
+                        users: res.data
                     }
                 })
 
@@ -194,8 +220,14 @@ export const toggleAdminView = () => dispatch => {
         type: TOGGLE_ADMIN_VIEW
     })
 }
+export const toggleAdminUserView = () => dispatch => {
+    dispatch({
+        type: TOGGLE_ADMIN_USER_VIEW
+    })
+}
 
 export const supprimerPost = (post, token, commentaire = false) => dispatch => {
+    console.log(post)
     let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`
     axios.delete(url, {
         headers: {
@@ -275,4 +307,30 @@ export const updateSearch = (searchValue) => dispatch => {
             searchValue: searchValue
         }
     })
+}
+
+export const toggleAdmin = (user, token) => dispatch => {
+    user.isAdmin = !user.isAdmin
+    axios.patch(`${ process.env.REACT_APP_URL }/utilisateurs/${ user._id }`, user, {
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${ token }`
+        }
+    })
+        .then(res => dispatch(getUsers(token, false)))
+        .catch(err => console.log(err))
+}
+
+export const deleteUser = (user, token) => dispatch => {
+    axios.delete(`${ process.env.REACT_APP_URL }/utilisateurs/${ user._id }`, {
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${ token }`
+        }
+    })
+        .then(res => {
+            dispatch(getUsers(token, false))
+            dispatch(getPosts())
+        })
+        .catch(err => console.log(err))
 }

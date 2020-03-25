@@ -123,4 +123,11 @@ const mapStateToProps = state => ({
     commentFilter: state.app.commentFilter
 })
 
-export default connect(mapStateToProps, {getPostById, getCommentsByPostId, writeComment, stateWaiting})(PostView);
+const mapDispatchToProps = {
+    getPostById,
+    getCommentsByPostId,
+    writeComment,
+    stateWaiting
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostView);

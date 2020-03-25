@@ -5,7 +5,8 @@ const initialState = {
         pseudo: '',
         email: '',
         _id: '',
-        isAdmin: false
+        isAdmin: false,
+        photo: ''
     },
     waiting: false,
     token: '',
@@ -38,7 +39,8 @@ export default function (state = initialState, action) {
                     pseudo: '',
                     email: '',
                     _id: '',
-                    isAdmin: false
+                    isAdmin: false,
+                    photo: ''
                 },
                 token: '',
                 waiting: false,
@@ -52,7 +54,8 @@ export default function (state = initialState, action) {
                     pseudo: action.payload.auth.user.pseudo,
                     email: action.payload.auth.user.email,
                     _id: action.payload.auth.user._id,
-                    isAdmin: action.payload.auth.user.isAdmin
+                    isAdmin: action.payload.auth.user.isAdmin,
+                    photo: action.payload.auth.user.photo
                 },
                 token: action.payload.auth.token,
                 waiting: false,

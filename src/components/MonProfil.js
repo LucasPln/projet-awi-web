@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { IoIosCloseCircle } from 'react-icons/io'
+import { IoIosCloseCircle, IoIosTrash } from 'react-icons/io'
 import { Redirect } from 'react-router-dom'
 import egg from '../globals/egg.jpg'
 import Post from './Post'
 import { modifierUser } from '../actions/appActions'
+import { Link } from 'react-router-dom'
 
 class MonProfil extends Component {
     constructor(props) {
@@ -117,7 +118,10 @@ class MonProfil extends Component {
                     <div id="mon-profil-pseudo-div">
                         <img id="mon-profil-photo" src={ egg } alt="egg"></img>
                         <div id="mon-profil-pseudo-info-div">
-                            <span id="mon-profil-admin-badge" style={isAdmin}>Admin</span>
+                            <div id="mon-profil-action-div">
+                                <span id="mon-profil-admin-badge" style={isAdmin}>Admin</span>
+                                <Link to={{ pathname: `/selectionform/${ this.props.user._id }`, state: {type: "supprimer", user: true, data: this.props.user} }} style={ { textDecoration: "none" } } id="mon-profil-supprimer" ><IoIosTrash /></Link>
+                            </div>
                             <span id="mon-profil-pseudo">{ this.props.user.pseudo }</span>
                             <span id="mon-profil-email">{ this.props.user.email }</span>
                         </div>
@@ -162,4 +166,8 @@ const mapStateToProps = state => ({
     token: state.auth.token
 })
 
-export default connect(mapStateToProps, {modifierUser})(MonProfil)
+const mapDispatchToProps = {
+    modifierUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MonProfil)

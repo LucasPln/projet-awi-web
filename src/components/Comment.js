@@ -105,4 +105,9 @@ const mapStateToProps = state => ({
     adminView: state.app.adminView
 })
 
-export default connect(mapStateToProps, {modifierLike, modifierSignaler})(Comment);
+const mapDispatchToProps = {
+    modifierLike,
+    modifierSignaler  
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);

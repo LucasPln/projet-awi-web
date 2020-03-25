@@ -2,7 +2,6 @@
     position: absolute;
     bottom: 0px;
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     border-radius: .5rem;
@@ -39,7 +38,6 @@
     align-items: flex-start;
     position: relative;
     width: 100%;
-    /* background: rgba(255, 255, 255, 0.8); */
     border-radius: 1rem;
 }
 
@@ -75,6 +73,14 @@
     border: none;
 }
 
+#mon-profil-action-div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 9rem;
+}
+
 #mon-profil-admin-badge {
     position: relative;
     font-size: large;
@@ -84,6 +90,18 @@
     padding: .3rem .6rem;
     color: white;
     background: rgb(109, 187, 93);
+}
+
+#mon-profil-supprimer {
+    position: relative;
+    font-size: x-large;
+    color: white;
+    background: red;
+    margin-left: .25rem;
+    border-radius: 1rem;
+    padding: .2rem .25rem 0rem .25rem;
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
 }
 
 #mon-profil-changer-div {

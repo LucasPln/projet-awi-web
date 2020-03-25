@@ -6,6 +6,7 @@
     max-width: 45rem;
     min-width: 30rem;
     border-radius: .4rem;
+    z-index: 100;
     transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .3s cubic-bezier(0.165, 0.84, 0.44, 1);
     overflow-wrap: break-word;
     cursor: pointer;

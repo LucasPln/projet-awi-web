@@ -76,5 +76,8 @@ const mapStateToProps = state => ({
     msg: state.auth.msg
 })
 
+const mapDispatchToProps = {
+    createAccount
+}
 
-export default connect(mapStateToProps,{createAccount})(CreateAccountForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAccountForm);

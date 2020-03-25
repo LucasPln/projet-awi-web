@@ -99,7 +99,7 @@ class Post extends Component{
                         <AnimateHeight className="post-menu-rah" height={this.state.menuOpen} easing="cubic-bezier(0.165, 0.84, 0.44, 1)" duration={300}>
                             <div className="post-menu">
                                 <Link to={{ pathname: '/texteform', state: {type: "modifier", id: this.props.post._id} }} style={ {textDecoration: "none"} } className="post-btn modifier">Modifier&nbsp;<span className="react-icon"><IoIosConstruct /></span></Link>
-                                <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "supprimer"} }} style={ { textDecoration: "none" } } className="post-btn supprimer" >Supprimer&nbsp;<span className="react-icon"><IoIosTrash /></span></Link>
+                                <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "supprimer", comment: false, data: this.props.post} }} style={ { textDecoration: "none" } } className="post-btn supprimer" >Supprimer&nbsp;<span className="react-icon"><IoIosTrash /></span></Link>
                             </div>
                         </AnimateHeight>
                     </div>
@@ -139,5 +139,11 @@ const mapStateToProps = state => ({
     commentFilter: state.app.commentFilter
 })
 
+const mapDispatchToProps = {
+    modifierLike,
+    modifierSignaler,
+    getPostById,
+    toggleFilter
+}
 
-export default connect(mapStateToProps, { modifierLike, modifierSignaler, getPostById, toggleFilter })(Post)
+export default connect(mapStateToProps, mapDispatchToProps)(Post)

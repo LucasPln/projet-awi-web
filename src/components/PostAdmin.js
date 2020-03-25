@@ -86,5 +86,11 @@ const mapStateToProps = state => ({
     commentFilter: state.app.commentFilter
 })
 
+const mapDispatchToProps = {
+    supprimerPost,
+    getPostById,
+    toggleFilter    
+}
 
-export default connect(mapStateToProps, { supprimerPost, getPostById, toggleFilter })(PostAdmin)
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostAdmin)

@@ -1,0 +1,99 @@
+.user-view {
+    position: relative;
+    box-shadow: 0px 3px 15px rgb(216, 216, 216);
+    margin: 2rem auto;
+    width: 50%;
+    max-width: 45rem;
+    min-width: 25rem;
+    border-radius: .4rem;
+    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 100;
+    overflow-wrap: break-word;
+    border: none;
+    background: white;
+}
+
+.user-view-pseudo-div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.user-view-pseudo-info-div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem 0rem;
+    height: 9rem;
+    width: auto;
+}
+
+.user-view-photo {
+    width: 10rem;
+    height: 9rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin: 2rem;
+}
+
+.user-view-pseudo {
+    font-size: 3.5rem;
+    font-weight: bold;
+    position: relative;
+    width: 20rem;
+    border-radius: .4rem;
+    cursor: pointer;
+    transition: color .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.user-view-pseudo:hover {
+    color: rgb(93, 93, 187);
+}
+
+.user-view-email {
+    font-size: 1.5rem;
+    position: relative;
+    border: none;
+}
+
+.user-view-admin-badge {
+    position: relative;
+    font-size: large;
+    font-weight: bold;
+    border-radius: 5rem;
+    border: none;
+    padding: .3rem .6rem;
+    color: white;
+    background: rgb(114, 114, 114);
+    cursor: pointer;
+    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.user-view-action-div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 9rem;
+}
+
+.user-view-admin-badge.admin {
+    background: rgb(109, 187, 93);
+    text-decoration: none;
+}
+
+.user-view-supprimer {
+    position: relative;
+    font-size: x-large;
+    color: white;
+    background: red;
+    margin-left: .25rem;
+    border-radius: 1rem;
+    padding: .2rem .25rem 0rem .25rem;
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+}

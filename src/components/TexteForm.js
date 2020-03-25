@@ -101,4 +101,10 @@ const mapStateToProps = state => ({
     activePost: state.app.activePost
 })
 
-export default connect(mapStateToProps,{createPost, modifierPost, getPostById})(TexteForm);
+const mapDispatchToProps = {
+    createPost,
+    modifierPost,
+    getPostById
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TexteForm);
