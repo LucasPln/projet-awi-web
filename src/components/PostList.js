@@ -19,8 +19,14 @@ class PostList extends Component {
             }
         } else if (this.props.filter.type === 'like') {
             if (this.props.adminView) {
-                if (a.signaler.length === b.signaler.length) return a.texte > b.texte
-                return this.props.filter.directionLike ? (a.signaler.length < b.signaler.length ? 1 : -1) : (a.signaler.length > b.signaler.length ? 1 : -1)
+                if (this.props.adminUserView) {
+                    if (a.numSignaler === b.numSignaler) return a.pseudo.toLowerCase() > b.pseudo.toLowerCase() ? 1 : -1
+                    return this.props.filter.directionLike ? (a.numSignaler < b.numSignaler ? 1 : -1) : (a.numSignaler > b.numSignaler ? 1 : -1)
+                }
+                else {
+                    if (a.signaler.length === b.signaler.length) return a.texte > b.texte
+                    return this.props.filter.directionLike ? (a.signaler.length < b.signaler.length ? 1 : -1) : (a.signaler.length > b.signaler.length ? 1 : -1)
+                }
             }
             else {
                 if (a.reactions.length === b.reactions.length) return a.texte > b.texte

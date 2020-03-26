@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../actions/authActions'
+import { login, loginError } from '../actions/authActions'
 import { IoIosCloseCircle } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 
@@ -28,9 +28,11 @@ class LoginForm extends Component {
     sendLoginInfo = () => {
         if (this.refs.pseudo.value !== '' && this.refs.mdp.value !== '')
             this.props.login(this.refs.pseudo.value, this.refs.mdp.value);
+        else this.props.loginError("Tous les champs doivent être remplis.")
     }
 
     handleClose = () => {
+        this.props.loginError("")
         this.setState({ ...this.state, opacity: 0 });
         setTimeout(() => this.props.history.goBack(), 200)
     }
@@ -53,7 +55,7 @@ class LoginForm extends Component {
                 <input id="login-pseudo" placeholder="pseudo" ref="pseudo" />
                 <input id="login-mdp" type="password" placeholder="mot de passe" ref="mdp" />
                 <button id="login-submit" onClick={ this.sendLoginInfo }><span style={waitingText}>Log in</span></button>
-                <p>Vous n'avez pas de compte ? Inscrivez-vous <Link to={'/createaccount'}>ici</Link>.</p>
+                <p>Vous n'avez pas de compte ? Inscrivez-vous <Link to={'/createaccount'} onClick={() => this.props.loginError("")}>ici</Link>.</p>
                 <span className="state-waiting" id="login-state-waiting" style={waiting}></span>
             </div>
         )
@@ -69,7 +71,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    login
+    login,
+    loginError
 }
 
 

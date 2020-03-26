@@ -17,7 +17,7 @@ export const getPosts = () => dispatch => {
 
             },
             (error) => {
-                console.log(error)
+                console.log(error.response)
                 dispatch(stateWaiting(false))
             }
         )
@@ -43,7 +43,7 @@ export const getUsers = (token, wait = true) => dispatch => {
 
             },
             (error) => {
-                console.log(error)
+                console.log(error.response)
                 dispatch(stateWaiting(false))
             }
         )
@@ -69,7 +69,7 @@ export const getPostById = (postId, useApi = true, post = null) => dispatch => {
 
                 },
                 (error) => {
-                    console.log(error)
+                    console.log(error.response)
                 }
             )
     } else
@@ -93,7 +93,7 @@ export const modifierLike = (post, idUser, token, liked, commentaire = false) =>
         .then(res => {
             commentaire ? dispatch(getCommentsByPostId(post.parentId)) : dispatch(getPosts())
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response))
 }
 
 export const modifierSignaler = (post, idUser, token, signaler, commentaire = false) => dispatch => {
@@ -194,7 +194,7 @@ export const getCommentsByPostId = (postId) => dispatch => {
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log(err.response)
         })
 }
 
@@ -212,7 +212,7 @@ export const writeComment = (postId, createur, texte, token) => dispatch => {
             dispatch(getPosts())
             dispatch(getPostById(postId))
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response))
 }
 
 export const toggleAdminView = () => dispatch => {
@@ -242,7 +242,7 @@ export const supprimerPost = (post, token, commentaire = false) => dispatch => {
                 
             },
             (error) => {
-                console.log(error)
+                console.log(error.response)
             })
 }
 
@@ -261,7 +261,7 @@ export const createPost = (createur, texte, token) => dispatch => {
                 dispatch(getPosts())
             },
             (error) => {
-                console.log(error)
+                console.log(error.response)
             }
         )
 }
@@ -282,7 +282,7 @@ export const viderSignalement = (post, token, commentaire = false) => dispatch =
                 
             },
             (error) => {
-              console.log(error)
+              console.log(error.response)
             })
 }
 
@@ -318,7 +318,7 @@ export const toggleAdmin = (user, token) => dispatch => {
         }
     })
         .then(res => dispatch(getUsers(token, false)))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response))
 }
 
 export const deleteUser = (user, token) => dispatch => {
@@ -332,5 +332,5 @@ export const deleteUser = (user, token) => dispatch => {
             dispatch(getUsers(token, false))
             dispatch(getPosts())
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response))
 }

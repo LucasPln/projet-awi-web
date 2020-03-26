@@ -25,7 +25,7 @@ export const login = (pseudo, mdp) => dispatch => {
             },
             (error) => {
                 dispatch(stateWaiting(false))
-                dispatch(loginError("Pseudo ou mot de passe incorrecte"))
+                dispatch(loginError(error.response.data.message))
             }
     )
 }
@@ -54,6 +54,7 @@ export const createAccount = (email, pseudo, mdp, photo = 'img0') => dispatch =>
     axios.post(`${process.env.REACT_APP_URL}/auth/createaccount`, body)
         .then(
             (res) => {
+                console.log(res)
                 dispatch(stateWaiting(false))
                 dispatch({  // envoi l'infos au reduceur
                     type: LOGIN,
@@ -70,9 +71,9 @@ export const createAccount = (email, pseudo, mdp, photo = 'img0') => dispatch =>
             },
             (error) => {
                 dispatch(stateWaiting(false))
-                dispatch(loginError("Ce pseudo existe déjà"))
+                dispatch(loginError(error.response.data.message))
             }
-        )
+    )
 }
 
 export const logout = () => dispatch => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, modifierSignaler, getPostById, toggleFilter } from '../actions/appActions'
-import { IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash, IoIosConstruct, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
+import { IoIosMegaphone, IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash, IoIosConstruct, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Redirect, Link } from 'react-router-dom'
 import { formatDate } from '../globals'
@@ -112,14 +112,14 @@ class Post extends Component{
                 </div>
                 <p className={`post-text ${postView}` }>{ this.props.post.texte }</p>
                 <div className={`post-info-div ${postView}` }>
-                    <span className={`post-info-badge like ${postView}` }><span className={`post-icon like ${postView}` }><IoIosThumbsUp /></span></span>
+                    <span className={`post-info-badge like ${postView}` }><span className={`post-icon like ${postView}` }><IoIosMegaphone /></span></span>
                     <span className={`post-info like ${postView}` }>{ this.props.post.reactions.length }</span>
                     <span className={`post-info-badge comment ${postView}` }><span className={`post-icon comment ${postView}` }><IoIosText /></span></span>
                     <span className={`post-info comment ${postView}` }>{ this.props.post.numCommentaires }</span>
                 </div>
                 {this.props.loggedIn ? 
                 <div className={`post-btn-div ${postView}` }>
-                    <span className={ `post-btn like ${ postView }` } style={ likeStyle } onClick={ e => this.handleLike(e) }>Like &nbsp;<span className="react-icon"><IoIosThumbsUp /></span></span>
+                    <span className={ `post-btn like ${ postView }` } style={ likeStyle } onClick={ e => this.handleLike(e) }>J'ai entendu &nbsp;<span className="react-icon"><IoIosMegaphone /></span></span>
                     <div className="post-filter-btn-div" style={ filterDivStyle }>
                         <span className={ `post-filter-btn date ${ this.props.commentFilter.type === 'date' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('date')} ><IoIosCalendar /> { this.showDirection('date') }</span>
                         <span className={ `post-filter-btn signal ${ this.props.commentFilter.type === 'like' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('like') } >{<IoIosThumbsUp />}{ this.showDirection('like') }</span>

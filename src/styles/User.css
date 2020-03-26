@@ -20,6 +20,7 @@
     position: relative;
     width: 100%;
     border-radius: 1rem;
+    overflow-wrap: break-word;
 }
 
 .user-view-pseudo-info-div {
@@ -30,6 +31,7 @@
     padding: 2rem 0rem;
     height: 9rem;
     width: auto;
+    overflow-wrap: break-word;
 }
 
 .user-view-photo {
@@ -58,6 +60,7 @@
     font-size: 1.5rem;
     position: relative;
     border: none;
+    overflow-wrap: break-word;
 }
 
 .user-view-admin-badge {
@@ -70,7 +73,21 @@
     color: white;
     background: rgb(114, 114, 114);
     cursor: pointer;
-    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    filter: brightness(1);
+}
+
+.user-view-admin-badge:hover {
+    color: rgb(114,114,114);
+    background: white;
+}
+.user-view-admin-badge.admin:hover {
+    color: rgb(109, 187, 93);
+    background: white;
+}
+
+.user-view-admin-badge.admin {
+    background: rgb(109, 187, 93);
 }
 
 .user-view-action-div {
@@ -78,12 +95,32 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 9rem;
+    width: 10rem;
 }
 
-.user-view-admin-badge.admin {
-    background: rgb(109, 187, 93);
-    text-decoration: none;
+.user-view-signaler-badge {
+    position: absolute;
+    font-size: large;
+    background: red;
+    color: white;
+    border-radius: 1rem;
+    padding: .3rem .5rem;
+    bottom: -.5rem;
+    right: -.5rem;
+    font-weight: bold;
+    height: 1.3rem;
+    width: 2rem;
+}
+
+.user-view-signaler-icon {
+    position: absolute;
+    top: .4rem;
+    left: .4rem;
+}
+
+.user-view-signaler {
+    position: absolute;
+    right: .4rem;
 }
 
 .user-view-supprimer {
@@ -91,9 +128,13 @@
     font-size: x-large;
     color: white;
     background: red;
-    margin-left: .25rem;
     border-radius: 1rem;
     padding: .2rem .25rem 0rem .25rem;
-    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
+}
+
+.user-view-supprimer:hover {
+    background: white;
+    color: red;
 }

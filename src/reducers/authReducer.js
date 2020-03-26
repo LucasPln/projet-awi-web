@@ -6,7 +6,8 @@ const initialState = {
         email: '',
         _id: '',
         isAdmin: false,
-        photo: ''
+        photo: '',
+        numSignaler: 0
     },
     waiting: false,
     token: '',

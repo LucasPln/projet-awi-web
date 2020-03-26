@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { IoIosLogIn, IoIosThumbsUp, IoIosCalendar, IoIosWarning, IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosCloseCircle, IoIosPerson, IoIosChatboxes, IoIosBook } from 'react-icons/io'
+import { IoIosLogIn, IoIosMegaphone, IoIosCalendar, IoIosWarning, IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosCloseCircle, IoIosPerson, IoIosChatboxes, IoIosBook } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { logout } from '../actions/authActions'
 import { toggleAdminView, toggleFilter, updateSearch, toggleAdminUserView, getUsers } from '../actions/appActions'
@@ -61,7 +61,7 @@ class Navbar extends Component{
                     <div id="nav-filter-btn-div" style={filterDivStyle}>
                         { this.props.adminView ? <span className="nav-filter-btn post-user-toggle selected" style={ filterStyle } onClick={this.props.toggleAdminUserView}>{this.props.adminUserView ? <IoIosChatboxes /> : <IoIosPerson />}</span> : '' }
                         <span className={ `nav-filter-btn date ${ this.props.filter.type === 'date' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('date') } style={ filterStyle }>{ this.props.adminUserView && this.props.adminView ? <IoIosBook /> : <IoIosCalendar /> } { this.showDirection('date') }</span>
-                        <span className={ `nav-filter-btn signal ${ this.props.filter.type === 'like' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('like') } style={ filterStyle }>{ this.props.adminView ? <IoIosWarning /> : <IoIosThumbsUp /> }{ this.showDirection('like') }</span>
+                        <span className={ `nav-filter-btn signal ${ this.props.filter.type === 'like' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('like') } style={ filterStyle }>{ this.props.adminView ? <IoIosWarning /> : <IoIosMegaphone /> }{ this.showDirection('like') }</span>
                         <span id="nav-search-clear" style={closeStyle} onClick={() => this.handleClear()}><IoIosCloseCircle /> </span>
                     </div>
                 </div>

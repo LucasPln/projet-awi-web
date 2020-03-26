@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { supprimerPost, getPostById, toggleFilter } from '../actions/appActions'
 import '../styles/PostAdmin.css'
-import { IoIosThumbsUp, IoIosWarning, IoIosText, IoIosTrash, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
+import { IoIosMegaphone, IoIosWarning, IoIosText, IoIosTrash, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 import egg from '../globals/egg.jpg'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../globals'
@@ -59,7 +59,7 @@ class PostAdmin extends Component{
                 </div>
                 <p className="post-text-admin">{ this.props.post.texte }</p>
                 <div className="post-info-div-admin">
-                    <span className="post-info-badge-admin like"><span className="post-icon-admin like"><IoIosThumbsUp /></span></span>
+                    <span className="post-info-badge-admin like"><span className="post-icon-admin like"><IoIosMegaphone /></span></span>
                     <span className="post-info-admin like">{ this.props.post.reactions.length }</span>
                     <span className="post-info-badge-admin comment"><span className="post-icon-admin comment"><IoIosText /></span></span>
                     <span className="post-info-admin comment">{ this.props.post.numCommentaires }</span>
