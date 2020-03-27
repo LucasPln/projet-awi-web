@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IoIosCloseCircle, IoIosTrash } from 'react-icons/io'
 import { Redirect } from 'react-router-dom'
-import egg from '../globals/egg.jpg'
 import Post from './Post'
 import { modifierUser } from '../actions/appActions'
 import { Link } from 'react-router-dom'
@@ -116,7 +115,7 @@ class MonProfil extends Component {
                 <span id="mon-profil-close" onClick={ this.handleClose }><IoIosCloseCircle /></span>
                 <div id="mon-profil-div">
                     <div id="mon-profil-pseudo-div">
-                        <img id="mon-profil-photo" src={ egg } alt="egg"></img>
+                        <img id="mon-profil-photo" src={ require(`../globals/img/${this.props.user.photo}.jpg`) } alt="egg"></img>
                         <div id="mon-profil-pseudo-info-div">
                             <div id="mon-profil-action-div">
                                 <span id="mon-profil-admin-badge" style={isAdmin}>Admin</span>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, modifierSignaler, getPostById, toggleFilter } from '../actions/appActions'
 import { IoIosMegaphone, IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash, IoIosConstruct, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
-import egg from '../globals/egg.jpg'
 import { Redirect, Link } from 'react-router-dom'
 import { formatDate } from '../globals'
 import AnimateHeight from 'react-animate-height'
@@ -106,7 +105,7 @@ class Post extends Component{
                     : "" }
                 
                 <div className={ `post-user-div ${postView}` }>
-                    <img src={ egg } className={ `post-photo ${postView}` } alt="tt"></img>
+                    <img src={ require(`../globals/img/${this.props.post.createur.photo}.jpg`) } className={ `post-photo ${postView}` } alt="tt"></img>
                     <h3 className={ `post-pseudo ${postView}` }>{this.props.post.createur.pseudo}</h3>
                 <span className={`post-date ${postView}` }>{formatDate(this.props.post.dateCreation)}</span>
                 </div>

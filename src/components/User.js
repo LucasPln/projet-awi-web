@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import egg from '../globals/egg.jpg'
 import { IoIosTrash, IoIosWarning } from 'react-icons/io'
 import { toggleAdminUserView, updateSearch, toggleAdmin, deleteUser } from '../actions/appActions'
 import { Link } from 'react-router-dom'
@@ -42,7 +41,7 @@ export class User extends Component {
         return (
             <div className="user-view">
                 <div className="user-view-pseudo-div">
-                    <img className="user-view-photo" src={ egg } alt="egg"></img>
+                    <img className="user-view-photo" src={ require(`../globals/img/${this.props.user.photo}.jpg`) } alt="egg"></img>
                     <div className="user-view-pseudo-info-div">
                         <div className="user-view-action-div">
                             <span className={ `user-view-admin-badge ${ adminClass }` } onClick={ this.handleToggleAdmin }>{ this.props.user.isAdmin ?"Admin" : "Utilisateur" }</span>

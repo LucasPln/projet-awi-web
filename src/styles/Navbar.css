@@ -44,21 +44,17 @@
 #pseudo-div {
     position: absolute;
     right: 0;
-    width: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 100%;
 }
 
 #nav-pseudo {
     position: relative;
     text-decoration: none;
-    margin-right: 1rem;
-    margin-left: .5rem;
     z-index: 99;
     text-overflow: ellipsis;
-    width: 100%;
 }
 
 #nav-pseudo-photo {
@@ -67,7 +63,6 @@
     width: 2.5rem!important;
     height: 2.5rem!important;
     object-fit: cover;
-    margin-left: 1rem;
     z-index: 99;
 }
 

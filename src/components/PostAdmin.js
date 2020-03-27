@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { supprimerPost, getPostById, toggleFilter } from '../actions/appActions'
 import '../styles/PostAdmin.css'
 import { IoIosMegaphone, IoIosWarning, IoIosText, IoIosTrash, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
-import egg from '../globals/egg.jpg'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../globals'
 import { Redirect } from 'react-router-dom'
@@ -53,7 +52,7 @@ class PostAdmin extends Component{
         return (
             <div className={ `post-admin ${ postView }` } id={ `post/${ this.props.post._id }` } onClick={ () => {this.props.getPostById(null, false, this.props.post); if (!this.props.postView) this.handleRedirect() }}>
                 <div className="post-user-div-admin">
-                    <img src={egg} className="post-photo" alt="tt"></img>
+                    <img src={ require(`../globals/img/${this.props.post.createur.photo}.jpg`) } className="post-photo" alt="tt"></img>
                     <h3 className="post-pseudo-admin">{this.props.post.createur.pseudo}</h3>
                     <span className="post-date-admin">{formatDate(this.props.post.dateCreation)}</span>
                 </div>

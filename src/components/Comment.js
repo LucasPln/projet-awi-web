@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../globals'
-import egg from '../globals/egg.jpg'
 import { IoIosThumbsUp, IoIosWarning, IoIosTrash } from 'react-icons/io'
 import { modifierLike, modifierSignaler } from '../actions/appActions'
 import { Link } from 'react-router-dom'
@@ -73,7 +72,7 @@ class Comment extends Component {
             <div className={ `comment-entity ${style}` } key={this.props.comment._id} style={{opacity: this.state.opacity}}>
                 <div className={ `comment-div ${ style }` } >
                     <div className={`comment-user-div ${style}` }>
-                        <img src={ egg } className="comment-photo" alt="tt"></img>
+                        <img src={ require(`../globals/img/${this.props.comment.createur.photo}.jpg`) } className="comment-photo" alt="tt"></img>
                         <span className="comment-pseudo">{ this.props.comment.createur.pseudo }</span>
                         <span className="comment-date">{ formatDate(this.props.comment.dateCreation) }</span>
                     </div>

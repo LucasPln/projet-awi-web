@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { IoIosLogIn, IoIosMegaphone, IoIosCalendar, IoIosWarning, IoIosArrowRoundUp, IoIosArrowRoundDown, IoIosCloseCircle, IoIosPerson, IoIosChatboxes, IoIosBook } from 'react-icons/io'
-import egg from '../globals/egg.jpg'
 import { logout } from '../actions/authActions'
 import { toggleAdminView, toggleFilter, updateSearch, toggleAdminUserView, getUsers } from '../actions/appActions'
 import AnimateHeight from 'react-animate-height'
@@ -52,6 +51,7 @@ class Navbar extends Component{
         let filterDivStyle = this.props.location.pathname === '/' ? { opacity: 1 } : { opacity: 0 }
 
         let admin = this.props.adminView ? 'admin' : ''
+        console.log(this.props.user.photo)
 
         return (
             <div id='navbar' className={admin} >
@@ -71,7 +71,7 @@ class Navbar extends Component{
                         onMouseLeave={ () => this.toggleHeight('leave') }
                     >
                         <div id="pseudo-div" >
-                            <img src={ egg } alt='r' id="nav-pseudo-photo"></img>
+                            <img src={require(`../globals/img/${this.props.user.photo}.jpg`) } alt='r' id="nav-pseudo-photo"></img>
                             <h2 id="nav-pseudo">{ this.props.user.pseudo }</h2>
                         </div>
                         <AnimateHeight id="nav-rah" height={ this.state.height } easing="cubic-bezier(0.165, 0.84, 0.44, 1)" duration={300}>
