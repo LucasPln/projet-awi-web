@@ -56,7 +56,8 @@ export default function (state = initialState, action) {
                     email: action.payload.auth.user.email,
                     _id: action.payload.auth.user._id,
                     isAdmin: action.payload.auth.user.isAdmin,
-                    photo: action.payload.auth.user.photo
+                    photo: action.payload.auth.user.photo,
+                    numSignaler: action.payload.auth.user.numSignaler
                 },
                 token: action.payload.auth.token,
                 waiting: false,

@@ -48,11 +48,12 @@ class PostAdmin extends Component{
 
         let postView = this.props.postView ? "view" : "";
         let filterDivStyle = this.props.postView ? { opacity: 1 } : { opacity: 0 }
+        let src = this.props.user.photo !== '' ? require(`../globals/img/${this.props.user.photo}.jpg`) : ''
 
         return (
             <div className={ `post-admin ${ postView }` } id={ `post/${ this.props.post._id }` } onClick={ () => {this.props.getPostById(null, false, this.props.post); if (!this.props.postView) this.handleRedirect() }}>
                 <div className="post-user-div-admin">
-                    <img src={ require(`../globals/img/${this.props.post.createur.photo}.jpg`) } className="post-photo" alt="tt"></img>
+                    <img src={ src } className="post-photo" alt="tt"></img>
                     <h3 className="post-pseudo-admin">{this.props.post.createur.pseudo}</h3>
                     <span className="post-date-admin">{formatDate(this.props.post.dateCreation)}</span>
                 </div>

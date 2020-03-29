@@ -39,7 +39,8 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   posts: state.app.posts,
-  auth: state.auth
+  auth: state.auth,
+  user: state.auth.user
 })
 
 const mapDispatchToProps = {

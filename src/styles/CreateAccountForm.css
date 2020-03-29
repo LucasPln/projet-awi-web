@@ -11,7 +11,6 @@
     background: rgba(255, 255, 255, .3)
 }
 
-
 #createaccount-close {
     position: absolute;
     top: 30px;
@@ -19,6 +18,40 @@
     font-size: 2rem;
     color: rgb(93, 93, 187);
     cursor: pointer;
+}
+
+#createaccount-photo {
+    width: 20rem;
+    position: relative;
+    height: 5rem;
+    padding: .6rem;
+    background: white;
+    border-radius: .4rem;
+    border: 2px solid rgb(93, 93, 187);
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    align-items: center;
+}
+
+.selection-photo {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    margin: 0 .5rem;
+    cursor: pointer;
+    border-radius: .4rem;
+    box-sizing: border-box;
+    transition: filter .4s cubic-bezier(0.165, 0.84, 0.44, 1), border .4s cubic-bezier(0.165, 0.84, 0.44, 1)
+}
+
+.selection-photo:hover {
+    filter: brightness(1.1)
+}
+
+.selection-photo.selected {
+    border: 2px solid rgb(93, 93, 187);
 }
 
 .createaccount-label {

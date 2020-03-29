@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { IoIosCloseCircle, IoIosTrash } from 'react-icons/io'
 import { Redirect } from 'react-router-dom'
 import Post from './Post'
-import { modifierUser } from '../actions/appActions'
 import { Link } from 'react-router-dom'
+import { modifierUser } from '../actions/appActions'
 
 class MonProfil extends Component {
     constructor(props) {
@@ -48,12 +49,18 @@ class MonProfil extends Component {
         let fail = false
 
         let params = {}
-        
-        if (this.state.pseudo !== this.props.user.pseudo) Object.defineProperty(params, "pseudo", { value : this.state.pseudo,
+        let photo = ReactDOM.findDOMNode(this).querySelector('.selection-photo.selected').id
+
+        Object.defineProperty(params, "photo", { value : photo,
                            writable : true,
                            enumerable : true,
                            configurable : true});
-        if (this.state.email !== this.props.user.email) Object.defineProperty(params, "email", { value : this.state.email,
+        
+        Object.defineProperty(params, "pseudo", { value : this.state.pseudo,
+                           writable : true,
+                           enumerable : true,
+                           configurable : true});
+        Object.defineProperty(params, "email", { value : this.state.email,
                            writable : true,
                            enumerable : true,
                            configurable : true});
@@ -94,6 +101,23 @@ class MonProfil extends Component {
         })
     }
 
+     handleSelect = (photo) => {
+        const node = ReactDOM.findDOMNode(this)
+        node.querySelectorAll('.selection-photo').forEach(i => i.classList.remove('selected'))
+        
+        let img = ReactDOM.findDOMNode(this.refs[ photo ])
+        img.classList.toggle('selected')
+    }
+
+    displayPhotos = () => {
+        let photos = []
+
+        for (let i = 0; i < 11; i++) {
+            photos.push(<img key={ `img${ i }` } id={ `img${ i }`} className={ `selection-photo ${`img${ i }` === this.props.user.photo ? "selected" : ""}` } ref={`img${i}`} onClick={() => this.handleSelect(`img${i}`)} src={ require(`../globals/img/img${i}.jpg`) } alt='b' />)
+        }
+        return photos
+    }
+
     render() {
          let style = {
             width: this.props.width,
@@ -109,13 +133,15 @@ class MonProfil extends Component {
 
         if (this.state.redirect)
             return <Redirect to="/" />
+
+        let src = this.props.user.photo !== '' ? require(`../globals/img/${this.props.user.photo}.jpg`) : ''
         
         return (
             <div id="mon-profil" className="mon-profil" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendModifInfo() : '') }>
                 <span id="mon-profil-close" onClick={ this.handleClose }><IoIosCloseCircle /></span>
                 <div id="mon-profil-div">
                     <div id="mon-profil-pseudo-div">
-                        <img id="mon-profil-photo" src={ require(`../globals/img/${this.props.user.photo}.jpg`) } alt="egg"></img>
+                        <img id="mon-profil-photo" src={src} alt="egg"></img>
                         <div id="mon-profil-pseudo-info-div">
                             <div id="mon-profil-action-div">
                                 <span id="mon-profil-admin-badge" style={isAdmin}>Admin</span>
@@ -127,7 +153,11 @@ class MonProfil extends Component {
                     </div>
                     <div id="mon-profil-changer-div">
                         <span id="mon-profil-changer-mdp" style={ modifSpan } onClick={() => this.handleModif()}>Modifier mes informations...</span>
-                        <div style={modif} id="mon-profil-form" >
+                        <div style={ modif } id="mon-profil-form" >
+                            <label className="createaccount-label">Choisissez votre photo de profil :</label>
+                            <div id="mon-profil-photo-selection-div">
+                                {this.displayPhotos()}
+                            </div>
                             <span className="mon-profil-modif-label">Pseudo :</span>
                             <input id="mon-profil-modif-pseudo" placeholder="Pseudo" ref="pseudo" value={this.state.pseudo} onChange={() => this.onChange()} />
                             <span className="mon-profil-modif-label">Email :</span>

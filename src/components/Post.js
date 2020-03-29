@@ -85,7 +85,9 @@ class Post extends Component{
         let filterDivStyle = this.props.postView ? { opacity: 1 } : { opacity: 0 }
 
         if (this.state.redirect) 
-            return <Redirect to={`/post/${ this.props.post._id }`} />
+            return <Redirect to={ `/post/${ this.props.post._id }` } />
+        
+        let src = this.props.user.photo !== '' ? require(`../globals/img/${this.props.user.photo}.jpg`) : ''
         
         return (
             <div className={ `post ${ postView }` } id={ this.props.postView ? '' : `post/${ this.props.post._id }` } onClick={ () => {
@@ -105,7 +107,7 @@ class Post extends Component{
                     : "" }
                 
                 <div className={ `post-user-div ${postView}` }>
-                    <img src={ require(`../globals/img/${this.props.post.createur.photo}.jpg`) } className={ `post-photo ${postView}` } alt="tt"></img>
+                    <img src={ src } className={ `post-photo ${postView}` } alt="tt"></img>
                     <h3 className={ `post-pseudo ${postView}` }>{this.props.post.createur.pseudo}</h3>
                 <span className={`post-date ${postView}` }>{formatDate(this.props.post.dateCreation)}</span>
                 </div>

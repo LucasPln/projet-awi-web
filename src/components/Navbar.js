@@ -51,7 +51,6 @@ class Navbar extends Component{
         let filterDivStyle = this.props.location.pathname === '/' ? { opacity: 1 } : { opacity: 0 }
 
         let admin = this.props.adminView ? 'admin' : ''
-        console.log(this.props.user.photo)
 
         return (
             <div id='navbar' className={admin} >
