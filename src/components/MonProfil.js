@@ -174,7 +174,7 @@ class MonProfil extends Component {
                     </div>
                 </div>
                 <div id="mon-profil-mes-posts-div">
-                    <span id="mon-profil-mes-posts-titre">Mes Posts</span>
+                    <span id="mon-profil-mes-posts-titre">Mes Publications</span>
                     <div id="mon-profil-post-liste">
                         <div id="mon-profil-spacer"></div>
                         { this.props.posts.filter(p => p.createur._id === this.props.user._id).map(p => <Post key={p._id }post={p} />)}

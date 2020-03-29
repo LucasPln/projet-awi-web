@@ -87,7 +87,7 @@ class Comment extends Component {
                         </div>
                     :
                     <div className="comment-btn-div">
-                        <span className="comment-btn like" style={ likeState } onClick={() => this.handleLike()}>Like&nbsp;<span className="react-icon" style={{position: 'absolute'}}><IoIosThumbsUp /></span></span>
+                        <span className="comment-btn like" style={ likeState } onClick={() => this.handleLike()}>J'aime&nbsp;<span className="react-icon" style={{position: 'absolute'}}><IoIosThumbsUp /></span></span>
                         <span className="comment-btn signaler" style={ signalerState } onClick={() => this.handleSignaler()}>Signaler&nbsp;<span className="react-icon" style={{position: 'absolute'}}><IoIosWarning /></span></span>
                     </div> 
                     :""
