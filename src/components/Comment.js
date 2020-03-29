@@ -11,7 +11,7 @@ class Comment extends Component {
 
         this.state = {
             liked: this.props.comment.reactions.includes(this.props.user._id),
-            signaler: this.props.comment.signaler.includes(this.props.user._id),
+            signaler: this.props.comment.signaler.map(s => s._id === this.props.user._id).includes(true),
             opacity: 1
         }
     }
@@ -22,7 +22,7 @@ class Comment extends Component {
                 liked: !this.state.liked
             })
         }
-        if (this.props.comment.signaler.includes(this.props.user._id) !== this.state.signaler) {
+        if (this.props.comment.signaler.map(s => s._id === this.props.user._id).includes(true) !== this.state.signaler) {
             this.setState({
                 signaler: !this.state.signaler
             })
@@ -38,11 +38,11 @@ class Comment extends Component {
     }
 
     handleSignaler = () => {
+        if (this.state.signaler) this.props.modifierSignaler(this.props.comment, { _id: this.props.user._id }, this.props.token, this.state.signaler, true);
         this.setState({
             ...this.state,
             signaler: !this.state.signaler
         })
-        this.props.modifierSignaler(this.props.comment, this.props.user._id, this.props.token, this.state.signaler, true);
     }
 
     displayBadge = (style) => {
@@ -86,10 +86,13 @@ class Comment extends Component {
                             <Link to={{ pathname: `/selectionform/${ this.props.comment._id }`, state: {type: "supprimer", comment: true, data: this.props.comment} } } style={ {textDecoration: "none"} } className="comment-btn-admin supprimer"  onClick={e => e.stopPropagation()}>Supprimer&nbsp;<span className="react-icon" style={{position:'absolute'}}><IoIosTrash /></span></Link> 
                         </div>
                     :
-                    <div className="comment-btn-div">
-                        <span className="comment-btn like" style={ likeState } onClick={() => this.handleLike()}>J'aime&nbsp;<span className="react-icon" style={{position: 'absolute'}}><IoIosThumbsUp /></span></span>
-                        <span className="comment-btn signaler" style={ signalerState } onClick={() => this.handleSignaler()}>Signaler&nbsp;<span className="react-icon" style={{position: 'absolute'}}><IoIosWarning /></span></span>
-                    </div> 
+                        <div className="comment-btn-div">
+                            <span className="comment-btn like" style={ likeState } onClick={ () => this.handleLike() }>J'aime&nbsp;<span className="react-icon" style={ { position: 'absolute' } }><IoIosThumbsUp /></span></span>
+                            { this.state.signaler
+                                ? <span className="comment-btn signaler" style={ signalerState } onClick={ () => this.handleSignaler() }>Signaler&nbsp;<span className="react-icon" style={ { position: 'absolute' } }><IoIosWarning /></span></span>
+                                :
+                                <Link to={{ pathname: '/texteform', state: {type: "signaler", data: this.props.comment, signaler: this.state.signaler, comment: true} }} style={ {textDecoration: "none", ...signalerState} } className="comment-btn signaler" onClick={e => this.handleSignaler()}>Signaler&nbsp;<span className="react-icon"><IoIosWarning /></span></Link>}
+                        </div> 
                     :""
                 }
             </div>

@@ -96,8 +96,8 @@ export const modifierLike = (post, idUser, token, liked, commentaire = false) =>
         .catch(err => console.log(err.response))
 }
 
-export const modifierSignaler = (post, idUser, token, signaler, commentaire = false) => dispatch => {
-    signaler ? post.signaler = post.signaler.filter(id => id !== idUser) : post.signaler.push(idUser)
+export const modifierSignaler = (post, data, token, signaler, commentaire = false) => dispatch => {
+    signaler ? post.signaler = post.signaler.filter(s => s._id !== data._id) : post.signaler.push(data)
     let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`
     axios.patch(url, post, {
             headers: {

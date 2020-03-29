@@ -13,7 +13,7 @@ class Post extends Component{
 
         this.state = {
             liked: this.props.post.reactions.includes(this.props.user._id),
-            signaler: this.props.post.signaler.includes(this.props.user._id),
+            signaler: this.props.post.signaler.map(s => s._id === this.props.user._id).includes(true),
             redirect: false,
             menuOpen: 0
         }
@@ -25,7 +25,7 @@ class Post extends Component{
                 liked: !this.state.liked
             })
         }
-        if (this.props.post.signaler.includes(this.props.user._id) !== this.state.signaler) {
+        if (this.props.post.signaler.map(s => s._id === this.props.user._id).includes(true) !== this.state.signaler) {
             this.setState({
                 signaler: !this.state.signaler
             })
@@ -44,11 +44,12 @@ class Post extends Component{
 
     handleSignaler = (e) => {
         e.stopPropagation();
+        if (this.state.signaler) 
+            this.props.modifierSignaler(this.props.post, { _id: this.props.user._id }, this.props.token, this.state.signaler, false)
         this.setState({
             ...this.state,
             signaler: !this.state.signaler
         })
-        this.props.modifierSignaler(this.props.post, this.props.user._id, this.props.token, this.state.signaler)
     }
 
     handleRedirect = () => {
@@ -125,7 +126,11 @@ class Post extends Component{
                         <span className={ `post-filter-btn date ${ this.props.commentFilter.type === 'date' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('date')} ><IoIosCalendar /> { this.showDirection('date') }</span>
                         <span className={ `post-filter-btn signal ${ this.props.commentFilter.type === 'like' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('like') } >{<IoIosThumbsUp />}{ this.showDirection('like') }</span>
                     </div>
-                    <span className={`post-btn signaler ${postView}` } style={signalStyle} onClick={e => this.handleSignaler(e)}>Signaler&nbsp;<span className="react-icon"><IoIosWarning /></span></span> 
+                    {
+                        this.state.signaler 
+                        ? <span className={`post-btn signaler ${postView}` } style={signalStyle} onClick={e => this.handleSignaler(e)}>Signaler&nbsp;<span className="react-icon"><IoIosWarning /></span></span> 
+                        : <Link to={{ pathname: '/texteform', state: {type: "signaler", data: this.props.post, signaler: this.state.signaler, comment: false} }} style={ {textDecoration: "none", ...signalStyle} } className={`post-btn signaler ${postView}` } onClick={e => this.handleSignaler(e)}>Signaler&nbsp;<span className="react-icon"><IoIosWarning /></span></Link>
+                    }
                 </div> 
                 : ""}
                 </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {createPost, modifierPost, getPostById } from "../actions/appActions"
+import { createPost, modifierPost, modifierSignaler, getPostById } from "../actions/appActions"
 import { Redirect } from "react-router-dom"
 import { IoIosCloseCircle } from 'react-icons/io'
 
@@ -44,8 +44,10 @@ class TexteForm extends Component {
     handleClick = () => {
         if (this.props.location.state.type === 'create')
             this.sendCreatePost()
-        else 
+        else if (this.props.location.state.type === 'modifier')
             this.sendModifyPost()
+        else 
+            this.sendSignaler()
     }
 
     sendCreatePost = () => {
@@ -55,6 +57,11 @@ class TexteForm extends Component {
 
     sendModifyPost = () => {
         this.props.modifierPost(this.props.activePost, this.state.texte, this.props.token)
+        this.handleClose()
+    }
+
+    sendSignaler = () => {
+        this.props.modifierSignaler(this.props.location.state.data, { _id: this.props.user._id, texte: this.state.texte }, this.props.token, this.props.location.state.signaler, this.props.location.state.comment)
         this.handleClose()
     }
 
@@ -76,15 +83,19 @@ class TexteForm extends Component {
 
         if (this.state.redirect)
             return <Redirect to="/" />
+        
+        let background = this.props.location.state.type === "signaler" ? { background: "red" } : {}
+        let color = this.props.location.state.type === "signaler" ? { color: "red" } : {}
+        let border = this.props.location.state.type === "signaler" ? { border: "2px solid red"} : {}
 
         return (
             <div id="createpost" className="createpost" style={ style } onClick={this.handleClose } onKeyPress={ e => (e.key === "Enter" ? this.sendCreatePost() : '') }>
-                <span id="createpost-close" onClick={ this.handleClose }><IoIosCloseCircle /></span>
+                <span id="createpost-close" onClick={ this.handleClose } style={color}><IoIosCloseCircle /></span>
                 <div id="createpost-zone" onClick={e => e.stopPropagation()}>
                     <h2 id="createpost-title"> <i>Equal Report</i> !</h2>
-                    <label>{ this.props.location.state.type === "create" ? "3,2,1 ... Postez ! n'oubliez pas que votre contenu peut-être modéré..." : "Modifiez votre post..."}</label>
-                    <textarea id="createpost-text" placeholder="Ecrivez ici..." ref="text" value={this.state.texte} onChange={() => this.handleChange()} type="text"/>
-                    <button id="createpost-submit" onClick={() => this.handleClick()}>{this.props.location.state.type === "create" ? "Poster !" : "Modifier"}</button>
+                    <label>{ this.props.location.state.type === "create" ? "3,2,1 ... Postez ! n'oubliez pas que votre contenu peut-être modéré..." : (this.props.location.state.type === "modifier" ? "Modifiez votre post..." : `Signalez ${this.props.location.state.comment ? "ce commentaire" : "cette publication"}`)}</label>
+                    <textarea id="createpost-text" placeholder="Ecrivez ici..." ref="text" value={this.state.texte} onChange={() => this.handleChange()} type="text" style={border}/>
+                    <button id="createpost-submit" onClick={() => this.handleClick()} style={background}>{this.props.location.state.type === "create" ? "Poster !" : (this.props.location.state.type === "modifier" ? "Modifier" : "Signaler")}</button>
                 </div>
             </div>
         )
@@ -104,7 +115,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     createPost,
     modifierPost,
-    getPostById
+    getPostById,
+    modifierSignaler
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TexteForm);

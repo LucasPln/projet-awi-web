@@ -18,9 +18,6 @@ class CreateAccountForm extends Component {
 
     componentDidMount = () => {
         this.refs.pseudo.focus()
-        // ReactDOM.findDOMNode(this).querySelectorAll('.selection-photo').forEach(i => i.style.width = '4rem')
-        // console.log(this.refs.img0.style)
-        // this.refs.img0.style.width = '4rem'
     }
 
     componentDidUpdate = () => {
