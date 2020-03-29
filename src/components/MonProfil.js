@@ -113,7 +113,14 @@ class MonProfil extends Component {
         let photos = []
 
         for (let i = 0; i < 11; i++) {
-            photos.push(<img key={ `img${ i }` } id={ `img${ i }`} className={ `selection-photo ${`img${ i }` === this.props.user.photo ? "selected" : ""}` } ref={`img${i}`} onClick={() => this.handleSelect(`img${i}`)} src={ require(`../globals/img/img${i}.jpg`) } alt='b' />)
+            photos.push(<img
+                key={ `img${ i }` }
+                id={ `img${ i }` }
+                className={ `selection-photo ${ `img${ i }` === this.props.user.photo ? "selected" : "" }` }
+                ref={ `img${ i }` }
+                onClick={ () => this.handleSelect(`img${ i }`) }
+                src={ require(`../globals/img/img${ i }.jpg`) }
+                alt='profil icon' />)
         }
         return photos
     }
@@ -169,8 +176,8 @@ class MonProfil extends Component {
                             <span className="mon-profil-modif-label">Confirmation du nouveau mot de passe:</span>
                             <input id="mon-profil-modif-new-mdp-conf" type="password" placeholder="Confirmation" ref="newMdpConf" value={this.state.newMdpConf} onChange={() => this.onChange()} />
                             <button id="login-submit" onClick={ this.sendModifInfo }>Modifier</button>
-                            <span id="mon-profil-error" style={ error }>{ this.state.msg }</span>
                         </div>
+                            <span id="mon-profil-error" style={ error }>{ this.state.msg }</span>
                     </div>
                 </div>
                 <div id="mon-profil-mes-posts-div">

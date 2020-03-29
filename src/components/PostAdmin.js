@@ -48,7 +48,7 @@ class PostAdmin extends Component{
 
         let postView = this.props.postView ? "view" : "";
         let filterDivStyle = this.props.postView ? { opacity: 1 } : { opacity: 0 }
-        let src = this.props.user.photo !== '' ? require(`../globals/img/${this.props.user.photo}.jpg`) : ''
+        let src = this.props.post.createur.photo !== '' ? require(`../globals/img/${this.props.post.createur.photo}.jpg`) : ''
 
         return (
             <div className={ `post-admin ${ postView }` } id={ `post/${ this.props.post._id }` } onClick={ () => {this.props.getPostById(null, false, this.props.post); if (!this.props.postView) this.handleRedirect() }}>

@@ -11,6 +11,7 @@ import './styles/Comment.css';
 import './styles/TexteForm.css';
 import './styles/MonProfil.css';
 import './styles/User.css';
+import './styles/CreateAccountForm.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'

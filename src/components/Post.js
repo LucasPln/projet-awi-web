@@ -87,7 +87,7 @@ class Post extends Component{
         if (this.state.redirect) 
             return <Redirect to={ `/post/${ this.props.post._id }` } />
         
-        let src = this.props.user.photo !== '' ? require(`../globals/img/${this.props.user.photo}.jpg`) : ''
+        let src = this.props.post.createur._id !== '' ? require(`../globals/img/${this.props.post.createur.photo}.jpg`) : ''
         
         return (
             <div className={ `post ${ postView }` } id={ this.props.postView ? '' : `post/${ this.props.post._id }` } onClick={ () => {

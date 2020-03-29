@@ -24,12 +24,12 @@ class App extends Component {
           <Route path="/" component={Navbar} />
           <Route path="/" component={PostList} />
           <Switch>
-              <Route path="/texteform" component={ TexteForm } />
-              <Route path="/createaccount" component={ CreateAccountForm } />
               <Route path="/login" component={ LoginForm } />
+              <Route path="/createaccount" component={ CreateAccountForm } />
               <Route path="/post/:postId" component={ PostView } />
-              <Route path="/selectionform/:postId" component={ SelectionForm } />
               <Route path="/monprofil" component={ MonProfil } />
+              <Route path="/texteform" component={ TexteForm } />
+              <Route path="/selectionform/:postId" component={ SelectionForm } />
           </Switch> 
         </div>
       </Router>

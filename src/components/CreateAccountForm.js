@@ -5,9 +5,6 @@ import { createAccount, loginError } from "../actions/authActions";
 import { Redirect } from "react-router-dom"
 import { IoIosCloseCircle } from 'react-icons/io'
 
-import '../styles/CreateAccountForm.css'
-
-
 class CreateAccountForm extends Component {
 
     constructor(props) {
@@ -21,6 +18,9 @@ class CreateAccountForm extends Component {
 
     componentDidMount = () => {
         this.refs.pseudo.focus()
+        // ReactDOM.findDOMNode(this).querySelectorAll('.selection-photo').forEach(i => i.style.width = '4rem')
+        // console.log(this.refs.img0.style)
+        // this.refs.img0.style.width = '4rem'
     }
 
     componentDidUpdate = () => {
@@ -34,8 +34,7 @@ class CreateAccountForm extends Component {
             if (this.refs.mdp.value === this.refs.confMdp.value) {
                 let photo = ReactDOM.findDOMNode(this).querySelector('.selection-photo.selected').id
                 this.props.createAccount(this.refs.email.value, this.refs.pseudo.value, this.refs.mdp.value, photo);
-            }
-            else this.props.loginError("Les mots de passes doivent être identiques.")
+            } else this.props.loginError("Les mots de passes doivent être identiques.")
         } else this.props.loginError("Tous les champs doivent être remplis.")
     }
 
@@ -57,7 +56,14 @@ class CreateAccountForm extends Component {
         let photos = []
 
         for (let i = 0; i < 11; i++) {
-            photos.push(<img key={ `img${ i }` } id={ `img${ i }`} className={ `selection-photo ${i === 0 ? "selected" : ""}` } ref={`img${i}`} onClick={() => this.handleSelect(`img${i}`)} src={ require(`../globals/img/img${i}.jpg`) } alt='b' />)
+            photos.push(<img
+                key={ `img${ i }` }
+                id={ `img${ i }` }
+                style={ { width: "4rem"}}
+                className={ `selection-photo ${ i === 0 ? "selected" : "" }` } ref={ `img${ i }` }
+                onClick={ () => this.handleSelect(`img${ i }`) }
+                src={ require(`../globals/img/img${ i }.jpg`) }
+                alt='profil selection' />)
         }
         return photos
     }
@@ -72,15 +78,15 @@ class CreateAccountForm extends Component {
 
         if (this.state.redirect)
             return <Redirect to="/" />
-
+        
         return (
             <div id="createaccount" className="createaccount" style={ style } onKeyPress={ e => (e.key === "Enter" ? this.sendCreateAccountInfo() : '') }>
-                <span style={ { color: 'red', position: 'absolute', marginTop: '-19.9rem' } }>{ this.props.msg }</span>
+                <span style={ { color: 'red', position: 'absolute', marginTop: '-15.3rem' } }>{ this.props.msg }</span>
                 <h2 id="createaccount-title">Créer votre compte <i>Equal Report</i> !</h2>
                 <span id="createaccount-close" onClick={ this.handleClose }><IoIosCloseCircle /></span>
                 <label className="createaccount-label">Choisissez votre photo de profil :</label>
                 <div id="createaccount-photo">
-                    {this.displayPhotos()}
+                    { this.displayPhotos() }
                 </div>
                 <label className="createaccount-label">Choisissez votre pseudo :</label>
                 <input id="createaccount-pseudo" placeholder="pseudo" ref="pseudo"/>
