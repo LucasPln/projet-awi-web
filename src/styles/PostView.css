@@ -57,7 +57,7 @@
     font-size: large;
     position: relative;
     width: 100%;
-    color:white;
+    color: white;
     height: 1.5rem;
     border-radius: 2rem;
     border: none;
@@ -108,4 +108,28 @@
     height: 96px !important;
     min-height: 96px !important;
     font-size: x-large;
+}
+
+.signal-view-div {
+    position: relative;
+    align-self: center;
+    padding: 1rem;
+    border-radius: .4rem;
+    margin: 1rem auto;
+    overflow-wrap: break-word;
+    width: 85%;
+    background: rgba(255, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.signal-view-icon {
+    font-size: 2rem;
+    margin-top: .4rem;
+    margin-right: .5rem;
+}
+
+.signal-view-texte {
+    font-size: large;
 }

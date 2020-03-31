@@ -81,6 +81,17 @@ export const getPostById = (postId, useApi = true, post = null) => dispatch => {
         })
 }
 
+export const getUserById = (userId, token) => dispatch => {
+    axios.get(`${ process.env.REACT_APP_URL }/utilisateurs/${ userId }`, {
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`
+        }
+    })
+    .then(res => console.log(res))
+    .catch(error => console.log(error.response))
+}
+
 export const modifierLike = (post, idUser, token, liked, commentaire = false) => dispatch => {
     liked ? post.reactions = post.reactions.filter(id => id !== idUser) : post.reactions.push(idUser)
     let url = commentaire ? `${process.env.REACT_APP_URL}/commentaires/${post._id}` : `${process.env.REACT_APP_URL}/posts/${post._id}`

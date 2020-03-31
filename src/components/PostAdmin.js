@@ -13,7 +13,9 @@ class PostAdmin extends Component{
         super(props)
 
         this.state = {
-            redirect: false
+            redirect: false,
+            comments: true,
+            signalView: false
         }
     }
 
@@ -39,6 +41,14 @@ class PostAdmin extends Component{
             ...this.state,
             redirect: true
         })
+    }
+
+    toggleSignalView = () => {
+        this.setState({
+            ...this.state,
+            signalView: !this.state.signalView
+        })
+        this.props.toggleSignalView()
     }
 
     render() {
@@ -68,7 +78,8 @@ class PostAdmin extends Component{
                 </div> 
                 <div className="post-btn-div-admin">
                     <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "vider", comment: false, data: this.props.post} }} style={ {textDecoration: "none"} } className="post-btn-admin signaler"  onClick={e => e.stopPropagation()}>Vider les signalements&nbsp;<span className="react-icon"><IoIosWarning /></span></Link>
-                    <div className="post-filter-btn-div" style={filterDivStyle}>
+                    <div className="post-filter-btn-div" style={ filterDivStyle }>
+                        <span className="nav-filter-btn post-user-toggle selected" onClick={this.toggleSignalView}>{this.state.signalView ? <IoIosText /> : <IoIosWarning />}</span>
                         <span className={ `post-filter-btn date ${ this.props.commentFilter.type === 'date' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('date')} ><IoIosCalendar /> { this.showDirection('date') }</span>
                         <span className={ `post-filter-btn signal ${ this.props.commentFilter.type === 'like' ? 'selected' : '' }` } onClick={ () => this.toggleFilter('like') } >{<IoIosWarning />}{ this.showDirection('like') }</span>
                     </div>

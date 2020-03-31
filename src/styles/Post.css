@@ -180,9 +180,10 @@
 .post-btn-div {
     padding-right: .5rem;
     padding-left: .5rem;
-    align-content: space-between;
-    align-items: center;
+    align-content: center;
+    justify-content: space-between;
     display: flex;
+    z-index: 100;
 }
 
 .post-btn {
@@ -197,7 +198,8 @@
     margin: .5rem;
     cursor: pointer;
     user-select: none;
-    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
+    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 100;
 }
 
 .post-btn.comment.view {

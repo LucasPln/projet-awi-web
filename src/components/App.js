@@ -8,12 +8,15 @@ import SelectionForm from './SelectionForm'
 import CreateAccountForm from "./CreateAccountForm"
 import MonProfil from "./MonProfil"
 import TexteForm from "./TexteForm"
-import { getPosts, updateDimensions } from '../actions/appActions'
+import { getPosts, updateDimensions, getUserById } from '../actions/appActions'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 class App extends Component {
   componentDidMount() {
-      this.props.getPosts();
+    this.props.getPosts();
+    console.log(this.props.token)
+    if (this.props.token !== '')
+        this.props.getUserById(this.props.user._id, this.props.token);
       window.addEventListener('resize', () => this.props.updateDimensions(window.innerHeight, window.innerWidth));
     }
 
@@ -39,13 +42,14 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   posts: state.app.posts,
-  auth: state.auth,
-  user: state.auth.user
+  user: state.auth.user,
+  token: state.auth.token
 })
 
 const mapDispatchToProps = {
   getPosts,
-  updateDimensions
+  updateDimensions,
+  getUserById,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

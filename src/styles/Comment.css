@@ -132,6 +132,43 @@
     right: .4rem;
 }
 
+.comment-signal-div {
+    opacity: 0;
+    position: absolute;
+    height: auto;
+    max-height: 6rem;
+    width: 25rem;
+    left: 2.5rem;
+    border-radius: .5rem;
+    padding: 0rem .5rem;
+    bottom: 0rem;
+    background: rgba(255, 0, 0, 0.5);
+    overflow: scroll;
+    transition: opacity .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.comment-signal-view-div {
+    position: relative;
+    align-self: center;
+    padding: .4rem;
+    border-radius: .4rem;
+    margin: .3rem auto;
+    overflow-wrap: break-word;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.comment-signal-view-icon {
+    font-size: .5rem;
+    margin-top: .4rem;
+    margin-right: .5rem;
+}
+
+.comment-signal-view-texte {
+    font-size: 1rem;
+}
+
 .comment-btn-admin {
     position: absolute;
     font-size: small;

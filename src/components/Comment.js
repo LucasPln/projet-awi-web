@@ -12,7 +12,8 @@ class Comment extends Component {
         this.state = {
             liked: this.props.comment.reactions.includes(this.props.user._id),
             signaler: this.props.comment.signaler.map(s => s._id === this.props.user._id).includes(true),
-            opacity: 1
+            opacity: 1,
+            signalOpacity: 0
         }
     }
 
@@ -45,10 +46,30 @@ class Comment extends Component {
         })
     }
 
+    toggleSignal = (toggle) => {
+        this.setState({
+            ...this.state,
+            signalOpacity: toggle ? 1 : 0
+        })
+    }
+
+    displaySignalement = (texte) => {
+        return <div className="comment-signal-view-div" key={texte}>
+            <span className="comment-react-icon signal-view-icon"><IoIosWarning /></span>
+            <span className="comment-signal-view-texte">{texte}</span>
+        </div>
+    }
+
     displayBadge = (style) => {
         if (this.props.adminView) {
             return (
-                <div className={`comment-num-signal-div`} style={this.props.comment.signaler.length === 0 ? { display: "none" } : {}}>
+                <div className={`comment-num-signal-div`} 
+                style={this.props.comment.signaler.length === 0 ? { display: "none" } : {}} 
+                onMouseEnter={() => this.toggleSignal(true)}
+                onMouseLeave={() => this.toggleSignal(false)}>
+                    <div className='comment-signal-div' style={{opacity: this.state.signalOpacity}}>
+                        {this.props.comment.signaler.map(s => this.displaySignalement(s.texte))}
+                    </div>
                     <span className="comment-num-signal-icon"><IoIosWarning /></span>
                     <span className="comment-num-signal">{ this.props.comment.signaler.length }</span>
                 </div>

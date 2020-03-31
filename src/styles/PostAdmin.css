@@ -173,13 +173,14 @@
 .post-btn-div-admin {
     padding-right: .5rem;
     padding-left: .5rem;
-    align-content: space-between;
+    align-content: center;
+    justify-content: space-between;
     display: flex;
+    z-index: 100;
 }
 
 .post-btn-admin {
     display: flex;
-    align-self: right;
     position: relative;
     font-weight: bold;
     font-size: medium;
@@ -188,20 +189,24 @@
     border-radius: .2rem;
     margin: .5rem;
     cursor: pointer;
-    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1)
+    transition: background .3s cubic-bezier(0.165, 0.84, 0.44, 1), color .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 100;
 }
 
 .post-btn-admin.supprimer {
-    position: relative;
     color: red;
 }
 
 .post-filter-btn-div {
-    position: relative;
+    position: absolute;
+    bottom: .44rem;
     right: 0;
     left: 0;
     margin: auto;
     user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .post-filter-btn {

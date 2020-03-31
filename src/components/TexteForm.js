@@ -89,7 +89,7 @@ class TexteForm extends Component {
         let border = this.props.location.state.type === "signaler" ? { border: "2px solid red"} : {}
 
         return (
-            <div id="createpost" className="createpost" style={ style } onClick={this.handleClose } onKeyPress={ e => (e.key === "Enter" ? this.sendCreatePost() : '') }>
+            <div id="createpost" className="createpost" style={ style } onClick={this.handleClose } onKeyPress={ e => (e.key === "Enter" ? this.handleClick() : '') }>
                 <span id="createpost-close" onClick={ this.handleClose } style={color}><IoIosCloseCircle /></span>
                 <div id="createpost-zone" onClick={e => e.stopPropagation()}>
                     <h2 id="createpost-title"> <i>Equal Report</i> !</h2>

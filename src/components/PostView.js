@@ -5,7 +5,7 @@ import { stateWaiting } from '../actions/authActions'
 import Post from './Post'
 import PostAdmin from './PostAdmin'
 import Comment from './Comment'
-import { IoIosCloseCircle, IoIosSend } from 'react-icons/io'
+import { IoIosCloseCircle, IoIosSend, IoIosWarning } from 'react-icons/io'
 import { Redirect } from 'react-router-dom'
 import FlipMove from 'react-flip-move'
 
@@ -17,7 +17,8 @@ class PostView extends Component {
             redirect: false,
             opacity: 0,
             commentOpacity: 0,
-            spacerHeight: 0
+            spacerHeight: 0,
+            signalView: false
         }
     }
 
@@ -69,6 +70,20 @@ class PostView extends Component {
         }
     }
 
+    toggleSignalView = () => {
+        this.setState({
+            ...this.state,
+            signalView: !this.state.signalView
+        })
+    }
+
+    displaySignalement = (texte) => {
+        return <div className="signal-view-div" key={texte}>
+            <span className="react-icon signal-view-icon"><IoIosWarning /></span>
+            <span className="signal-view-texte">{texte}</span>
+        </div>
+    }
+
     render() {
         let style = {
             width: this.props.width,
@@ -88,10 +103,12 @@ class PostView extends Component {
                 <span className="state-waiting" id="post-view-state-waiting" style={waiting}></span>
                 <span id="post-view-close" onClick={this.handleClose}><IoIosCloseCircle /></span>
                 <span id="post-zone" onClick={ e => e.stopPropagation() }>
-                    { this.props.adminView ? <PostAdmin post={ this.props.post } postView={ true } /> : <Post post={ this.props.post } postView={ true } /> } 
+                    { this.props.adminView ? <PostAdmin post={ this.props.post } postView={ true } toggleSignalView={this.toggleSignalView}/> : <Post post={ this.props.post } postView={ true } /> } 
                     <div id="post-view-comment-list" ref="list" style={ { height: style.height, ...padding, opacity: this.state.commentOpacity, paddingTop: this.state.spacerHeight } }>
                         <FlipMove duration={400} easing={'ease-in-out'} staggerDelayBy={10} staggerDurationBy={30} enterAnimation={'fade'} leaveAnimation={'none'}>
-                        { this.props.commentaires.sort(this.sortList).map(c => <div key={c._id}><Comment key={ c._id } comment={ c } /></div>) }
+                            { this.state.signalView
+                                ? this.props.post.signaler.map(s => this.displaySignalement(s.texte))
+                                : this.props.commentaires.sort(this.sortList).map(c => <div key={ c._id }><Comment key={ c._id } comment={ c } /></div>) }
                         </FlipMove>
                     </div>
                     {

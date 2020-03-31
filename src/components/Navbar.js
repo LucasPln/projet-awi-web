@@ -5,6 +5,7 @@ import { IoIosLogIn, IoIosMegaphone, IoIosCalendar, IoIosWarning, IoIosArrowRoun
 import { logout } from '../actions/authActions'
 import { toggleAdminView, toggleFilter, updateSearch, toggleAdminUserView, getUsers } from '../actions/appActions'
 import AnimateHeight from 'react-animate-height'
+import Logo from '../globals/img/Logo.png'
 
 
 class Navbar extends Component{
@@ -54,7 +55,8 @@ class Navbar extends Component{
 
         return (
             <div id='navbar' className={admin} >
-                <h1 id="nav-title">Equal Report</h1>
+                {/* <h1 id="nav-title">Equal Report</h1> */}
+                <span id="nav-logo"><img id='nav-logo-img' src={Logo} alt="the" /></span>
                 <div id="nav-search-filter-div" className={admin} style={filterDivStyle}>
                     <input id="nav-search-bar" type="text" placeholder="Rechercher..." ref="search" value={this.props.searchValue } onChange={() => this.handleSearch()}></input>
                     <div id="nav-filter-btn-div" style={filterDivStyle}>
