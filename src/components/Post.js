@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { modifierLike, modifierSignaler, getPostById, toggleFilter } from '../actions/appActions'
-import { IoIosMegaphone, IoIosThumbsUp, IoIosWarning, IoIosText, IoIosMore, IoIosTrash, IoIosConstruct, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
+import { IoIosMegaphone, IoIosThumbsUp, IoIosWarning, IoIosText, IoIosTrash, IoIosCalendar, IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 import { Redirect, Link } from 'react-router-dom'
 import { formatDate } from '../globals'
-import AnimateHeight from 'react-animate-height'
 
 
 class Post extends Component{
@@ -95,16 +94,7 @@ class Post extends Component{
                 this.props.getPostById(null, false, this.props.post); if(!this.props.postView) this.handleRedirect() }}>
                 { this.props.user._id === this.props.post.createur._id
                     ?
-                    <div className="post-menu-div" onClick={ e => { e.stopPropagation() } } onMouseEnter={ () => this.toggleMenu('enter') }
-                        onMouseLeave={ () => this.toggleMenu('leave') }>
-                        <span className="post-more" ><IoIosMore /></span>
-                        <AnimateHeight className="post-menu-rah" height={this.state.menuOpen} easing="cubic-bezier(0.165, 0.84, 0.44, 1)" duration={300}>
-                            <div className="post-menu">
-                                <Link to={{ pathname: '/texteform', state: {type: "modifier", id: this.props.post._id} }} style={ {textDecoration: "none"} } className="post-btn modifier">Modifier&nbsp;<span className="react-icon"><IoIosConstruct /></span></Link>
-                                <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "supprimer", comment: false, data: this.props.post} }} style={ { textDecoration: "none" } } className="post-btn supprimer" >Supprimer&nbsp;<span className="react-icon"><IoIosTrash /></span></Link>
-                            </div>
-                        </AnimateHeight>
-                    </div>
+                        <Link to={{ pathname: `/selectionform/${ this.props.post._id }`, state: {type: "supprimer", comment: false, data: this.props.post} }} style={ { textDecoration: "none" } } className="post-btn supprimer" onClick={(e) => e.stopPropagation()}>Supprimer&nbsp;<span className="react-icon"><IoIosTrash /></span></Link>
                     : "" }
                 
                 <div className={ `post-user-div ${postView}` }>

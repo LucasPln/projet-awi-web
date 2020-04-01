@@ -221,12 +221,16 @@
 }
 
 .post-btn.supprimer {
-    position: relative;
-    color: white;
-    margin-left: auto;
-    margin-right: 1.5rem;
-    padding: .5rem;
-    margin-top: 0rem;
+    position: absolute;
+    color: transparent;
+    top: .75rem;
+    right: 1rem;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+.post-btn.supprimer .react-icon {
+    color: red;
 }
 
 .post-btn.modifier:hover {

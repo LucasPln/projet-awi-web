@@ -14,11 +14,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 class App extends Component {
   componentDidMount() {
     this.props.getPosts();
-    console.log(this.props.token)
-    if (this.props.token !== '')
-        this.props.getUserById(this.props.user._id, this.props.token);
+    
       window.addEventListener('resize', () => this.props.updateDimensions(window.innerHeight, window.innerWidth));
+  }
+  
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.props.token !== '' && prevProps.token === '') {
+      this.props.getUserById(this.props.user._id, this.props.token);
     }
+  }
 
   render() {
     return (

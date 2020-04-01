@@ -88,7 +88,12 @@ export const getUserById = (userId, token) => dispatch => {
             authorization: `Bearer ${token}`
         }
     })
-    .then(res => console.log(res))
+    .then(res => dispatch({
+        type: SET_USER,
+        payload: {
+            user: res.data[0]
+        }
+    }))
     .catch(error => console.log(error.response))
 }
 
